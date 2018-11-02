@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiedang.www.mapper.CompanyMapper">
+    <resultMap id="BaseResultMap" type="com.xiedang.www.model.Company">
+        <!--
+        @mbggenerated
+        -->
+        <id column="COMPANY_ID" jdbcType="VARCHAR" property="companyId" />
+        <result column="COMPANY_NAME" jdbcType="VARCHAR" property="companyName" />
+        <result column="SHORTTHAND" jdbcType="VARCHAR" property="shortthand" />
+        <result column="COMPANY_NO" jdbcType="VARCHAR" property="companyNo" />
+        <result column="COMPANY_PHONE" jdbcType="VARCHAR" property="companyPhone" />
+        <result column="COMPANY_ADDRESS" jdbcType="VARCHAR" property="companyAddress" />
+        <result column="CONTACTS" jdbcType="VARCHAR" property="contacts" />
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+        <result column="COM_STATUS" jdbcType="DECIMAL" property="comStatus" />
+        <result column="COMPANY_FAX" jdbcType="VARCHAR" property="companyFax" />
+        <result column="operation_manager_name" jdbcType="VARCHAR" property="operationManagerName" />
+        <result column="operation_manager_phone" jdbcType="VARCHAR" property="operationManagerPhone" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+        @mbggenerated
+        -->
+        COMPANY_ID, COMPANY_NAME, SHORTTHAND, COMPANY_NO, COMPANY_PHONE, COMPANY_ADDRESS, 
+        CONTACTS, REMARKS, COM_STATUS, COMPANY_FAX, operation_manager_name, operation_manager_phone
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--
+        @mbggenerated
+        -->
+        select 
+        <include refid="Base_Column_List" />
+        from company
+        where COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--
+        @mbggenerated
+        -->
+        delete from company
+        where COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.xiedang.www.model.Company">
+        <!--
+        @mbggenerated
+        -->
+        insert into company (COMPANY_ID, COMPANY_NAME, SHORTTHAND, 
+            COMPANY_NO, COMPANY_PHONE, COMPANY_ADDRESS, 
+            CONTACTS, REMARKS, COM_STATUS, 
+            COMPANY_FAX, operation_manager_name, operation_manager_phone
+            )
+        values (#{companyId,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{shortthand,jdbcType=VARCHAR}, 
+            #{companyNo,jdbcType=VARCHAR}, #{companyPhone,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
+            #{contacts,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{comStatus,jdbcType=DECIMAL}, 
+            #{companyFax,jdbcType=VARCHAR}, #{operationManagerName,jdbcType=VARCHAR}, #{operationManagerPhone,jdbcType=VARCHAR}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.Company">
+        <!--
+        @mbggenerated
+        -->
+        insert into company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                COMPANY_ID,
+            </if>
+            <if test="companyName != null">
+                COMPANY_NAME,
+            </if>
+            <if test="shortthand != null">
+                SHORTTHAND,
+            </if>
+            <if test="companyNo != null">
+                COMPANY_NO,
+            </if>
+            <if test="companyPhone != null">
+                COMPANY_PHONE,
+            </if>
+            <if test="companyAddress != null">
+                COMPANY_ADDRESS,
+            </if>
+            <if test="contacts != null">
+                CONTACTS,
+            </if>
+            <if test="remarks != null">
+                REMARKS,
+            </if>
+            <if test="comStatus != null">
+                COM_STATUS,
+            </if>
+            <if test="companyFax != null">
+                COMPANY_FAX,
+            </if>
+            <if test="operationManagerName != null">
+                operation_manager_name,
+            </if>
+            <if test="operationManagerPhone != null">
+                operation_manager_phone,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="companyId != null">
+                #{companyId,jdbcType=VARCHAR},
+            </if>
+            <if test="companyName != null">
+                #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="shortthand != null">
+                #{shortthand,jdbcType=VARCHAR},
+            </if>
+            <if test="companyNo != null">
+                #{companyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="companyPhone != null">
+                #{companyPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="companyAddress != null">
+                #{companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="contacts != null">
+                #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="comStatus != null">
+                #{comStatus,jdbcType=DECIMAL},
+            </if>
+            <if test="companyFax != null">
+                #{companyFax,jdbcType=VARCHAR},
+            </if>
+            <if test="operationManagerName != null">
+                #{operationManagerName,jdbcType=VARCHAR},
+            </if>
+            <if test="operationManagerPhone != null">
+                #{operationManagerPhone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.model.Company">
+        <!--
+        @mbggenerated
+        -->
+        update company
+        <set>
+            <if test="companyName != null">
+                COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            </if>
+            <if test="shortthand != null">
+                SHORTTHAND = #{shortthand,jdbcType=VARCHAR},
+            </if>
+            <if test="companyNo != null">
+                COMPANY_NO = #{companyNo,jdbcType=VARCHAR},
+            </if>
+            <if test="companyPhone != null">
+                COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="companyAddress != null">
+                COMPANY_ADDRESS = #{companyAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="contacts != null">
+                CONTACTS = #{contacts,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                REMARKS = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="comStatus != null">
+                COM_STATUS = #{comStatus,jdbcType=DECIMAL},
+            </if>
+            <if test="companyFax != null">
+                COMPANY_FAX = #{companyFax,jdbcType=VARCHAR},
+            </if>
+            <if test="operationManagerName != null">
+                operation_manager_name = #{operationManagerName,jdbcType=VARCHAR},
+            </if>
+            <if test="operationManagerPhone != null">
+                operation_manager_phone = #{operationManagerPhone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.Company">
+        <!--
+        @mbggenerated
+        -->
+        update company
+        set COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+            SHORTTHAND = #{shortthand,jdbcType=VARCHAR},
+            COMPANY_NO = #{companyNo,jdbcType=VARCHAR},
+            COMPANY_PHONE = #{companyPhone,jdbcType=VARCHAR},
+            COMPANY_ADDRESS = #{companyAddress,jdbcType=VARCHAR},
+            CONTACTS = #{contacts,jdbcType=VARCHAR},
+            REMARKS = #{remarks,jdbcType=VARCHAR},
+            COM_STATUS = #{comStatus,jdbcType=DECIMAL},
+            COMPANY_FAX = #{companyFax,jdbcType=VARCHAR},
+            operation_manager_name = #{operationManagerName,jdbcType=VARCHAR},
+            operation_manager_phone = #{operationManagerPhone,jdbcType=VARCHAR}
+        where COMPANY_ID = #{companyId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiedang.www.mapper.BillFilesMapper">
+    <resultMap id="BaseResultMap" type="com.xiedang.www.model.BillFiles">
+        <!--
+        @mbggenerated
+        -->
+        <id column="BFS_ID" jdbcType="VARCHAR" property="bfsId" />
+        <result column="BFS_NAME" jdbcType="VARCHAR" property="bfsName" />
+        <result column="BFS_PATH" jdbcType="VARCHAR" property="bfsPath" />
+        <result column="BFS_TYPE" jdbcType="VARCHAR" property="bfsType" />
+        <result column="BFS_BILL_TYPE" jdbcType="VARCHAR" property="bfsBillType" />
+        <result column="BFS_BILL_ID" jdbcType="VARCHAR" property="bfsBillId" />
+        <result column="BFS_STATUS" jdbcType="DECIMAL" property="bfsStatus" />
+        <result column="BFS_CREATE_TIME" jdbcType="TIMESTAMP" property="bfsCreateTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+        @mbggenerated
+        -->
+        BFS_ID, BFS_NAME, BFS_PATH, BFS_TYPE, BFS_BILL_TYPE, BFS_BILL_ID, BFS_STATUS, BFS_CREATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--
+        @mbggenerated
+        -->
+        select 
+        <include refid="Base_Column_List" />
+        from bill_files
+        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--
+        @mbggenerated
+        -->
+        delete from bill_files
+        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.xiedang.www.model.BillFiles">
+        <!--
+        @mbggenerated
+        -->
+        insert into bill_files (BFS_ID, BFS_NAME, BFS_PATH, 
+            BFS_TYPE, BFS_BILL_TYPE, BFS_BILL_ID, 
+            BFS_STATUS, BFS_CREATE_TIME)
+        values (#{bfsId,jdbcType=VARCHAR}, #{bfsName,jdbcType=VARCHAR}, #{bfsPath,jdbcType=VARCHAR}, 
+            #{bfsType,jdbcType=VARCHAR}, #{bfsBillType,jdbcType=VARCHAR}, #{bfsBillId,jdbcType=VARCHAR}, 
+            #{bfsStatus,jdbcType=DECIMAL}, #{bfsCreateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.BillFiles">
+        <!--
+        @mbggenerated
+        -->
+        insert into bill_files
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bfsId != null">
+                BFS_ID,
+            </if>
+            <if test="bfsName != null">
+                BFS_NAME,
+            </if>
+            <if test="bfsPath != null">
+                BFS_PATH,
+            </if>
+            <if test="bfsType != null">
+                BFS_TYPE,
+            </if>
+            <if test="bfsBillType != null">
+                BFS_BILL_TYPE,
+            </if>
+            <if test="bfsBillId != null">
+                BFS_BILL_ID,
+            </if>
+            <if test="bfsStatus != null">
+                BFS_STATUS,
+            </if>
+            <if test="bfsCreateTime != null">
+                BFS_CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bfsId != null">
+                #{bfsId,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsName != null">
+                #{bfsName,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsPath != null">
+                #{bfsPath,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsType != null">
+                #{bfsType,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsBillType != null">
+                #{bfsBillType,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsBillId != null">
+                #{bfsBillId,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsStatus != null">
+                #{bfsStatus,jdbcType=DECIMAL},
+            </if>
+            <if test="bfsCreateTime != null">
+                #{bfsCreateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.model.BillFiles">
+        <!--
+        @mbggenerated
+        -->
+        update bill_files
+        <set>
+            <if test="bfsName != null">
+                BFS_NAME = #{bfsName,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsPath != null">
+                BFS_PATH = #{bfsPath,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsType != null">
+                BFS_TYPE = #{bfsType,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsBillType != null">
+                BFS_BILL_TYPE = #{bfsBillType,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsBillId != null">
+                BFS_BILL_ID = #{bfsBillId,jdbcType=VARCHAR},
+            </if>
+            <if test="bfsStatus != null">
+                BFS_STATUS = #{bfsStatus,jdbcType=DECIMAL},
+            </if>
+            <if test="bfsCreateTime != null">
+                BFS_CREATE_TIME = #{bfsCreateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.BillFiles">
+        <!--
+        @mbggenerated
+        -->
+        update bill_files
+        set BFS_NAME = #{bfsName,jdbcType=VARCHAR},
+            BFS_PATH = #{bfsPath,jdbcType=VARCHAR},
+            BFS_TYPE = #{bfsType,jdbcType=VARCHAR},
+            BFS_BILL_TYPE = #{bfsBillType,jdbcType=VARCHAR},
+            BFS_BILL_ID = #{bfsBillId,jdbcType=VARCHAR},
+            BFS_STATUS = #{bfsStatus,jdbcType=DECIMAL},
+            BFS_CREATE_TIME = #{bfsCreateTime,jdbcType=TIMESTAMP}
+        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+    </update>
+</mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://H:/common/logistics-common.iml" filepath="H:/common/logistics-common.iml" />
+      <module fileurl="file://H:/pro/logistics-front.iml" filepath="H:/pro/logistics-front.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parent.iml" filepath="$PROJECT_DIR$/parent.iml" />
+    </modules>
+  </component>
+</project>
