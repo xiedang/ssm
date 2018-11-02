@@ -9,7 +9,7 @@
 
   <parent>
     <groupId>com.xiedang.www</groupId>
-    <artifactId>parent</artifactId>
+    <artifactId>logistics-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
