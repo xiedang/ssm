@@ -21,13 +21,14 @@ public class SystemInterceptor implements HandlerInterceptor {
             return true;
         }else {
             StringBuffer url = request.getRequestURL();
-            String baseUrl =url.delete(url.length() - request.getRequestURI().length(), url.length()).append("/").toString();
+            String contextPath = request.getContextPath();
+            String baseUrl =url.delete(url.length() - request.getRequestURI().length(), url.length()).append(contextPath).append("/").toString();
             response.setContentType("text/html;charset=UTF-8");
             // 未登录
             PrintWriter out = response.getWriter();
             String builder = "<script type=\"text/javascript\" charset=\"UTF-8\">" +
-                    "window.top.location.href=\"" +baseUrl
-                     + "/index.jsp" + "\";</script>";
+                    "window.top.location.href=\"" +baseUrl+"index"
+                      + "\";</script>";
             out.print(builder);
             out.close();
         }
