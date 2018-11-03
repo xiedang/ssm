@@ -39,12 +39,12 @@ public class UserController {
     @RequestMapping("/login")
     @ResponseBody
     public Object login(HttpServletRequest request, User user) {
-        log.info("用户登录,参数{}",user);
-        CommonResult<String> result=new CommonResult<>(CommonResult.FAILURE_CODE);
+        log.info("用户登录,参数{}", user);
+        CommonResult<String> result = new CommonResult<>(CommonResult.FAILURE_CODE);
         try {
             result = userService.login(user);
         } catch (Exception e) {
-            log.error("用户登录错误，{}",e);
+            log.error("用户登录错误，{}", e);
             e.printStackTrace();
         }
         return result;
@@ -60,12 +60,12 @@ public class UserController {
     @RequestMapping("/selectAll")
     @ResponseBody
     public Object selectAll(HttpServletRequest request, User user) {
-        log.info("查询所有用户,参数{}",user);
-        List<User> users=new ArrayList<>();
+        log.info("查询所有用户,参数{}", user);
+        List<User> users = new ArrayList<>();
         try {
-             users = userService.selectAll(user);
+            users = userService.selectAll(user);
         } catch (Exception e) {
-            log.error("查询所有用户错误，{}",e);
+            log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
         }
         return users;
