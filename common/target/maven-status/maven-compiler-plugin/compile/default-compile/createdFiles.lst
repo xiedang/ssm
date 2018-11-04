@@ -1,9 +1,0 @@
-com\xiedang\www\model\User.class
-com\xiedang\www\utils\MyReflectionToStringBuilder.class
-com\xiedang\www\model\BillFiles.class
-com\xiedang\www\utils\CommonResult.class
-com\xiedang\www\mapper\BillFilesMapper.class
-com\xiedang\www\mapper\UserMapper.class
-com\xiedang\www\model\Company.class
-com\xiedang\www\utils\BaseObject.class
-com\xiedang\www\mapper\CompanyMapper.class
