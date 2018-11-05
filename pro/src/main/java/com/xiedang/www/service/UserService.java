@@ -14,5 +14,5 @@ import java.util.List;
 public interface UserService {
     CommonResult<String> login(User user);
 
-    List<User> selectAll(User user);
+    List<User> selectAll();
 }

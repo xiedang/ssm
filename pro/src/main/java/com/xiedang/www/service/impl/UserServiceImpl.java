@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         User u = userMapper.selectByUsernameAndPassword(user);
         if (null!=u){
             result.setSuccess(CommonResult.SUCCESS_CODE);
+            user.setId(u.getId());
             result.setMessage("登录成功");
         }else {
             result.setMessage("用户名或者密码错误");
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectAll(User user) {
+    public List<User> selectAll() {
         return userMapper.selectAll();
     }
 }

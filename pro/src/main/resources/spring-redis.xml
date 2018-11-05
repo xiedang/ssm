@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:redis.properties"
+                                  file-encoding="UTF-8"/>
+
+    <!--<bean id="shardInfo" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg name="host" value="${redis.ip}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}"/>
+    </bean>-->
+
+    <!--<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="30" />
+        <property name="maxIdle" value="10" />
+        <property name="maxWaitMillis" value="2000" />
+        <property name="testOnBorrow" value="true" />
+    </bean>-->
+
+    <bean id="redisClusterConfig" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+        <property name="maxRedirects" value="6"/>
+        <property name="clusterNodes">
+            <set>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9001"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9002"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9003"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9004"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9005"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="192.168.2.106"/>
+                    <constructor-arg name="port" value="9006"/>
+                </bean>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="jedisConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" destroy-method="destroy">
+        <constructor-arg name="clusterConfig" ref="redisClusterConfig"/>
+        <property name="usePool" value="true"/>
+        <!--<property name="poolConfig" ref="jedisPoolConfig"/>-->
+        <property name="database" value="1"/>
+        <!--<property name="shardInfo" ref="shardInfo" />-->
+    </bean>
+
+    <!--<bean id="longRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="enableTransactionSupport" value="false"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.GenericToStringSerializer">
+                <constructor-arg value="java.lang.Long"/>
+            </bean>
+        </property>
+    </bean>-->
+
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="enableTransactionSupport" value="false"/>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+    </bean>
+</beans>
