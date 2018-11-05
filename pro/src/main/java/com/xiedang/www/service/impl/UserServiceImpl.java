@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> exportExcel(HttpServletResponse response) {
         List<User> users = userMapper.selectAll();
-        String titles[]={"ID","用户名","密码"};
-        String columns[]={"id","username","password"};
+        String[] titles={"ID","用户名","密码"};
+        String[] columns={"id","username","password"};
         ExportUtil.export(titles,columns,users,"系统用户表","系统用户表",response);
         return null;
     }

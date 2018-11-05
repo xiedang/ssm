@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
-import com.xiedang.www.utils.CommonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
