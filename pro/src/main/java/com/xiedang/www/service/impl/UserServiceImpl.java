@@ -4,9 +4,11 @@ import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.CommonResult;
+import com.xiedang.www.utils.ExportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -22,21 +24,27 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public CommonResult<String> login(User user) {
-        CommonResult<String> result= new CommonResult<>(CommonResult.FAILURE_CODE);
+    public boolean login(User user) {
+        boolean b=false;
         User u = userMapper.selectByUsernameAndPassword(user);
         if (null!=u){
-            result.setSuccess(CommonResult.SUCCESS_CODE);
+            b=true;
             user.setId(u.getId());
-            result.setMessage("登录成功");
-        }else {
-            result.setMessage("用户名或者密码错误");
         }
-        return result;
+        return  b;
     }
 
     @Override
     public List<User> selectAll() {
         return userMapper.selectAll();
+    }
+
+    @Override
+    public List<User> exportExcel(HttpServletResponse response) {
+        List<User> users = userMapper.selectAll();
+        String titles[]={"ID","用户名","密码"};
+        String columns[]={"id","username","password"};
+        ExportUtil.export(titles,columns,users,"系统用户表","系统用户表",response);
+        return null;
     }
 }

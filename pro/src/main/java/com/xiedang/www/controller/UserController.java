@@ -1,6 +1,7 @@
 package com.xiedang.www.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.CommonResult;
@@ -12,8 +13,10 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,18 +46,22 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login")
-    @ResponseBody
     public Object login(HttpServletRequest request, User user) {
         log.info("用户登录,参数{}", user);
-        CommonResult<String> result = new CommonResult<>(CommonResult.FAILURE_CODE);
+        ModelAndView modelAndView=new ModelAndView();
         try {
-            result = userService.login(user);
-            request.getSession().setAttribute("user",user);
+            boolean b = userService.login(user);
+            if (b){
+                modelAndView.setViewName(UserConstant.WELCOME);
+                request.getSession().setAttribute("user",user);
+            }else {
+                modelAndView.setViewName(UserConstant.LOGIN);
+            }
         } catch (Exception e) {
             log.error("用户登录错误，{}", e);
             e.printStackTrace();
         }
-        return result;
+        return modelAndView;
     }
 
     /**
@@ -75,6 +82,26 @@ public class UserController {
             operations.set("users",s);
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    /**
+     * <p>导出用户excel</p>
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping("/exportExcel")
+    @ResponseBody
+    public Object exportExcel(HttpServletRequest request, HttpServletResponse response) {
+        log.info("导出用户excel,参数{}");
+        List<User> users = new ArrayList<>();
+        try {
+            users = userService.exportExcel(response);
+        } catch (Exception e) {
+            log.error("导出用户excel错误，{}", e);
             e.printStackTrace();
         }
         return users;

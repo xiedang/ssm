@@ -76,15 +76,15 @@
     <div class="login-img">
         <div class="login-body">
             <div class="col-sm-12">
-                <form id="formSubmit" name="formSubmit" method="get" action="${cp}/login">
+                <form id="formSubmit" name="formSubmit" method="get" action="${cp}/user/login">
                     <h4 class="no-margins">登录：</h4>
                     <p class="m-t-md">欢迎登陆xxx系统</p>
 
                     <div class="form-group">
-                        <input type="text" class="form-control user_name" id="user_name" placeholder="用户名" required>
+                        <input type="text" name="username" class="form-control user_name" id="user_name" placeholder="用户名" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control user_password" id="user_password" placeholder="密码" required>
+                        <input type="password" name="password" class="form-control user_password" id="user_password" placeholder="密码" required>
                     </div>
                     <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
                 </form>
