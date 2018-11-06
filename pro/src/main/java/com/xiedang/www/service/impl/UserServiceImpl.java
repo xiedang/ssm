@@ -3,7 +3,6 @@ package com.xiedang.www.service.impl;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
-import com.xiedang.www.utils.CommonResult;
 import com.xiedang.www.utils.ExportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

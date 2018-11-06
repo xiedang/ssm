@@ -16,8 +16,8 @@ public class SystemInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         User user = (User)request.getSession().getAttribute("user");
-        log.info("登陆信息，{}",user);
         if(null!=user){
+            log.info("登陆信息，{}",user);
             return true;
         }else {
             StringBuffer url = request.getRequestURL();
