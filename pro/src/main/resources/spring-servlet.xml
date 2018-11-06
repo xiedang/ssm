@@ -13,7 +13,9 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <context:component-scan base-package="com.xiedang.www" use-default-filters="false" >
+		<!--去除@Controller @ControllerAdvice以外的注解-->
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>  
+        <context:include-filter expression="org.springframework.web.bind.annotation.ControllerAdvice" type="annotation"/>
     </context:component-scan>
 	<mvc:default-servlet-handler />
 	<!-- 解析@RequestMapping -->
