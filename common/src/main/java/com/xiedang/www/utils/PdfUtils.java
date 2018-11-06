@@ -45,7 +45,7 @@ public class PdfUtils {
         boolean exists = Files.exists(path);
         // 如果目标路径不存在,则新建该路径
         if (exists) {
-            if(Files.exists(path.getParent())){
+            if(!Files.exists(path.getParent())){
                 Files.createDirectories(path.getParent());
             }
         }else {
