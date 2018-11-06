@@ -35,7 +35,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * <p>用户登录</p>
@@ -47,13 +47,13 @@ public class UserController {
     @RequestMapping("/login")
     public Object login(HttpServletRequest request, User user) {
         log.info("用户登录,参数{}", user);
-        ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         try {
             boolean b = userService.login(user);
-            if (b){
+            if (b) {
                 modelAndView.setViewName(UserConstant.WELCOME);
-                request.getSession().setAttribute("user",user);
-            }else {
+                request.getSession().setAttribute("user", user);
+            } else {
                 modelAndView.setViewName(UserConstant.LOGIN);
             }
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class UserController {
             users = userService.selectAll();
             String s = JSONObject.toJSONString(users);
             ValueOperations<String, String> operations = redisTemplate.opsForValue();
-            operations.set("users",s);
+            operations.set("users", s);
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
