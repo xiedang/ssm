@@ -1,7 +1,5 @@
 package com.xiedang.www.jms;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,14 +11,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class TopicSender {
 
-    @Autowired
-    private JmsTemplate jmsTemplate;
+    /*@Autowired
+    private JmsTemplate jmsTemplate;*/
 
     /**
      * 发送信息
      * @param message
      */
     public void send(String message){
-        jmsTemplate.send(session -> session.createTextMessage(message));
+        /*jmsTemplate.send(session -> session.createTextMessage(message));*/
     }
 }
