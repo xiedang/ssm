@@ -15,10 +15,10 @@ import java.util.List;
 public interface UserService {
     /**
      * 用户登录
-     * @param user
+     * @param username
      * @return
      */
-    boolean login(User user);
+    User login(String username);
 
     /**
      * 查询所有用户
