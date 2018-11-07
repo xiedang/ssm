@@ -1,7 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
 
 package com.xiedang.www.utils;
 
@@ -367,6 +363,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         this.upToClass = clazz;
     }
 
+    @Override
     public String toString() {
         if (this.getObject() == null) {
             return this.nullText;
