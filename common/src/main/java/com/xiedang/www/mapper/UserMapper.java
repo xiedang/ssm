@@ -48,11 +48,11 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /**
-     *  根据用户名和密码查询用户
+     *  根据用户名查询用户
      *
-     * @param user
+     * @param username
      */
-    User selectByUsernameAndPassword(User user);
+    User selectByUsername(String username);
 
     /**
      * 查询所有用户

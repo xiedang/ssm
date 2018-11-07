@@ -13,7 +13,6 @@
 <head>
     <title>登录</title>
 
-
 <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap.min.css">
 
 <style type="text/css">
@@ -37,7 +36,7 @@
         -moz-background-size: cover;
     }
     .login-body{
-        width: 25%;
+        width: 23%;
         height: 40%;
         position: absolute;
         top: 30%;
@@ -69,17 +68,20 @@
     <div class="login-img">
         <div class="login-body">
             <div class="col-sm-12">
-                <form id="formSubmit" name="formSubmit" method="get" action="${cp}/user/login">
+                <form id="formSubmit" name="formSubmit" method="post" action="${cp}/user/login">
                     <h4 class="no-margins">登录：</h4>
                     <p class="m-t-md">欢迎登陆xxx系统</p>
 
                     <div class="form-group">
-                        <input type="text" name="username" class="form-control user_name" id="user_name" placeholder="用户名" required>
+                        <input type="text" name="username" class="form-control" id="user_name" placeholder="用户名">
                     </div>
+                    <p style="color: red">${requestScope.msg3}</p>
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control user_password" id="user_password" placeholder="密码" required>
+                        <input type="password" name="password" class="form-control" id="user_password" placeholder="密码">
                     </div>
-                    <button type="submit" class="btn btn-primary block full-width m-b">登录</button>
+                    <p style="color: red">${requestScope.msg2}</p>
+
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">登录</button>
                 </form>
             </div>
         </div>
@@ -91,7 +93,15 @@
 <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
 
 <script>
+    $(document).ready(function () {
+        $("input").click(function () {
+            $(this).css("background","lightcyan")
+        })
+        $("input").blur(function () {
+            $(this).css("background","white")
+        })
 
+    })
 </script>
 
 </body>

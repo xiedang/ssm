@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,6 +38,7 @@ public class UserController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+
     /**
      * <p>用户登录</p>
      *
@@ -48,18 +50,36 @@ public class UserController {
     public Object login(HttpServletRequest request, User user) {
         log.info("用户登录,参数{}", user);
         ModelAndView modelAndView = new ModelAndView();
-        try {
-            boolean b = userService.login(user);
+
+        User u = userService.login(user.getUsername());
+
+        if(!StringUtils.isEmpty(u)){
+            if(u.getPassword().equals(user.getPassword())){
+                request.getSession().setAttribute("user", user);
+                modelAndView.setViewName(UserConstant.WELCOME);
+                modelAndView.addObject("msg1","登录成功");
+            }else {
+                modelAndView.setViewName(UserConstant.LOGIN);
+                modelAndView.addObject("msg2","密码错误");
+            }
+        }else {
+            modelAndView.setViewName(UserConstant.LOGIN);
+            modelAndView.addObject("msg3","用户名不存在");
+        }
+
+        /*try {
+            boolean b = userService.login(username);
             if (b) {
                 modelAndView.setViewName(UserConstant.WELCOME);
                 request.getSession().setAttribute("user", user);
             } else {
                 modelAndView.setViewName(UserConstant.LOGIN);
+                modelAndView.addObject("msg","账号或密码错误");
             }
         } catch (Exception e) {
             log.error("用户登录错误，{}", e);
             e.printStackTrace();
-        }
+        }*/
         return modelAndView;
     }
 
