@@ -12,13 +12,13 @@ import org.springframework.stereotype.Component;
 public class TopicSender {
 
     /*@Autowired
-    private JmsTemplate jmsTemplate;*/
+    private JmsTemplate jmsTemplate;
 
-    /**
+    *//**
      * 发送信息
      * @param message
-     */
+     *//*
     public void send(String message){
-        /*jmsTemplate.send(session -> session.createTextMessage(message));*/
-    }
+        jmsTemplate.send(session -> session.createTextMessage(message));
+    }*/
 }

@@ -26,9 +26,8 @@
 <div class="logo">
     <p class="logo-title">xxx系统</p>
     <p class="time" id="time"></p>
-    <p class="user" id="user">当前用户：</p>
+    <p class="user" id="user">当前用户：${sessionScope.user.username}</p>
     <div class="dropdown">
-        <span>张小康</span>
         <div class="dropdown-content">
             <p>个人中心</p>
             <p>更改密码</p>
@@ -98,12 +97,12 @@
             </ul>
         </div>
         <div class="table table-responsive" style="padding-top:10px;">
-            <table class="table table-bordered table-hover" style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center">
+            <table class="table table-bordered table-hover" style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center" id="table">
                 <thead>
                     <tr>
-                        <td>姓名</td>
-                        <td>性别</td>
-                        <td>出生日期</td>
+                        <td>用户Id</td>
+                        <td>用户名</td>
+                        <td>密码</td>
                         <td>属性4</td>
                         <td>属性5</td>
                         <td>属性6</td>
@@ -122,7 +121,16 @@
 
 <script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
-
+<script>
+    $(function () {
+        $.post('${cp}/user/selectAll',{},function (data) {
+           $.each(data,function (i,v) {
+               var html="<tr><td>"+v.id+"</td><td>"+v.username+"</td><td>"+v.password+"</td></tr>";
+               $("#table").append(html);
+           })
+        },"json")
+    })
+</script>
 <script>
     /**
      * 当前时间
@@ -180,6 +188,10 @@
             alert("该菜单没有下一步动作");
         })
     })
+    
+    function addFunction() {
+        $("#table").append()
+    }
 </script>
 
 </body>

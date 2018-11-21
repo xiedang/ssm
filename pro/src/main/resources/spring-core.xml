@@ -52,6 +52,6 @@
     </bean>
 
     <import resource="classpath:mybatis/spring-mybatis.xml"/>
-    <import resource="classpath:spring-redis.xml"/>
-    <!--<import resource="classpath:spring-jms.xml"/>-->
+    <!--<import resource="classpath:spring-redis.xml"/>
+    <import resource="classpath:spring-jms.xml"/>-->
 </beans>

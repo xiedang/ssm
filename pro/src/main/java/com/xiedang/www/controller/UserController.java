@@ -1,14 +1,13 @@
 package com.xiedang.www.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xiedang.www.constant.UserConstant;
+import com.xiedang.www.jms.TopicSender;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,9 +33,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
 
 
     /**
@@ -66,20 +62,6 @@ public class UserController {
             modelAndView.setViewName(UserConstant.LOGIN);
             modelAndView.addObject("msg3","用户名不存在");
         }
-
-        /*try {
-            boolean b = userService.login(username);
-            if (b) {
-                modelAndView.setViewName(UserConstant.WELCOME);
-                request.getSession().setAttribute("user", user);
-            } else {
-                modelAndView.setViewName(UserConstant.LOGIN);
-                modelAndView.addObject("msg","账号或密码错误");
-            }
-        } catch (Exception e) {
-            log.error("用户登录错误，{}", e);
-            e.printStackTrace();
-        }*/
         return modelAndView;
     }
 
@@ -96,9 +78,6 @@ public class UserController {
         List<User> users = new ArrayList<>();
         try {
             users = userService.selectAll();
-            String s = JSONObject.toJSONString(users);
-            ValueOperations<String, String> operations = redisTemplate.opsForValue();
-            operations.set("users", s);
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
