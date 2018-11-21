@@ -92,8 +92,9 @@
                 <li><span class="btn btn-success" id="del"><span
                         class="glyphicon glyphicon-remove">删除</span></span></li>
                 <li><span class="btn btn-success" id="chaXun"><span
-                        class="glyphicon glyphicon-zoom-in">查询</span></span>
-                </li>
+                        class="glyphicon glyphicon-zoom-in">查询</span></span></li>
+                <li><span class="btn btn-success" id="excel"><span
+                        class="glyphicon glyphicon-zoom-in" onclick="downloadExcelFunction()">下载excel</span></span> </li>
             </ul>
         </div>
         <div class="table table-responsive" style="padding-top:10px;">
@@ -191,6 +192,10 @@
     
     function addFunction() {
         $("#table").append()
+    }
+
+    function downloadExcelFunction() {
+        window.open("${cp}/user/exportExcel");
     }
 </script>
 
