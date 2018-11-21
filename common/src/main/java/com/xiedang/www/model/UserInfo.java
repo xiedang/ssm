@@ -1,5 +1,6 @@
 package com.xiedang.www.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xiedang.www.utils.BaseObject;
 
 import java.util.Date;
@@ -45,6 +46,7 @@ public class UserInfo extends BaseObject {
      * 
      * 表字段 : user_info.birth_date
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date birthDate;
 
     /**
