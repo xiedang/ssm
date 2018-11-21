@@ -1,5 +1,6 @@
 package com.xiedang.www.mapper;
 
+import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.model.User;
 
 import java.util.List;
@@ -58,5 +59,5 @@ public interface UserMapper {
      * 查询所有用户
      * @return
      */
-    List<User> selectAll();
+    List<UserBo> selectAll();
 }

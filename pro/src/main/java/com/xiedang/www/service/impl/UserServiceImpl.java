@@ -1,7 +1,9 @@
 package com.xiedang.www.service.impl;
 
+import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
+import com.xiedang.www.model.UserInfo;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.ExportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,25 +26,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username) {
-       /* boolean b=false;*/
-        /*if (null!=u){
-            b=true;
-            user.setId(u.getId());
-        }*/
         return userMapper.selectByUsername(username);
     }
 
     @Override
-    public List<User> selectAll() {
+    public List<UserBo> selectAll() {
         return userMapper.selectAll();
     }
 
     @Override
-    public List<User> exportExcel(HttpServletResponse response) {
-        List<User> users = userMapper.selectAll();
+    public List<UserBo> exportExcel(HttpServletResponse response) {
+        List<UserBo> userBos = userMapper.selectAll();
         String[] titles={"ID","用户名","密码"};
         String[] columns={"id","username","password"};
-        ExportUtil.export(titles,columns,users,"系统用户表","系统用户表",response);
+        ExportUtil.export(titles,columns,userBos,"系统用户表","系统用户表",response);
         return null;
     }
 }

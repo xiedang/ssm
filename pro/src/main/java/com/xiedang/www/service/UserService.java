@@ -1,5 +1,6 @@
 package com.xiedang.www.service;
 
+import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.model.User;
 import com.xiedang.www.utils.CommonResult;
 
@@ -24,11 +25,11 @@ public interface UserService {
      * 查询所有用户
      * @return
      */
-    List<User> selectAll();
+    List<UserBo> selectAll();
 
     /**
      * 导出用户excel
      * @return
      */
-    List<User> exportExcel(HttpServletResponse response);
+    List<UserBo> exportExcel(HttpServletResponse response);
 }

@@ -28,6 +28,12 @@ public class User extends BaseObject{
     private String password;
 
     /**
+     * 
+     * 表字段 : user.status
+     */
+    private Integer status;
+
+    /**
      * 获取  字段:user.id
      *
      * @return user.id, 
@@ -79,5 +85,23 @@ public class User extends BaseObject{
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取  字段:user.status
+     *
+     * @return user.status, 
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置  字段:user.status
+     *
+     * @param status the value for user.status, 
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

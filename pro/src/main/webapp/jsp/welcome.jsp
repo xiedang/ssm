@@ -104,12 +104,12 @@
                         <td>用户Id</td>
                         <td>用户名</td>
                         <td>密码</td>
-                        <td>属性4</td>
-                        <td>属性5</td>
-                        <td>属性6</td>
-                        <td>属性6</td>
-                        <td>属性6</td>
-                        <td>属性6</td>
+                        <td>姓名</td>
+                        <td>电话</td>
+                        <td>住址</td>
+                        <td>出生日期</td>
+                        <td>籍贯</td>
+                        <td>性别</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,7 +126,9 @@
     $(function () {
         $.post('${cp}/user/selectAll',{},function (data) {
            $.each(data,function (i,v) {
-               var html="<tr><td>"+v.id+"</td><td>"+v.username+"</td><td>"+v.password+"</td></tr>";
+               var html="<tr><td>"+v.id+"</td><td>"+v.username+"</td><td>"+v.password+"</td><td>"+v.username+"</td><td>"+v.userInfo.name+"</td>"
+                   +v.userInfo.phone+"</td><td>"+v.userInfo.address+"</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.nativePlace+
+                   "</td><td>"+v.userInfo.sex+"</td></tr>";
                $("#table").append(html);
            })
         },"json")

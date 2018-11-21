@@ -1,5 +1,6 @@
 package com.xiedang.www.controller;
 
+import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.jms.TopicSender;
 import com.xiedang.www.model.User;
@@ -75,14 +76,14 @@ public class UserController {
     @ResponseBody
     public Object selectAll(HttpServletRequest request) {
         log.info("查询所有用户,参数{}");
-        List<User> users = new ArrayList<>();
+        List<UserBo> userBos = new ArrayList<>();
         try {
-            users = userService.selectAll();
+            userBos = userService.selectAll();
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
         }
-        return users;
+        return userBos;
     }
 
     /**
@@ -95,13 +96,13 @@ public class UserController {
     @ResponseBody
     public Object exportExcel(HttpServletRequest request, HttpServletResponse response) {
         log.info("导出用户excel,参数{}");
-        List<User> users = new ArrayList<>();
+        List<UserBo> userBos = new ArrayList<>();
         try {
-            users = userService.exportExcel(response);
+            userBos = userService.exportExcel(response);
         } catch (Exception e) {
             log.error("导出用户excel错误，{}", e);
             e.printStackTrace();
         }
-        return users;
+        return userBos;
     }
 }
