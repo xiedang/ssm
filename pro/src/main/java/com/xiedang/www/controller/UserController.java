@@ -1,16 +1,15 @@
 package com.xiedang.www.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.constant.UserConstant;
-import com.xiedang.www.jms.TopicSender;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p></p>
@@ -50,7 +50,7 @@ public class UserController {
 
         User u = userService.login(user.getUsername());
 
-        if(!StringUtils.isEmpty(u)){
+        if(null!=u){
             if(u.getPassword().equals(user.getPassword())){
                 request.getSession().setAttribute("user", user);
                 modelAndView.setViewName(UserConstant.WELCOME);
@@ -69,16 +69,21 @@ public class UserController {
     /**
      * <p>查询所有用户</p>
      *
-     * @param request
+     * @param response
      * @return
      */
-    @RequestMapping("/selectAll")
+    @RequestMapping(value = "/selectAll",produces = MediaType.APPLICATION_JSON_VALUE+";charset=utf-8")
     @ResponseBody
-    public Object selectAll(HttpServletRequest request) {
+    public Object selectAll(HttpServletResponse response,String callback) {
         log.info("查询所有用户,参数{}");
         List<UserBo> userBos = new ArrayList<>();
         try {
             userBos = userService.selectAll();
+            if(StringUtils.isNotBlank(callback)){
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json;charset=utf-8");
+                return callback+"("+ JSONObject.toJSONString(userBos)+")";
+            }
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
