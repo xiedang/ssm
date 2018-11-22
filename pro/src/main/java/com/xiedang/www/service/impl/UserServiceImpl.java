@@ -3,7 +3,6 @@ package com.xiedang.www.service.impl;
 import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
-import com.xiedang.www.model.UserInfo;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.ExportUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +41,5 @@ public class UserServiceImpl implements UserService {
         ExportUtil.export(titles,columns,userBos,"系统用户表","系统用户表",response);
         return null;
     }
+
 }

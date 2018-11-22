@@ -50,7 +50,7 @@
     </div>
     <div class="body_right" style="float: left;">
         <div class="inputFormation">
-            <form class="form-inline" role="form">
+            <form class="form-inline" role="form" name="userFrom" action="${cp}/updateUser">
                 <div class="form-group">
                     <label for="inputName">姓名:</label>
                     <input type="email" class="form-control" id="inputName">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration >
-	<classPathEntry location="H:\ytrepo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
+	<classPathEntry location="E:\ytrepo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar" />
   <context id="context1" >
   <commentGenerator type="org.mybatis.generator.internal.DG2CommentGenerator">  
     <property name="javaFileEncoding" value="UTF-8"/>
@@ -11,7 +11,7 @@
   </commentGenerator>  
       <jdbcConnection driverClass="com.mysql.jdbc.Driver"
             connectionURL="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=UTF-8"
-            userId="root" password="19940306" />
+            userId="root" password="root" />
     <javaTypeResolver >  
      <property name="forceBigDecimals" value="true" />  
  	</javaTypeResolver>  
