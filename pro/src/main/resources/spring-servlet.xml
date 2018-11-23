@@ -17,6 +17,7 @@
         <context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>  
         <context:include-filter expression="org.springframework.web.bind.annotation.ControllerAdvice" type="annotation"/>
     </context:component-scan>
+	<!--解除dispatchServlet对静态资源的拦截-->
 	<mvc:default-servlet-handler />
 	<!-- 解析@RequestMapping -->
 	<mvc:annotation-driven >
