@@ -11,8 +11,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,11 +37,10 @@ public class HttpRequestUtil {
             for (Map.Entry<String, String> entry : requestHeader.entrySet()) {
                 httpPost.addHeader(entry.getKey(), entry.getValue());
             }
-            httpPost.addHeader(HTTP.CONTENT_TYPE, "application/json");
             String jsonStr = JSONObject.toJSONString(requestParams);
-            StringEntity se = new StringEntity(jsonStr);
-            se.setContentType("text/json");
-            se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            StringEntity se = new StringEntity(jsonStr,"utf-8");
+            se.setContentType("application/json");
+            se.setContentEncoding("UTF-8");
             httpPost.setEntity(se);
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
                 HttpEntity entity = httpResponse.getEntity();
