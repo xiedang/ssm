@@ -2,7 +2,7 @@ package com.xiedang.www.service;
 
 import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.model.User;
-import com.xiedang.www.utils.CommonResult;
+import com.xiedang.www.vo.UserVo;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -28,8 +28,16 @@ public interface UserService {
     List<UserBo> selectAll();
 
     /**
+     * 根据条件查询用户
+     * @return
+     */
+    List<UserBo> queryUser(UserVo userVo);
+
+    /**
      * 导出用户excel
      * @return
      */
     List<UserBo> exportExcel(HttpServletResponse response);
+
+
 }
