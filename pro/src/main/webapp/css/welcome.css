@@ -86,7 +86,7 @@ body {
             color: yellow;
             font-size: 18px;
             border-right: 10px solid #dddddd;
-            float: right;
+            float: left;
         }
 
         /*设置一级菜单*/
