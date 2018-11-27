@@ -48,74 +48,100 @@
             </li>
         </ul>
     </div>
-    <div class="body_right" style="float: left;">
+    <div class="body_right" style="float: right;width: 90.3%">
         <div class="inputFormation">
-            <form class="form-inline" role="form" name="userFrom" action="${cp}/updateUser">
+            <form class="form-inline" role="form" id="userQueryForm" name="userQueryForm">
                 <div class="form-group">
-                    <label for="inputName">姓名:</label>
-                    <input type="email" class="form-control" id="inputName">
+                    <label for="name">姓名:</label>
+                    <input type="text" class="form-control" id="name" name="name">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
                 </div>
                 <div class="form-group">
+                    <label for="username">账号:</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
+                </div>
+                <%--<div class="form-group">
                     <label class="control-label" for="inputDate">出生日期:</label>
-                    <input type="date" class="form-control" id="inputDate">
+                    <input type="date" class="form-control" id="inputDate" name="birthDate">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>--%>
+                <div class="form-group">
+                    <label class="control-label" for="nativePlace">籍贯:</label>
+                    <input type="text" class="form-control" id="nativePlace" name="nativePlace">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="inputJiGuan">籍贯:</label>
-                    <input type="text" class="form-control" id="inputJiGuan">
+                    <label class="control-label" for="phone">电话:</label>
+                    <input type="text" class="form-control" id="phone" name="phone">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="form-group">
-                    <label class="control-label" for="inputPhone">电话:</label>
-                    <input type="text" class="form-control" id="inputPhone">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <div class="form-group">
-                    <label for="inputSex" class="control-label">性别:</label>
-                    <select id="inputSex" class="form-control">
+                    <label for="sex" class="control-label">性别:</label>
+                    <select id="sex" class="form-control" name="sex" placeholder="性别">
                         <option value="ALL">ALL</option>
                         <option value="男">男</option>
                         <option value="女">女</option>
+                        <%--<c:forEach items="${sexItems}" var="item">
+                            <option value="${item.id}" <c:if test="${item.id == sexCode}">selected</c:if></option
+                        </c:forEach>--%>
                     </select>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
             </form>
         </div>
         <div class="buttons">
-            <ul class="list-inline">
+            <ul class="list-inline" style="width: 80%">
+                <li><span class="btn btn-primary" id="queryUser"><span
+                        class="glyphicon glyphicon-search">查询</span></span></li>
                 <li><span class="btn btn-success" onclick="addFunction()"><span
                         class="glyphicon glyphicon-plus">新增</span></span></li>
-                <li><span class="btn btn-info"><span
-                        class="glyphicon glyphicon-pencil">修改</span></span></li>
-                <li><span class="btn btn-success" id="del"><span
-                        class="glyphicon glyphicon-remove">删除</span></span></li>
-                <li><span class="btn btn-success" id="chaXun"><span
-                        class="glyphicon glyphicon-zoom-in">查询</span></span></li>
-                <li><span class="btn btn-success" id="excel"><span
-                        class="glyphicon glyphicon-zoom-in" onclick="downloadExcelFunction()">下载excel</span></span> </li>
+                <li><span class="btn btn-default"><span
+                        class="glyphicon glyphicon-pencil" onclick="userUpdateFunction()">修改</span></span></li>
+                <li><span class="btn btn-danger" id="del"><span
+                        class="glyphicon glyphicon-remove" onclick="userDeleteFunction()">删除</span></span></li>
+                <li><span class="btn btn-info" id="excel"><span
+                        class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span></span> </li>
+                <li><span class="btn btn-default" onclick="clearFunction()"><span
+                        class="glyphicon glyphicon-trash">清空</span></span></li>
             </ul>
         </div>
         <div class="table table-responsive" style="padding-top:10px;">
             <table class="table table-bordered table-hover" style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center" id="table">
                 <thead>
                     <tr>
+                        <td>选择</td>
                         <td>用户Id</td>
-                        <td>用户名</td>
+                        <td>账号</td>
                         <td>密码</td>
                         <td>姓名</td>
+                        <td>性别</td>
+                        <td>籍贯</td>
+                        <td>出生日期</td>
                         <td>电话</td>
                         <td>住址</td>
-                        <td>出生日期</td>
-                        <td>籍贯</td>
-                        <td>性别</td>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tableBody" style="width: auto">
                 </tbody>
             </table>
         </div>
+        <%--<c:forEach items="${users}" var="u">
+            <tr>
+                <td><input type="checkbox" value="${u.id}"></td>
+                <td>${u.id}</td>
+                <td>${u.name}</td>
+                <td>${u.password}</td>
+                <td>${u.userInfo.name}</td>
+                <td>${u.userInfo.sex}</td>
+                <td>${u.userInfo.nativePlace}</td>
+                <td>${u.userInfo.birthDate}</td>
+                <td>${u.userInfo.phone}</td>
+                <td>${u.userInfo.address}</td>
+            </tr>
+        </c:forEach>--%>
     </div>
 </div>
 
@@ -123,17 +149,53 @@
 <script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
 <script>
+    /*页面加载，发起ajax请求得到数据*/
     $(function () {
         $.post('${cp}/user/selectAll',{},function (data) {
            $.each(data,function (i,v) {
-               var html="<tr><td>"+v.id+"</td><td>"+v.username+"</td><td>"+v.password+"</td><td>"+v.username+"</td><td>"+v.userInfo.name+"</td>"
-                   +v.userInfo.phone+"</td><td>"+v.userInfo.address+"</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.nativePlace+
-                   "</td><td>"+v.userInfo.sex+"</td></tr>";
+               var html="<tr><td>"+"<input type='checkbox' value='v.id'>"+"</td><td>"+v.id+"</td><td>"+v.username+ "</td><td>"+v.password+
+                   "</td><td>"+v.userInfo.name+"</td><td>"+v.userInfo.sex+
+                   "</td><td>"+v.userInfo.nativePlace+"</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.phone+
+                   "</td><td>"+v.userInfo.address+"</td></tr>";
                $("#table").append(html);
            })
         },"json")
-    })
+    });
+
+    /*查询*/
+    $("#queryUser").click(function () {
+
+        //清空数据
+
+        $("#tableBody").empty();
+        $.post('${cp}/user/queryUser',$("#userQueryForm").serialize(),function (data){
+            $.each(data,function (i,v) {
+                var html="<tr><td>"+"<input type='checkbox' value='v.id'>"+"</td><td>"+v.id+
+                    "</td><td>"+v.username+ "</td><td>"+v.password+ "</td><td>"+v.userInfo.name+
+                    "</td><td>"+v.userInfo.sex+ "</td><td>"+v.userInfo.nativePlace+
+                    "</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.phone+
+                    "</td><td>"+v.userInfo.address+"</td></tr>";
+                $("#table").append(html);
+            })
+        },"json")
+    });
+
+    /*清空*/
+    function clearFunction() {
+        $("input").val("");
+    }
+    
+    /*修改*/
+    function userUpdateFunction() {
+        
+    }
+    
+    /*删除*/
+    function userDeleteFunction() {
+        
+    }
 </script>
+
 <script>
     /**
      * 当前时间
@@ -190,7 +252,7 @@
         $(".nav-li li a").click(function () {
             alert("该菜单没有下一步动作");
         })
-    })
+    });
     
     function addFunction() {
         $("#table").append()
@@ -199,6 +261,8 @@
     function downloadExcelFunction() {
         window.open("${cp}/user/exportExcel");
     }
+
+    
 </script>
 
 </body>

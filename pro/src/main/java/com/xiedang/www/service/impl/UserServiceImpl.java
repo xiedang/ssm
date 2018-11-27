@@ -5,6 +5,7 @@ import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.ExportUtil;
+import com.xiedang.www.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserBo> queryUser(UserVo userVo) {
+        return userMapper.queryUser(userVo);
+    }
+
+    @Override
     public List<UserBo> exportExcel(HttpServletResponse response) {
         List<UserBo> userBos = userMapper.selectAll();
         String[] titles={"ID","用户名","密码"};
@@ -41,5 +47,6 @@ public class UserServiceImpl implements UserService {
         ExportUtil.export(titles,columns,userBos,"系统用户表","系统用户表",response);
         return null;
     }
+
 
 }

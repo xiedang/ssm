@@ -98,6 +98,7 @@
         from user
         where username=#{username}
     </select>
+
     <resultMap extends="BaseResultMap" id="BaseUserInfoResult" type="com.xiedang.www.bo.UserBo">
         <association javaType="com.xiedang.www.model.UserInfo" property="userInfo">
             <id column="ui_id" jdbcType="INTEGER" property="id" />
@@ -117,5 +118,30 @@
         INNER JOIN user_info ui
         ON u.id=ui.uid
         WHERE u.status=1 and ui.status=1
+        ORDER BY u.id
+    </select>
+
+    <select id="queryUser" parameterType="com.xiedang.www.vo.UserVo" resultMap="BaseUserInfoResult">
+        select
+            u.id, username, password,
+            ui.id ui_id, name, sex, phone, address, birth_date, native_place
+        from user u
+        INNER JOIN user_info ui
+        ON u.id = ui.uid
+        <where>
+            <if test="username != null and username!=''">
+                AND u.username = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name!=''">
+                AND ui.name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="nativePlace != null and nativePlace!=''">
+                AND ui.native_place = #{nativePlace,jdbcType=VARCHAR}
+            </if>
+            <if test="phone != null and phone!=''">
+                AND ui.phone = #{phone,jdbcType=VARCHAR}
+            </if>
+        </where>
+        ORDER BY u.id
     </select>
 </mapper>

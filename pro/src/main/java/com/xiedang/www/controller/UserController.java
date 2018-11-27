@@ -1,15 +1,16 @@
 package com.xiedang.www.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
+import com.xiedang.www.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * <p></p>
@@ -50,7 +50,7 @@ public class UserController {
 
         User u = userService.login(user.getUsername());
 
-        if(null!=u){
+        if(!StringUtils.isEmpty(u)){
             if(u.getPassword().equals(user.getPassword())){
                 request.getSession().setAttribute("user", user);
                 modelAndView.setViewName(UserConstant.WELCOME);
@@ -69,26 +69,25 @@ public class UserController {
     /**
      * <p>查询所有用户</p>
      *
-     * @param response
+     * @param request
      * @return
      */
-    @RequestMapping(value = "/selectAll",produces = MediaType.APPLICATION_JSON_VALUE+";charset=utf-8")
+    @RequestMapping("/selectAll")
     @ResponseBody
-    public Object selectAll(HttpServletResponse response,String callback) {
+    public Object selectAll(HttpServletRequest request) {
         log.info("查询所有用户,参数{}");
+        //ModelAndView modelAndView = new ModelAndView();
         List<UserBo> userBos = new ArrayList<>();
         try {
             userBos = userService.selectAll();
-            if(StringUtils.isNotBlank(callback)){
-                response.setCharacterEncoding("UTF-8");
-                response.setContentType("application/json;charset=utf-8");
-                return callback+"("+ JSONObject.toJSONString(userBos)+")";
-            }
+            //modelAndView.addObject("users",userBos);
+            //modelAndView.setViewName("welcome");
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
         }
         return userBos;
+        //return modelAndView;
     }
 
     /**
@@ -106,6 +105,20 @@ public class UserController {
             userBos = userService.exportExcel(response);
         } catch (Exception e) {
             log.error("导出用户excel错误，{}", e);
+            e.printStackTrace();
+        }
+        return userBos;
+    }
+
+    @RequestMapping("/queryUser")
+    @ResponseBody
+    public Object queryUser(HttpServletRequest request, UserVo userVo){
+        log.info("用户查询,参数{}",userVo);
+        List<UserBo> userBos = new ArrayList<>();
+        try {
+            userBos = userService.queryUser(userVo);
+        } catch (Exception e) {
+            log.error("根据条件查询用户错误，{}", e);
             e.printStackTrace();
         }
         return userBos;
