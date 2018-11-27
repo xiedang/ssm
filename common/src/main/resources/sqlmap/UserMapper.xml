@@ -141,6 +141,9 @@
             <if test="phone != null and phone!=''">
                 AND ui.phone = #{phone,jdbcType=VARCHAR}
             </if>
+            <if test="sex != null and sex!=''">
+                AND ui.sex = #{sex,jdbcType=VARCHAR}
+            </if>
         </where>
         ORDER BY u.id
     </select>

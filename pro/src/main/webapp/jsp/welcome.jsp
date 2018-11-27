@@ -81,7 +81,7 @@
                 <div class="form-group">
                     <label for="sex" class="control-label">性别:</label>
                     <select id="sex" class="form-control" name="sex" placeholder="性别">
-                        <option value="ALL">ALL</option>
+                        <option value="">ALL</option>
                         <option value="男">男</option>
                         <option value="女">女</option>
                         <%--<c:forEach items="${sexItems}" var="item">
@@ -104,7 +104,7 @@
                         class="glyphicon glyphicon-remove" onclick="userDeleteFunction()">删除</span></span></li>
                 <li><span class="btn btn-info" id="excel"><span
                         class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span></span> </li>
-                <li><span class="btn btn-default" onclick="clearFunction()"><span
+                <li><span class="btn btn-default" id="clear" onclick="clearFunction()"><span
                         class="glyphicon glyphicon-trash">清空</span></span></li>
             </ul>
         </div>
@@ -183,8 +183,10 @@
     /*清空*/
     function clearFunction() {
         $("input").val("");
+        $("#sex option:first").prop("selected", 'selected');
     }
-    
+
+
     /*修改*/
     function userUpdateFunction() {
         
