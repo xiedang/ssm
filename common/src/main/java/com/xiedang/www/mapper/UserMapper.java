@@ -2,6 +2,7 @@ package com.xiedang.www.mapper;
 
 import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.model.User;
+import com.xiedang.www.vo.UserVo;
 
 import java.util.List;
 
@@ -60,4 +61,10 @@ public interface UserMapper {
      * @return
      */
     List<UserBo> selectAll();
+
+    /**
+     * 根据条件查询用户
+     * @return
+     */
+    List<UserBo> queryUser(UserVo userVo);
 }
