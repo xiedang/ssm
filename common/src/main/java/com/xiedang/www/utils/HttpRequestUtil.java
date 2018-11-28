@@ -26,8 +26,8 @@ public class HttpRequestUtil {
     private int connectTimeout = 20000;
     private CloseableHttpClient httpClient = HttpClients.custom().build();
 
-    public <T> T sendRequest(String url, Map<String, String> requestHeader, Map<String, Object> requestParams, Class<T> clazz) {
-        T response = null;
+    public String sendRequest(String url, Map<String, String> requestHeader, Map<String, Object> requestParams) {
+        String response = null;
         HttpPost httpPost = new HttpPost(url);
         try {
             RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(connectTimeout)
@@ -44,20 +44,11 @@ public class HttpRequestUtil {
             httpPost.setEntity(se);
             try (CloseableHttpResponse httpResponse = httpClient.execute(httpPost)) {
                 HttpEntity entity = httpResponse.getEntity();
-                try {
-                    if (null != entity) {
-                        response = JSON.parseObject(EntityUtils.toString(httpResponse.getEntity(), Consts.UTF_8), clazz);
-                    }
-                } finally {
-                    if (entity != null) {
-                        entity.getContent().close();
-                    }
-                }
+                response = EntityUtils.toString(entity, Consts.UTF_8);
             }
-            System.out.println("HttpClient request url: " + url);
-            System.out.println("HttpClient request param: " + JSON.toJSONString(requestParams));
-            System.out.println("HttpClient Class: " + clazz.getName());
-            System.out.println("HttpClient response: " + JSON.toJSONString(response));
+            log.info("HttpClient request url: " + url);
+            log.info("HttpClient request param: " + JSON.toJSONString(requestParams));
+            log.info("HttpClient response: " + JSON.toJSONString(response));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -67,12 +58,12 @@ public class HttpRequestUtil {
     }
 
 
-    public <T> T sendGetRequest(String url, Map<String, Object> params, Class<T> clazz) {
+    public String sendGetRequest(String url, Map<String, Object> params) {
         log.info("Http Request Url: " + url);
         if (null != params) {
             log.info("Http Request params: " + JSON.toJSONString(params));
         }
-        T response = null;
+        String response = null;
         url = jointParams(url, params);
         HttpGet request = new HttpGet(url);
 
@@ -83,15 +74,7 @@ public class HttpRequestUtil {
         try {
             httpResponse = httpClient.execute(request);
             HttpEntity entity = httpResponse.getEntity();
-            try {
-                if (null != entity) {
-                    response =  JSON.parseObject(EntityUtils.toString(httpResponse.getEntity(), Consts.UTF_8), clazz);
-                }
-            } finally {
-                if (entity != null) {
-                    entity.getContent().close();
-                }
-            }
+            response = EntityUtils.toString(entity, Consts.UTF_8);
             log.info("Http Response from '" + url + "' is :" + JSON.toJSONString(response));
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,6 +28,12 @@ public interface UserService {
     List<UserBo> selectAll();
 
     /**
+     * 查询所有登录信息
+     * @return
+     */
+    List<User> selectAllLoginInfo();
+
+    /**
      * 根据条件查询用户
      * @return
      */

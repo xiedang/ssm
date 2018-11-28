@@ -147,4 +147,11 @@
         </where>
         ORDER BY u.id
     </select>
+
+    <select id="selectAllLoginInfo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        WHERE status=1
+    </select>
 </mapper>
