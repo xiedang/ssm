@@ -4,12 +4,14 @@ import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
+import com.xiedang.www.utils.CommonResult;
+import com.xiedang.www.utils.ThreeDESUtil;
 import com.xiedang.www.vo.UserVo;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +54,7 @@ public class UserController {
 
         User u = userService.login(user.getUsername());
 
-        if (!StringUtils.isEmpty(u)) {
+        if (null != u) {
             if (u.getPassword().equals(user.getPassword())) {
                 request.getSession().setAttribute("user", user);
                 modelAndView.setViewName(UserConstant.WELCOME);
@@ -93,13 +96,30 @@ public class UserController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "/selectAllLoginInfo", method = RequestMethod.POST, headers = {"md5=123456", "authName=xiedang", "authPassword=19940306"},
+    @RequestMapping(value = "/selectAllLoginInfo", method = RequestMethod.POST, /*headers = { "password=zyk1314654321", "cipher=Gp4d2x2u373Klu+IX34BrA=="},*/
             produces = {"application/json;charset=utf-8"}, consumes = {"application/json;charset=utf-8"})
     @ResponseBody
-    public Object selectAllLoginInfo(HttpServletRequest request,@RequestBody User user) throws Exception{
-        log.info("查询所有登录信息,参数{}",user);
-        List<User> users = userService.selectAllLoginInfo();
-        return users;
+    public Object selectAllLoginInfo(HttpServletRequest request, @RequestBody User user) throws Exception {
+        CommonResult<User> result=new CommonResult<>(CommonResult.FAILURE_CODE);
+        log.info("查询所有登录信息,参数{}", user);
+        String password = request.getHeader("password");
+        String cipher = request.getHeader("cipher");
+        if(StringUtils.isBlank(password)||StringUtils.isBlank(cipher)){
+            result.setMessage("您没有权限访问该资源");
+            return result;
+        }else {
+            String pwd = ThreeDESUtil.decode3Des(cipher);
+            if(password.equals(pwd)){
+                result.setSuccess(CommonResult.SUCCESS_CODE);
+                result.setMessage("访问成功");
+                List<User> users = userService.selectAllLoginInfo();
+                result.setDatas(users);
+            }else {
+                result.setMessage("您的授权码不正确");
+                return result;
+            }
+        }
+        return result;
     }
 
     /**
