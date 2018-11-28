@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> selectAllLoginInfo() {
+        return userMapper.selectAllLoginInfo();
+    }
+
+    @Override
     public List<UserBo> queryUser(UserVo userVo) {
         return userMapper.queryUser(userVo);
     }

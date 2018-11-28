@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,18 +51,18 @@ public class UserController {
 
         User u = userService.login(user.getUsername());
 
-        if(!StringUtils.isEmpty(u)){
-            if(u.getPassword().equals(user.getPassword())){
+        if (!StringUtils.isEmpty(u)) {
+            if (u.getPassword().equals(user.getPassword())) {
                 request.getSession().setAttribute("user", user);
                 modelAndView.setViewName(UserConstant.WELCOME);
-                modelAndView.addObject("msg1","登录成功");
-            }else {
+                modelAndView.addObject("msg1", "登录成功");
+            } else {
                 modelAndView.setViewName(UserConstant.LOGIN);
-                modelAndView.addObject("msg2","密码错误");
+                modelAndView.addObject("msg2", "密码错误");
             }
-        }else {
+        } else {
             modelAndView.setViewName(UserConstant.LOGIN);
-            modelAndView.addObject("msg3","用户名不存在");
+            modelAndView.addObject("msg3", "用户名不存在");
         }
         return modelAndView;
     }
@@ -76,18 +77,29 @@ public class UserController {
     @ResponseBody
     public Object selectAll(HttpServletRequest request) {
         log.info("查询所有用户,参数{}");
-        //ModelAndView modelAndView = new ModelAndView();
         List<UserBo> userBos = new ArrayList<>();
         try {
             userBos = userService.selectAll();
-            //modelAndView.addObject("users",userBos);
-            //modelAndView.setViewName("welcome");
         } catch (Exception e) {
             log.error("查询所有用户错误，{}", e);
             e.printStackTrace();
         }
         return userBos;
-        //return modelAndView;
+    }
+
+    /**
+     * <p>查询所有登录信息</p>
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/selectAllLoginInfo", method = RequestMethod.POST, headers = {"md5=123456", "authName=xiedang", "authPassword=19940306"},
+            produces = {"application/json;charset=utf-8"}, consumes = {"application/json;charset=utf-8"})
+    @ResponseBody
+    public Object selectAllLoginInfo(HttpServletRequest request,@RequestBody User user) throws Exception{
+        log.info("查询所有登录信息,参数{}",user);
+        List<User> users = userService.selectAllLoginInfo();
+        return users;
     }
 
     /**
@@ -112,8 +124,8 @@ public class UserController {
 
     @RequestMapping("/queryUser")
     @ResponseBody
-    public Object queryUser(HttpServletRequest request, UserVo userVo){
-        log.info("用户查询,参数{}",userVo);
+    public Object queryUser(HttpServletRequest request, UserVo userVo) {
+        log.info("用户查询,参数{}", userVo);
         List<UserBo> userBos = new ArrayList<>();
         try {
             userBos = userService.queryUser(userVo);

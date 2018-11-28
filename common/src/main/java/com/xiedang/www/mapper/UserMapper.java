@@ -67,4 +67,10 @@ public interface UserMapper {
      * @return
      */
     List<UserBo> queryUser(UserVo userVo);
+
+    /**
+     * 查询所有登录信息
+     * @return
+     */
+    List<User> selectAllLoginInfo();
 }
