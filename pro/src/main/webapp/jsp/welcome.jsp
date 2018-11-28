@@ -80,7 +80,7 @@
                 </div>
                 <div class="form-group">
                     <label for="sex" class="control-label">性别:</label>
-                    <select id="sex" class="form-control" name="sex" placeholder="性别">
+                    <select id="sex" class="form-control" name="sex">
                         <option value="">ALL</option>
                         <option value="男">男</option>
                         <option value="女">女</option>
@@ -96,33 +96,35 @@
             <ul class="list-inline" style="width: 80%">
                 <li><span class="btn btn-primary" id="queryUser"><span
                         class="glyphicon glyphicon-search">查询</span></span></li>
-                <li><span class="btn btn-success" onclick="addFunction()"><span
+                <li><span class="btn btn-success" id="userAddBtn"><span
                         class="glyphicon glyphicon-plus">新增</span></span></li>
-                <li><span class="btn btn-default"><span
-                        class="glyphicon glyphicon-pencil" onclick="userUpdateFunction()">修改</span></span></li>
-                <li><span class="btn btn-danger" id="del"><span
-                        class="glyphicon glyphicon-remove" onclick="userDeleteFunction()">删除</span></span></li>
+                <li><span class="btn btn-default" id="userUpdateBtn"><span
+                        class="glyphicon glyphicon-pencil">修改</span></span></li>
+                <li><span class="btn btn-danger" id="userDelBtn"><span
+                        class="glyphicon glyphicon-remove">删除</span></span></li>
                 <li><span class="btn btn-info" id="excel"><span
-                        class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span></span> </li>
+                        class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span></span>
+                </li>
                 <li><span class="btn btn-default" id="clear" onclick="clearFunction()"><span
                         class="glyphicon glyphicon-trash">清空</span></span></li>
             </ul>
         </div>
         <div class="table table-responsive" style="padding-top:10px;">
-            <table class="table table-bordered table-hover" style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center" id="table">
+            <table class="table table-bordered table-hover"
+                   style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center" id="table">
                 <thead>
-                    <tr>
-                        <td>选择</td>
-                        <td>用户Id</td>
-                        <td>账号</td>
-                        <td>密码</td>
-                        <td>姓名</td>
-                        <td>性别</td>
-                        <td>籍贯</td>
-                        <td>出生日期</td>
-                        <td>电话</td>
-                        <td>住址</td>
-                    </tr>
+                <tr>
+                    <td>选择</td>
+                    <td>用户Id</td>
+                    <td>账号</td>
+                    <td>密码</td>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>籍贯</td>
+                    <td>出生日期</td>
+                    <td>电话</td>
+                    <td>住址</td>
+                </tr>
                 </thead>
                 <tbody id="tableBody" style="width: auto">
                 </tbody>
@@ -143,6 +145,93 @@
             </tr>
         </c:forEach>--%>
     </div>
+
+    <!--新增模态框-->
+    <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 35%">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title" id="myModalLabel">新增</h5>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="userAddModalForm">
+                        <%--<div class="form-group">
+                            <label class="col-sm-2 control-label">id</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" name="userId">
+                            </div>
+                        </div>--%>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">账号</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="username" placeholder="请输入账号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">密码</label>
+                            <div class="col-sm-7">
+                                <input type="password" class="form-control" name="password" placeholder="请输入密码">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">姓名</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="name" placeholder="请输入姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">性别</label>
+                            <div class="col-sm-3">
+                                <select id="modelSex" class="form-control" name="sex">
+                                    <option value="男" selected>男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">籍贯</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="nativePlace" placeholder="请输入籍贯">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">出生日期</label>
+                            <div class="col-sm-7">
+                                <input type="date" class="form-control" name="birthDate" placeholder="请输入姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">电话</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="phone" placeholder="请输入电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">住址</label>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" name="address" placeholder="请输入住址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态</label>
+                            <div class="col-sm-3">
+                                <select id="modelStatus" class="form-control" name="modelStatus">
+                                    <option value="0" selected>0</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary btn-sm" id="userAddModalSaveBtn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -151,50 +240,77 @@
 <script>
     /*页面加载，发起ajax请求得到数据*/
     $(function () {
-        $.post('${cp}/user/selectAll',{},function (data) {
-           $.each(data,function (i,v) {
-               var html="<tr><td>"+"<input type='checkbox' value='v.id'>"+"</td><td>"+v.id+"</td><td>"+v.username+ "</td><td>"+v.password+
-                   "</td><td>"+v.userInfo.name+"</td><td>"+v.userInfo.sex+
-                   "</td><td>"+v.userInfo.nativePlace+"</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.phone+
-                   "</td><td>"+v.userInfo.address+"</td></tr>";
-               $("#table").append(html);
-           })
-        },"json")
+
+        // 页面加载完成之后，直接发送ajax请求，要到数据
+        doQuery();
+
+        // 将按钮绑定事件
+        bindEvent();
     });
+
+    //页面加载获取全部数据
+    function doQuery() {
+        $.post('${cp}/user/selectAll', {}, function (data) {
+            $.each(data, function (i, v) {
+                var html = "<tr><td>" + "<input type='checkbox' value='v.id'>" + "</td><td>" + v.id + "</td><td>" + v.username + "</td><td>" + v.password +
+                    "</td><td>" + v.userInfo.name + "</td><td>" + v.userInfo.sex +
+                    "</td><td>" + v.userInfo.nativePlace + "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
+                    "</td><td>" + v.userInfo.address + "</td></tr>";
+                $("#table").append(html);
+            })
+        }, "json");
+    }
+
+    //将按钮绑定事件
+    function bindEvent() {
+        //将新增按钮绑定click事件
+        $("#userAddBtn").click(function () {
+            $("#userAddModal").modal({
+                // 点击背景模态框不关闭
+                backdrop: "static"
+            })
+        });
+
+        //将删除按钮绑定click事件
+        $("#userDelBtn").click(function () {
+            $("#userAddModal").modal({})
+        });
+
+        //将保存按钮绑定click事件
+        $("#userAddModalSaveBtn").click(function () {
+            //获取页面输入的数据
+            var formData = $("#userAddModalForm").serialize();
+            alert(formData);
+            $.post('${cp}/user/AddUser', formData, function (data) {
+                //保存成功关闭模态框
+                $("#userAddBtn").modal("hide");
+                alert(data);
+            }, "json")
+        });
+    }
 
     /*查询*/
     $("#queryUser").click(function () {
 
         //清空数据
-
         $("#tableBody").empty();
-        $.post('${cp}/user/queryUser',$("#userQueryForm").serialize(),function (data){
-            $.each(data,function (i,v) {
-                var html="<tr><td>"+"<input type='checkbox' value='v.id'>"+"</td><td>"+v.id+
-                    "</td><td>"+v.username+ "</td><td>"+v.password+ "</td><td>"+v.userInfo.name+
-                    "</td><td>"+v.userInfo.sex+ "</td><td>"+v.userInfo.nativePlace+
-                    "</td><td>"+v.userInfo.birthDate+"</td><td>"+v.userInfo.phone+
-                    "</td><td>"+v.userInfo.address+"</td></tr>";
+
+        $.post('${cp}/user/queryUser', $("#userQueryForm").serialize(), function (data) {
+            $.each(data, function (i, v) {
+                var html = "<tr><td>" + "<input type='checkbox' value='v.id'>" + "</td><td>" + v.id +
+                    "</td><td>" + v.username + "</td><td>" + v.password + "</td><td>" + v.userInfo.name +
+                    "</td><td>" + v.userInfo.sex + "</td><td>" + v.userInfo.nativePlace +
+                    "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
+                    "</td><td>" + v.userInfo.address + "</td></tr>";
                 $("#table").append(html);
             })
-        },"json")
+        }, "json")
     });
 
     /*清空*/
     function clearFunction() {
         $("input").val("");
         $("#sex option:first").prop("selected", 'selected');
-    }
-
-
-    /*修改*/
-    function userUpdateFunction() {
-        
-    }
-    
-    /*删除*/
-    function userDeleteFunction() {
-        
     }
 </script>
 
@@ -255,16 +371,13 @@
             alert("该菜单没有下一步动作");
         })
     });
-    
-    function addFunction() {
-        $("#table").append()
-    }
+
 
     function downloadExcelFunction() {
         window.open("${cp}/user/exportExcel");
     }
 
-    
+
 </script>
 
 </body>
