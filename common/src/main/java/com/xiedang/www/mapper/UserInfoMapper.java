@@ -1,6 +1,7 @@
 package com.xiedang.www.mapper;
 
 import com.xiedang.www.model.UserInfo;
+import com.xiedang.www.vo.UserVo;
 
 public interface UserInfoMapper {
     /**

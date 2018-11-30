@@ -48,7 +48,7 @@
             #{address,jdbcType=VARCHAR}, #{birthDate,jdbcType=DATE}, #{nativePlace,jdbcType=VARCHAR}, 
             #{uid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.xiedang.www.model.UserInfo">
+    <insert id="insertSelective" parameterType="com.xiedang.www.vo.UserVo">
         <!--
         @mbggenerated
         -->

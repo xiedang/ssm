@@ -28,6 +28,20 @@ public class User extends BaseObject{
     private String password;
 
     /**
+     *
+     * 表字段 : user.status
+     */
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
      * 获取  字段:user.id
      *
      * @return user.id, 

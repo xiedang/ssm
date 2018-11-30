@@ -24,9 +24,9 @@ public interface UserMapper {
     /**
      *  动态字段,写入数据库记录,user
      *
-     * @param record
+     * @param userVo
      */
-    int insertSelective(User record);
+    int insertSelective(UserVo userVo);
 
     /**
      *  根据指定主键获取一条数据库记录,user

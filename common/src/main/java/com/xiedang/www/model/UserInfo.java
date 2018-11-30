@@ -1,6 +1,7 @@
 package com.xiedang.www.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -45,6 +46,7 @@ public class UserInfo {
      * 
      * 表字段 : user_info.birth_date
      */
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone="GMT+8")
     private Date birthDate;
 

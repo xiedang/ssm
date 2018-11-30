@@ -1,8 +1,10 @@
 package com.xiedang.www.service.impl;
 
 import com.xiedang.www.bo.UserBo;
+import com.xiedang.www.mapper.UserInfoMapper;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
+import com.xiedang.www.model.UserInfo;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.ExportUtil;
 import com.xiedang.www.vo.UserVo;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
 
     @Override
     public User login(String username) {
@@ -51,6 +56,11 @@ public class UserServiceImpl implements UserService {
         String[] columns={"id","username","password"};
         ExportUtil.export(titles,columns,userBos,"系统用户表","系统用户表",response);
         return null;
+    }
+
+    @Override
+    public int addUser(UserVo userVo) {
+        return userMapper.insertSelective(userVo) + userInfoMapper.insertSelective(userVo);
     }
 
 

@@ -45,5 +45,15 @@ public interface UserService {
      */
     List<UserBo> exportExcel(HttpServletResponse response);
 
-
+    /**
+    *
+    * @Description: 新增用户 
+    * @Param:  
+    * @return:  
+    * @Author: Mr.Michelle
+    * @Date: 下午 9:18 2018/11/28 0028
+    *
+    */
+    int addUser(UserVo userVo);
+    
 }

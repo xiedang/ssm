@@ -280,11 +280,17 @@
         $("#userAddModalSaveBtn").click(function () {
             //获取页面输入的数据
             var formData = $("#userAddModalForm").serialize();
-            alert(formData);
-            $.post('${cp}/user/AddUser', formData, function (data) {
+            //alert(formData);
+            $.post('${cp}/user/addUser', formData, function (data) {
                 //保存成功关闭模态框
-                $("#userAddBtn").modal("hide");
-                alert(data);
+                $("#userAddModal").modal("hide");
+                alert("操作成功");
+
+                //清空数据
+                $("#tableBody").empty();
+
+                //刷新页面，显示新增的数据
+                doQuery();
             }, "json")
         });
     }

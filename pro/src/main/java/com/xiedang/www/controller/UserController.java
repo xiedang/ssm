@@ -155,4 +155,17 @@ public class UserController {
         }
         return userBos;
     }
+
+    @RequestMapping("/addUser")
+    @ResponseBody
+    public int addUser(HttpServletRequest request,UserVo userVo){
+        log.info("新增用户,参数{}", userVo);
+        int i = 0;
+        try {
+            i = userService.addUser(userVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
 }
