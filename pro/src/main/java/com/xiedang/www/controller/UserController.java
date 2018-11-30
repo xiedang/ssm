@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +104,7 @@ public class UserController {
         String password = request.getHeader("password");
         String cipher = request.getHeader("cipher");
         if(StringUtils.isBlank(password)||StringUtils.isBlank(cipher)){
-            result.setMessage("您没有权限访问该资源");
+            result.setMessage("缺少必选参数,请参考API文档");
             return result;
         }else {
             String pwd = ThreeDESUtil.decode3Des(cipher);
