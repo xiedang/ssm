@@ -6,6 +6,7 @@ import com.xiedang.www.vo.UserVo;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p></p>
@@ -55,5 +56,59 @@ public interface UserService {
     *
     */
     int addUser(UserVo userVo);
-    
+
+    /**
+    *
+    * @Description:  删除用户
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 8:39 2018/11/30 0030
+    *
+    */
+    int doDeleteUser(String key);
+
+    /**
+    *
+    * @Description:  批量删除用户
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 10:46 2018/11/30 0030
+    *
+    */
+    int doDeleteUsers(String[] ids);
+
+    /**
+    *
+    * @Description: 更新用户
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 12:52 2018/12/3 0003
+    *
+    */
+    int updateUserById(UserVo vo);
+
+    /**
+    *
+    * @Description: 根据id获取单个用户信息
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 1:16 2018/12/3 0003
+    *
+    */
+    UserBo getUserById(Integer id);
+
+    /**
+    *
+    * @Description: 分页查询
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 9:04 2018/12/11 0011
+    *
+    */
+    List<UserBo> queryUserByPage(Map map);
 }

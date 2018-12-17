@@ -16,22 +16,34 @@
         -->
         id, username, password,status
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseUserInfoResult">
         <!--
         @mbggenerated
         -->
-        select 
-        <include refid="Base_Column_List" />
-        from user
-        where id = #{id,jdbcType=INTEGER}
+        select
+        u.id, username, password,u.status,
+        ui.id ui_id, name, sex, phone, address, birth_date, native_place
+        from user u
+        INNER JOIN user_info ui
+        ON u.id=ui.uid
+        WHERE u.id = #{id,jdbcType=INTEGER}
+        ORDER BY u.id
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         <!--
         @mbggenerated
         -->
         delete from user
         where id = #{id,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
+        DELETE FROM user
+        WHERE id IN
+        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
     <insert id="insert" parameterType="com.xiedang.www.model.User">
         <!--
         @mbggenerated
@@ -75,7 +87,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.model.User">
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.vo.UserVo">
         <!--
         @mbggenerated
         -->
@@ -86,6 +98,9 @@
             </if>
             <if test="password != null">
                 password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -126,6 +141,18 @@
         ON u.id=ui.uid
         WHERE u.status=1 and ui.status=1
         ORDER BY u.id
+    </select>
+    <!--分页查询-->
+    <select id="queryUserByPage" parameterType="Map" resultMap="BaseUserInfoResult">
+        select
+        u.id, username, password,
+        ui.id ui_id, name, sex, phone, address, birth_date, native_place
+        from user u
+        INNER JOIN user_info ui
+        ON u.id=ui.uid
+        WHERE u.status=1 and ui.status=1
+        ORDER BY u.id
+        LIMIT #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
     </select>
 
     <select id="queryUser" parameterType="com.xiedang.www.vo.UserVo" resultMap="BaseUserInfoResult">

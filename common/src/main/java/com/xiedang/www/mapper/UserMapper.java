@@ -5,6 +5,7 @@ import com.xiedang.www.model.User;
 import com.xiedang.www.vo.UserVo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
     /**
@@ -12,7 +13,18 @@ public interface UserMapper {
      *
      * @param id
      */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
+
+    /**
+    *
+    * @Description:  根据主键批量删除数据库的记录,user
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 10:40 2018/11/30 0030
+    *
+    */
+    int deleteByPrimaryKeys(String[] ids);
 
     /**
      *  新写入数据库记录,user
@@ -33,14 +45,14 @@ public interface UserMapper {
      *
      * @param id
      */
-    User selectByPrimaryKey(Integer id);
+    UserBo selectByPrimaryKey(Integer id);
 
     /**
      *  动态字段,根据主键来更新符合条件的数据库记录,user
      *
-     * @param record
+     * @param vo
      */
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(UserVo vo);
 
     /**
      *  根据主键来更新符合条件的数据库记录,user
@@ -73,4 +85,15 @@ public interface UserMapper {
      * @return
      */
     List<User> selectAllLoginInfo();
+
+    /**
+    *
+    * @Description: 分页查询
+    * @Param:
+    * @return:
+    * @Author: Mr.Michelle
+    * @Date: 下午 9:02 2018/12/11 0011
+    *
+    */
+    List<UserBo> queryUserByPage(Map map);
 }
