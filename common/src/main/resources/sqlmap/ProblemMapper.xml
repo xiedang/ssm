@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiedang.www.mapper.ProblemMapper">
+    <resultMap id="BaseResultMap" type="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="p_no" jdbcType="VARCHAR" property="pNo" />
+        <result column="p_title" jdbcType="VARCHAR" property="pTitle" />
+        <result column="p_type" jdbcType="VARCHAR" property="pType" />
+        <result column="p_type_code" jdbcType="INTEGER" property="pTypeCode" />
+        <result column="p_person" jdbcType="VARCHAR" property="pPerson" />
+        <result column="p_add_time" jdbcType="DATE" property="pAddTime" />
+        <result column="p_describe" jdbcType="VARCHAR" property="pDescribe" />
+        <result column="p_responsible" jdbcType="VARCHAR" property="pResponsible" />
+        <result column="p_plan_time" jdbcType="DATE" property="pPlanTime" />
+        <result column="p_measure" jdbcType="VARCHAR" property="pMeasure" />
+        <result column="p_status" jdbcType="VARCHAR" property="pStatus" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+        @mbggenerated
+        -->
+        id, p_no, p_title, p_type, p_type_code, p_person, p_add_time, p_describe, p_responsible, 
+        p_plan_time, p_measure, p_status
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--
+        @mbggenerated
+        -->
+        select 
+        <include refid="Base_Column_List" />
+        from problem_lists
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--
+        @mbggenerated
+        -->
+        delete from problem_lists
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        insert into problem_lists (id, p_no, p_title, 
+            p_type, p_type_code, p_person, 
+            p_add_time, p_describe, p_responsible, 
+            p_plan_time, p_measure, p_status
+            )
+        values (#{id,jdbcType=INTEGER}, #{pNo,jdbcType=VARCHAR}, #{pTitle,jdbcType=VARCHAR}, 
+            #{pType,jdbcType=VARCHAR}, #{pTypeCode,jdbcType=INTEGER}, #{pPerson,jdbcType=VARCHAR}, 
+            #{pAddTime,jdbcType=DATE}, #{pDescribe,jdbcType=VARCHAR}, #{pResponsible,jdbcType=VARCHAR}, 
+            #{pPlanTime,jdbcType=DATE}, #{pMeasure,jdbcType=VARCHAR}, #{pStatus,jdbcType=VARCHAR}
+            )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        insert into problem_lists
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="pNo != null">
+                p_no,
+            </if>
+            <if test="pTitle != null">
+                p_title,
+            </if>
+            <if test="pType != null">
+                p_type,
+            </if>
+            <if test="pTypeCode != null">
+                p_type_code,
+            </if>
+            <if test="pPerson != null">
+                p_person,
+            </if>
+            <if test="pAddTime != null">
+                p_add_time,
+            </if>
+            <if test="pDescribe != null">
+                p_describe,
+            </if>
+            <if test="pResponsible != null">
+                p_responsible,
+            </if>
+            <if test="pPlanTime != null">
+                p_plan_time,
+            </if>
+            <if test="pMeasure != null">
+                p_measure,
+            </if>
+            <if test="pStatus != null">
+                p_status,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="pNo != null">
+                #{pNo,jdbcType=VARCHAR},
+            </if>
+            <if test="pTitle != null">
+                #{pTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null">
+                #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="pTypeCode != null">
+                #{pTypeCode,jdbcType=INTEGER},
+            </if>
+            <if test="pPerson != null">
+                #{pPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="pAddTime != null">
+                #{pAddTime,jdbcType=DATE},
+            </if>
+            <if test="pDescribe != null">
+                #{pDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="pResponsible != null">
+                #{pResponsible,jdbcType=VARCHAR},
+            </if>
+            <if test="pPlanTime != null">
+                #{pPlanTime,jdbcType=DATE},
+            </if>
+            <if test="pMeasure != null">
+                #{pMeasure,jdbcType=VARCHAR},
+            </if>
+            <if test="pStatus != null">
+                #{pStatus,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        update problem_lists
+        <set>
+            <if test="pNo != null">
+                p_no = #{pNo,jdbcType=VARCHAR},
+            </if>
+            <if test="pTitle != null">
+                p_title = #{pTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null">
+                p_type = #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="pTypeCode != null">
+                p_type_code = #{pTypeCode,jdbcType=INTEGER},
+            </if>
+            <if test="pPerson != null">
+                p_person = #{pPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="pAddTime != null">
+                p_add_time = #{pAddTime,jdbcType=DATE},
+            </if>
+            <if test="pDescribe != null">
+                p_describe = #{pDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="pResponsible != null">
+                p_responsible = #{pResponsible,jdbcType=VARCHAR},
+            </if>
+            <if test="pPlanTime != null">
+                p_plan_time = #{pPlanTime,jdbcType=DATE},
+            </if>
+            <if test="pMeasure != null">
+                p_measure = #{pMeasure,jdbcType=VARCHAR},
+            </if>
+            <if test="pStatus != null">
+                p_status = #{pStatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        update problem_lists
+        set p_no = #{pNo,jdbcType=VARCHAR},
+            p_title = #{pTitle,jdbcType=VARCHAR},
+            p_type = #{pType,jdbcType=VARCHAR},
+            p_type_code = #{pTypeCode,jdbcType=INTEGER},
+            p_person = #{pPerson,jdbcType=VARCHAR},
+            p_add_time = #{pAddTime,jdbcType=DATE},
+            p_describe = #{pDescribe,jdbcType=VARCHAR},
+            p_responsible = #{pResponsible,jdbcType=VARCHAR},
+            p_plan_time = #{pPlanTime,jdbcType=DATE},
+            p_measure = #{pMeasure,jdbcType=VARCHAR},
+            p_status = #{pStatus,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
