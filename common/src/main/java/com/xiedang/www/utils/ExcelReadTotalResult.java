@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
  * <P>读取excel的时候,整个excel的返回结果</P>
- * @author 陶焕(13294175866)
- * @date 2016年7月23日 下午1:34:37
  */
 public class ExcelReadTotalResult extends BaseObject {
 

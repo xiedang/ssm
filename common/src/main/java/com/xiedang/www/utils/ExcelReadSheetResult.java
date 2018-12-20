@@ -5,9 +5,6 @@ import java.util.List;
 
 /**
  * <P>读取excel的时候,每个sheet的返回结果</P>
- *
- * @author 陶焕(13294175866)
- * @date 2016年7月23日 下午1:20:55
  */
 public class ExcelReadSheetResult extends BaseObject {
 

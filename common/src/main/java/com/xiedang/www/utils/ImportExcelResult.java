@@ -4,9 +4,6 @@ import java.util.List;
 
 /**
  * <P>导入数据后返回的结果</P>
- *
- * @author 陶焕(13294175866)
- * @date 2016年5月18日 下午2:23:43
  */
 public class ImportExcelResult<T> extends CommonResult<T> {
 

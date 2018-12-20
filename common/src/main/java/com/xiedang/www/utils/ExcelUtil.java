@@ -7,17 +7,13 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * <P>Excel导入导出</P>
  *
- * @author 陶焕(13294175866)
- * @date 2016年3月15日 下午12:41:01
  */
 public class ExcelUtil {
 
@@ -30,7 +26,6 @@ public class ExcelUtil {
      * @param sheetIndex
      * @param headerRowCount 头的行数
      * @return
-     * @author 陶焕(13294175866)
      */
     public static ExcelReadSheetResult readExcelSheet(Workbook workbook, int sheetIndex, int headerRowCount) {
 
