@@ -22,10 +22,7 @@
         <!--去除@ControllerAdvice注解-->
         <context:exclude-filter expression="org.springframework.web.bind.annotation.ControllerAdvice" type="annotation"/>
     </context:component-scan>
-
-    <context:property-placeholder ignore-unresolvable="true"
-                                  location="classpath:jdbc.properties,classpath:logistics.properties"/>
-
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:logistics.properties"/>
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
           init-method="init" destroy-method="close">
