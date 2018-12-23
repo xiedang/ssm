@@ -18,6 +18,11 @@
     <logback.version>1.2.3</logback.version>
     <poi.version>3.17</poi.version>
     <dubbo.version>2.5.10</dubbo.version>
+    <netty.version>3.10.6.Final</netty.version>
+    <netty4.version>4.0.35.Final</netty4.version>
+    <zkclient.version>0.2</zkclient.version>
+    <curator.version>2.12.0</curator.version>
+    <zookeeper.version>3.4.9</zookeeper.version>
     <fastjson.version>1.2.49</fastjson.version>
     <spring.version>4.3.18.RELEASE</spring.version>
     <druid.version>1.1.10</druid.version>
@@ -27,6 +32,7 @@
     <commons-io.version>2.6</commons-io.version>
     <commons-lang3.version>3.8</commons-lang3.version>
     <commons-lang.version>2.6</commons-lang.version>
+    <commons-upload.version>1.2.2</commons-upload.version>
     <jackson.version>2.9.4</jackson.version>
     <redis.version>2.9.0</redis.version>
     <spring.redis.version>1.8.4.RELEASE</spring.redis.version>
@@ -37,6 +43,51 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.zookeeper</groupId>
+      <artifactId>zookeeper</artifactId>
+      <version>${zookeeper.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.netty</groupId>
+          <artifactId>netty</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+      <version>${netty4.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.101tec</groupId>
+      <artifactId>zkclient</artifactId>
+      <version>${zkclient.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-framework</artifactId>
+      <version>${curator.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.apache.activemq</groupId>
       <artifactId>activemq-pool</artifactId>
@@ -217,6 +268,11 @@
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-upload.version}</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
