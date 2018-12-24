@@ -7,6 +7,9 @@ import com.xiedang.www.vo.UserVo;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zyk
+ */
 public interface UserMapper {
     /**
      *  根据主键删除数据库的记录,user

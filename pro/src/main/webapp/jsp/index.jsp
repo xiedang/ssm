@@ -36,7 +36,7 @@
         -moz-background-size: cover;
     }
     .login-body{
-        width: 23%;
+        width: 20%;
         height: 40%;
         position: absolute;
         top: 30%;

@@ -110,6 +110,11 @@ public class UserServiceImpl implements UserService {
     public int batchInsert(List<User> users) {
         return userMapper.batchInsert(users);
     }
+    @Override
+    public void insertInfoBatch(List<UserBo> list) {
+
+    }
+
 
     @Override
     public int batchUpdate(List<User> users) {

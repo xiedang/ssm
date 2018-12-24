@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * <P>读取excel的时候,每个sheet的返回结果</P>
+ * @author zyk
  */
 public class ExcelReadSheetResult extends BaseObject {
 
@@ -31,7 +32,7 @@ public class ExcelReadSheetResult extends BaseObject {
     /**
      * 总列数
      */
-    private int totalComulnCount;
+    private int totalColumnCount;
 
     /**
      * 头的行数
@@ -115,11 +116,11 @@ public class ExcelReadSheetResult extends BaseObject {
     }
 
     public int getTotalComulnCount() {
-        return totalComulnCount;
+        return totalColumnCount;
     }
 
     public void setTotalComulnCount(int totalComulnCount) {
-        this.totalComulnCount = totalComulnCount;
+        this.totalColumnCount = totalComulnCount;
     }
 
     public List<String> getHandledHeader() {

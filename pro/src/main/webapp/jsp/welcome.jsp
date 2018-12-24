@@ -15,8 +15,9 @@
     <title>首页</title>
 
     <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap.min.css">
+    <%--<link type="text/css" rel="stylesheet" href="${cp}/css/layui.css">--%>
     <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap-theme.min.css">
-    <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap-table.min.css">
+    <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap-table.css">
     <link type="text/css" rel="stylesheet" href="${cp}/js/My97DatePicker/skin/WdatePicker.css">
 
     <style type="text/css">
@@ -78,6 +79,14 @@
             background-color: #eee;
             border-color: #428bca;
         }
+        #myWindow{
+            height: 80%;
+            overflow: hidden;
+            background-image: url(${cp}/img/login_bg.jpg) no-repeat;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+        }
     </style>
 </head>
 <body>
@@ -96,13 +105,27 @@
                     </a>
                 </li>
                 <li>
+                    <a href="#problem" class="nav-header" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-apple"></i>
+                        问题管理
+                        <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
+                    </a>
+                    <ul id="problem" class="nav nav-list secondmenu collapse" style="height:0">
+                        <li id="definition"><a href="#"><i class="glyphicon glyphicon-pencil"></i>"&nbsp;问题定义"</a></li>
+                        <li id="measure"><a href="#"><i class="glyphicon glyphicon-pushpin"></i>"&nbsp;措施拟定"</a></li>
+                        <li id="approve"><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>"&nbsp;措施审批"</a></li>
+                        <li id="close"><a href="#"><i class="glyphicon glyphicon-unchecked"></i>"&nbsp;问题关闭"</a></li>
+                        <li id="report"><a href="#"><i class="glyphicon glyphicon-th"></i>"&nbsp;图形报表"</a></li>
+                    </ul>
+                </li>
+                <li>
                     <a href="#systemSetting" class="nav-header" data-toggle="collapse">
                         <i class="glyphicon glyphicon-cog"></i>
                         系统管理
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="systemSetting" class="nav nav-list secondmenu collapse" style="height:0">
-                        <li><a href="#"><i class="glyphicon glyphicon-user"></i>"&nbsp;用户管理"</a></li>
+                        <li id="user-manage"><a href="#"><i class="glyphicon glyphicon-user"></i>"&nbsp;用户管理"</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>"&nbsp;菜单管理"</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>"&nbsp;角色管理"</a></li>
                         <li><a href="#"><i class="glyphicon glyphicon-edit"></i>"&nbsp;修改密码"</a></li>
@@ -131,9 +154,8 @@
             </ul>
         </div>
 
-        <%--查询条件输入框--%>
-        <div class="col-md-10">
-            <div id="condition_body" style="height: 100px;padding: 10px;">
+        <div class="col-md-10" id="myWindow">
+            <%--<div id="condition_body" style="height: 100px;padding: 10px;">
                 <form class="form-inline" role="form" id="userQueryForm" name="userQueryForm">
                     <div class="form-group">
                         <label for="name">姓名:</label>
@@ -169,29 +191,31 @@
                         </select>
                     </div>
                 </form>
-            </div>
+            </div>--%>
 
             <%--按钮--%>
-            <div class="container" style="width: auto;">
+            <%--<div class="container" style="width: auto;">
                 <div class="row">
-                    <div class="col-sm-1 btn btn-primary" id="queryUser" style="width: 6%;"><span
+                    <div class="col-sm-1 btn btn-primary" id="queryUser" style="width: 5%;"><span
                             class="glyphicon glyphicon-search">查询</span></div>
-                    <div class="col-sm-1 btn btn-success" id="userAddBtn" style="width: 6%;margin-left: 10px;"><span
+                    <div class="col-sm-1 btn btn-success" id="userAddBtn" style="width: 5%;margin-left: 10px;"><span
                             class="glyphicon glyphicon-plus">新增</span></div>
-                    <div class="col-sm-1 btn btn-default" id="userUpdateBtn" style="width: 6%;margin-left: 10px;"><span
+                    <div class="col-sm-1 btn btn-default" id="userUpdateBtn" style="width: 5%;margin-left: 10px;"><span
                             class="glyphicon glyphicon-pencil">修改</span></div>
-                    <div class="col-sm-1 btn btn-danger" id="userDelBtn" style="width: 6%;margin-left: 10px;"><span
+                    <div class="col-sm-1 btn btn-default" id="userImportBtn" style="width: 5%;margin-left: 10px;"><span
+                            class="glyphicon glyphicon-import">导入</span></div>
+                    <div class="col-sm-1 btn btn-danger" id="userDelBtn" style="width: 5%;margin-left: 10px;"><span
                             class="glyphicon glyphicon-remove">删除</span></div>
-                    <div class="col-sm-2 btn btn-info" id="excel" style="width: 10%;margin-left: 10px;"><span
+                    <div class="col-sm-2 btn btn-info" id="excel" style="width: 8%;margin-left: 10px;"><span
                             class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span>
                     </div>
-                    <div class="col-sm-1 btn btn-default" id="clear" style="width: 6%;margin-left: 10px;"><span
+                    <div class="col-sm-1 btn btn-default" id="clear" style="width: 5%;margin-left: 10px;"><span
                             class="glyphicon glyphicon-trash" onclick="clearFunction()">清空</span></div>
                 </div>
-            </div>
+            </div>--%>
 
             <%--表格--%>
-            <div class="row">
+            <%--<div class="row">
                 <div class="table table-responsive" style="padding-top:10px;">
                     <table class="table table-bordered table-hover" id="table" style="text-align: center;">
                         <thead>
@@ -212,7 +236,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>--%>
             <%--<c:forEach items="${users}" var="u">
                 <tr>
                     <td><input type="checkbox" value="${u.id}"></td>
@@ -228,12 +252,12 @@
                 </tr>
             </c:forEach>--%>
 
+
             <%--分页--%>
-            <footer>
+            <%--<footer style="position: absolute;bottom: 10px;left: 18%;">
                 <ul class="pagination pagination-sm">
                     <li>
                         <select id="pageSize" name="pageSize" onchange="getPageSize()">
-                            <option value=2>2</option>
                             <option value=10>10</option>
                             <option class="active" value=20>20</option>
                             <option value=50>50</option>
@@ -251,583 +275,673 @@
                     </li>
                 </ul>
             </footer>
-        </div>
+        </div>--%>
     </div>
 </div>
-    <%--<div class="div-body">
-        <div class="navigation">
-            <ul class="nav-ul">
-                <li class="nav-li"><a href="#">系统用户</a>
-                    <ul>
-                        <li><a href="#">二级菜单1</a></li>
-                        <li><a href="#">二级菜单2</a></li>
-                        <li><a href="#">二级菜单3</a></li>
-                        <li><a href="#">二级菜单4</a></li>
-                    </ul>
-                </li>
-            </ul>
+<%--<div class="layui-tab layui-tab-card site-demo-button" style="position: relative;">
+    <ul class="layui-nav layui-nav-tree layui-nav-side">
+        <li class="layui-nav-item layui-nav-itemed">
+            <a href="javascript:;">默认展开</a>
+            <dl class="layui-nav-child">
+                <dd>
+                    <a data-url="a" data-id="11" data-title="选项a" href="#" class="site-demo-active" data-type="tabAdd">选项a</a>
+                </dd>
+                <dd>
+                    <a href="#" data-url="b" data-title="选项b"  data-id="22" class="site-demo-active" data-type="tabAdd">选项b</a>
+                </dd>
+                <dd>
+                    <a href="">跳转</a>
+                </dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">解决方案</a>
+            <dl class="layui-nav-child">
+                <dd>
+                    <a href="">移动模块</a>
+                </dd>
+                <dd>
+                    <a href="">后台模版</a>
+                </dd>
+                <dd>
+                    <a href="">电商平台</a>
+                </dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="#" data-url="c" data-title="选项c"  data-id="33" class="site-demo-active" data-type="tabAdd">产品c</a>
+        </li>
+        <li class="layui-nav-item">
+            <a href="">大数据</a>
+        </li>
+    </ul>
+
+    <div class="layui-tab" lay-filter="demo" lay-allowclose="true" style="margin-left: 200px;">
+        <ul class="layui-tab-title">
+        </ul>
+        <ul class="rightmenu" style="display: none;position: absolute;">
+            <li data-type="closethis">关闭当前</li>
+            <li data-type="closeall">关闭所有</li>
+        </ul>
+        <div class="layui-tab-content">
         </div>
-        <div class="body_right" style="float: right;width: 90.3%;">
-            <div id="condition-body" style="height: 100px;padding: 10px;">
-                <form class="form-inline" role="form" id="userQueryForm" name="userQueryForm">
+    </div>
+
+</div>--%>
+
+<!--新增模态框-->
+<div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">新增</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userAddModalForm">
                     <div class="form-group">
-                        <label for="name">姓名:</label>
-                        <input type="text" class="form-control" id="name" name="name">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="modeUserId" name="id" style="display: none">
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="username">账号:</label>
-                        <input type="text" class="form-control" id="username" name="username">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
+                        <label class="col-sm-3 control-label">账号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUsername" name="username"
+                                   placeholder="请输入账号">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="inputDate">出生日期:</label>
-                        <input type="text" class="form-control" id="inputDate" name="birthDate"
-                               onClick="WdatePicker({position:{left:100,top:50}})">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="modePassword" name="password"
+                                   placeholder="请输入密码" required>
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="nativePlace">籍贯:</label>
-                        <input type="text" class="form-control" id="nativePlace" name="nativePlace">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeName" name="name" placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="phone">电话:</label>
-                        <input type="text" class="form-control" id="phone" name="phone">
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-3">
+                            <select id="modelSex" class="form-control" name="sex">
+                                <option value="男" selected>男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="sex" class="control-label">性别:</label>
-                        <select id="sex" class="form-control" name="sex">
-                            <option value="">ALL</option>
-                            <option value="男">男</option>
-                            <option value="女">女</option>
-                            &lt;%&ndash;<c:forEach items="${sexItems}" var="item">
-                                <option value="${item.id}" <c:if test="${item.id == sexCode}">selected</c:if></option
-                            </c:forEach>&ndash;%&gt;
-                        </select>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="col-sm-3 control-label">籍贯</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeNativePlace" name="nativePlace"
+                                   placeholder="请输入籍贯">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeBirthDate" name="birthDate"
+                                   onclick="WdatePicker()"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modePhone" name="phone" placeholder="请输入电话">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">住址</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeAddress" name="address"
+                                   placeholder="请输入住址">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">状态</label>
+                        <div class="col-sm-3">
+                            <select id="modelStatus" class="form-control" name="modelStatus">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-1 btn btn-primary" id="queryUser" style="width: 6%;"><span class="glyphicon glyphicon-search">查询</span></div>
-                    <div class="col-sm-1 btn btn-success" id="userAddBtn" style="width: 6%;margin-left: 10px;"><span class="glyphicon glyphicon-plus">新增</span></div>
-                    <div class="col-sm-1 btn btn-default" id="userUpdateBtn" style="width: 6%;margin-left: 10px;"><span class="glyphicon glyphicon-pencil">修改</span></div>
-                    <div class="col-sm-1 btn btn-danger" id="userDelBtn" style="width: 6%;margin-left: 10px;"><span class="glyphicon glyphicon-remove">删除</span></div>
-                    <div class="col-sm-2 btn btn-info" id="excel" style="width: 10%;margin-left: 10px;"><span class="glyphicon glyphicon-arrow-down" onclick="downloadExcelFunction()">下载excel</span></div>
-                    <div class="col-sm-1 btn btn-default" id="clear" style="width: 6%;margin-left: 10px;"><span class="glyphicon glyphicon-trash" onclick="clearFunction()">清空</span></div>
-                </div>
-            </div>
-            <div class="table table-responsive" style="padding-top:10px;">
-                <table class="table table-bordered table-hover"
-                       style="border-top: 1px dashed gray;border-left: 1px dashed gray;text-align: center;" id="table">
-                    <thead>
-                    <tr>
-                        <td><input type="checkbox" id="checkBoxAll"></td>
-                        <td style="display: none">用户Id</td>
-                        <td>账号</td>
-                        <td>密码</td>
-                        <td>姓名</td>
-                        <td>性别</td>
-                        <td>籍贯</td>
-                        <td>出生日期</td>
-                        <td>电话</td>
-                        <td>住址</td>
-                    </tr>
-                    </thead>
-                    <tbody id="tableBody" style="width: auto">
-                    </tbody>
-                </table>
-            </div>
-            &lt;%&ndash;<c:forEach items="${users}" var="u">
-                <tr>
-                    <td><input type="checkbox" value="${u.id}"></td>
-                    <td>${u.id}</td>
-                    <td>${u.name}</td>
-                    <td>${u.password}</td>
-                    <td>${u.userInfo.name}</td>
-                    <td>${u.userInfo.sex}</td>
-                    <td>${u.userInfo.nativePlace}</td>
-                    <td>${u.userInfo.birthDate}</td>
-                    <td>${u.userInfo.phone}</td>
-                    <td>${u.userInfo.address}</td>
-                </tr>
-            </c:forEach>&ndash;%&gt;
-
-            &lt;%&ndash;分页&ndash;%&gt;
-            <footer class="footers" style="position: absolute;bottom: 20px;padding-left: 10px;">
-                <ul class="pagination pagination-sm" style="">
-                    <li class="active"><a href="#">&laquo;首页</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">末页&raquo;</a></li>
-                </ul>
-            </footer>
-
-            <div id="pages" style="text-align: center;"><ul id="pageLimit"></ul></div>
-
-    </div>--%>
-
-    <!--新增模态框-->
-    <div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="width: 35%">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h5 class="modal-title" id="myModalLabel">新增</h5>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" id="userAddModalForm">
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label"></label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="modeUserId" name="id" style="display: none">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">账号</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUsername" name="username"
-                                       placeholder="请输入账号">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">密码</label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" id="modePassword" name="password"
-                                       placeholder="请输入密码" required>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeName" name="name" placeholder="请输入姓名">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">性别</label>
-                            <div class="col-sm-3">
-                                <select id="modelSex" class="form-control" name="sex">
-                                    <option value="男" selected>男</option>
-                                    <option value="女">女</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">籍贯</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeNativePlace" name="nativePlace"
-                                       placeholder="请输入籍贯">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">出生日期</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeBirthDate" name="birthDate"
-                                       onclick="WdatePicker()"
-                                       placeholder="请输入姓名">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">电话</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modePhone" name="phone" placeholder="请输入电话">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">住址</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeAddress" name="address"
-                                       placeholder="请输入住址">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">状态</label>
-                            <div class="col-sm-3">
-                                <select id="modelStatus" class="form-control" name="modelStatus">
-                                    <option value="0" selected>0</option>
-                                    <option value="1">1</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="userAddModalSaveBtn">保存</button>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="userAddModalSaveBtn">保存</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!--修改模态框-->
-    <div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document" style="width: 35%">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h5 class="modal-title" id="myUpdateModalLabel">修改</h5>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal" id="userUpdateModalForm">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label"></label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" id="modeUpdateUserId" name="id"
-                                       style="display: none">
-                            </div>
+<!--修改模态框-->
+<div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myUpdateModalLabel">修改</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userUpdateModalForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="modeUpdateUserId" name="id"
+                                   style="display: none">
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">账号</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdateUsername" name="username"
-                                       placeholder="请输入账号">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateUsername" name="username"
+                                   placeholder="请输入账号">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">密码</label>
-                            <div class="col-sm-7">
-                                <input type="password" class="form-control" id="modeUpdatePassword" name="password"
-                                       placeholder="请输入密码">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="modeUpdatePassword" name="password"
+                                   placeholder="请输入密码">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">姓名</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdateName" name="name"
-                                       placeholder="请输入姓名">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateName" name="name"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">性别</label>
-                            <div class="col-sm-3">
-                                <select id="modelUpdateSex" class="form-control" name="sex">
-                                    <option value="男" selected>男</option>
-                                    <option value="女">女</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-3">
+                            <select id="modelUpdateSex" class="form-control" name="sex">
+                                <option value="男" selected>男</option>
+                                <option value="女">女</option>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">籍贯</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdateNativePlace" name="nativePlace"
-                                       placeholder="请输入籍贯">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">籍贯</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateNativePlace" name="nativePlace"
+                                   placeholder="请输入籍贯">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">出生日期</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdateBirthDate" name="birthDate"
-                                       onclick="WdatePicker()"
-                                       placeholder="请输入姓名">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateBirthDate" name="birthDate"
+                                   onclick="WdatePicker()"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">电话</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdatePhone" name="phone"
-                                       placeholder="请输入电话">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdatePhone" name="phone"
+                                   placeholder="请输入电话">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">住址</label>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="modeUpdateAddress" name="address"
-                                       placeholder="请输入住址">
-                                <span class="help-block"></span>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">住址</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateAddress" name="address"
+                                   placeholder="请输入住址">
+                            <span class="help-block"></span>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">状态</label>
-                            <div class="col-sm-3">
-                                <select id="modelUpdateStatus" class="form-control" name="status">
-                                    <option value="0" selected>0</option>
-                                    <option value="1">1</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">状态</label>
+                        <div class="col-sm-3">
+                            <select id="modelUpdateStatus" class="form-control" name="status">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                            </select>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary btn-sm" id="userUpdateModalSaveBtn">保存</button>
-                </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="userUpdateModalSaveBtn">保存</button>
             </div>
         </div>
     </div>
+</div>
 
+<%--上传附件模态框--%>
+<div class="modal fade" id="upFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myUpFileModalLabel">excel导入</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="upFileModalForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件:</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="form-control" id="modeUpFile" name="modeUpFile">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default btn-sm" id="upFileModalSaveBtn">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="${cp}/js/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript" src="${cp}/js/bootstrap-table.min.js"></script>
-    <script type="text/javascript" src="${cp}/js/bootstrap-table-locale-all.min.js"></script>
+<script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
+<%--<script type="text/javascript" src="${cp}/js/layui.all.js"></script>--%>
+<script type="text/javascript" src="${cp}/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${cp}/js/bootstrap-table.js"></script>
 
-    <script>
-        $(function () {
+<script>
+    $(function () {
 
-            // 页面加载完成之后，直接发送ajax请求，要到数据
-            doQuery(2,1);
+        // 页面加载完成之后，直接发送ajax请求，要到数据
+        doQuery(10,1);
 
+    });
+
+    /*post请求获取分页数据*/
+    function doQuery(pageSize,currentPage) {
+        $.post("${cp}/user/queryUserByPage",{"pageSize":pageSize,"currentPage":currentPage},function (data) {
+            //清空数据
+            $("#tableBody").empty();
+            $.each(data, function (i, v) {
+                var html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
+                    "</td><td style='display: none'>" + v.id + "</td><td>" + v.username +
+                    "</td><td>" + v.password + "</td><td>" + v.userInfo.name +
+                    "</td><td>" + v.userInfo.sex + "</td><td>" + v.userInfo.nativePlace +
+                    "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
+                    "</td><td>" + v.userInfo.address + "</td></tr>";
+                $("#tableBody").append(html);
+            })
+        },"json");
+    }
+
+    //将新增按钮绑定click事件
+    $("#userAddBtn").click(function () {
+        $("#userAddModal").modal({
+            // 点击背景模态框不关闭
+            backdrop: "static"
+        })
+    });
+    //将上传文件按钮绑定click事件
+    $("#userImportBtn").click(function () {
+       $("#upFileModal").modal({
+           // 点击背景模态框不关闭
+           backdrop: "static"
+       })
+    });
+
+    //删除
+    $("#userDelBtn").click(function () {
+
+        //获取选中的数据行
+        let value = "";
+        $.each($(".check-item:checked"), function () {
+            value += ($(this).parents("tr").find("td:eq(1)").text() + ",");
         });
+        //删除多余的","
+        value = value.substring(0, value.length - 1);
+        //alert(value);
 
-        /*post请求获取分页数据*/
-        function doQuery(pageSize,currentPage) {
-            $.post("${cp}/user/queryUserByPage",{"pageSize":pageSize,"currentPage":currentPage},function (data) {
-                //清空数据
-                $("#tableBody").empty();
-                $.each(data, function (i, v) {
-                    var html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
-                        "</td><td style='display: none'>" + v.id + "</td><td>" + v.username +
-                        "</td><td>" + v.password + "</td><td>" + v.userInfo.name +
-                        "</td><td>" + v.userInfo.sex + "</td><td>" + v.userInfo.nativePlace +
-                        "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
-                        "</td><td>" + v.userInfo.address + "</td></tr>";
-                    $("#tableBody").append(html);
-                })
-            },"json");
+        //点击确定删除数据
+        if (0 === value.length) {
+            alert("请至少勾选一条数据");
+        } else if (confirm("确定删除数据吗？")) {
+            $.post('${cp}/user/doDeleteUser', {"str": value}, function (result) {
+
+                //删除成功，关闭模态框
+                $("#userDelModal").modal("hide");
+
+                alert("操作成功");
+
+                //重新请求全部数据，填充页面
+                doQuery();
+            }, "json")
         }
+    });
 
-        //将新增按钮绑定click事件
-        $("#userAddBtn").click(function () {
-            $("#userAddModal").modal({
+    /*新增*/
+    $("#userAddModalSaveBtn").click(function () {
+
+        //获取页面输入的数据
+        let formData = $("#userAddModalForm").serialize();
+        //alert(formData);
+
+        $.post('${cp}/user/addUser', formData, function (data) {
+
+            //保存成功关闭模态框
+            $("#userAddModal").modal("hide");
+
+            //重新请求全部数据，填充页面
+            doQuery();
+        }, "json")
+    });
+
+    /*查询*/
+    $("#queryUser").click(function () {
+        let pageSize = $("#pageSize").val();
+        let currentPage = $("#number").val();
+        //清空数据
+        $("#tableBody").html("");
+        //alert($("#userQueryForm").serialize());
+        $.post('${cp}/user/queryUser', $("#userQueryForm").serialize(), function (data) {
+            $.each(data, function (i, v) {
+                var html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
+                    "</td><td style='display: none'>" + v.id + "</td><td>" + v.username +
+                    "</td><td>" + v.password + "</td><td>" + v.userInfo.name +
+                    "</td><td>" + v.userInfo.sex + "</td><td>" + v.userInfo.nativePlace +
+                    "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
+                    "</td><td>" + v.userInfo.address + "</td></tr>";
+                $("#tableBody").append(html);
+            })
+        }, "json")
+    });
+
+    /*修改,弹出修改框*/
+    $("#userUpdateBtn").click(function () {
+        let id = "";
+        $.each($(".check-item:checked"), function () {
+            id = $(this).parents("tr").find("td:eq(1)").text();
+        });
+        //alert(id);
+        if (id === "") {
+            alert("请至少勾选一条数据！")
+        } else {
+            //弹出模态框
+            $("#userUpdateModal").modal({
                 // 点击背景模态框不关闭
                 backdrop: "static"
-            })
-        });
-
-        //删除
-        $("#userDelBtn").click(function () {
-
-            //获取选中的数据行
-            var value = "";
-            $.each($(".check-item:checked"), function () {
-                value += ($(this).parents("tr").find("td:eq(1)").text() + ",");
             });
-            //删除多余的","
-            value = value.substring(0, value.length - 1);
-            //alert(value);
+            $.post("${cp}/user/getUserById", {"id": id}, function (data) {
+                $("input[id = 'modeUpdateUserId']").val(data.id);
+                $("input[id = 'modeUpdateUsername']").val(data.username);
+                $("input[id = 'modeUpdatePassword']").val(data.password);
+                $("input[id = 'modeUpdateName']").val(data.userInfo.name);
+                $("select[id = 'modelUpdateSex']").val(data.userInfo.sex);
+                $("input[id = 'modeUpdateNativePlace']").val(data.userInfo.nativePlace);
+                $("input[id = 'modeUpdateBirthDate']").val(data.userInfo.birthDate);
+                $("input[id = 'modeUpdatePhone']").val(data.userInfo.phone);
+                $("input[id = 'modeUpdateAddress']").val(data.userInfo.address);
+                $("select[id = 'modelUpdateStatus']").val(data.status);
+            }, "json");
+        }
+    });
 
-            //点击确定删除数据
-            if (0 === value.length) {
-                alert("请至少勾选一条数据");
-            } else if (confirm("确定删除数据吗？")) {
-                $.post('${cp}/user/doDeleteUser', {"str": value}, function (result) {
+    /*修改之后再发起请求*/
+    $("#userUpdateModalSaveBtn").click(function () {
+        //alert($("#userUpdateModalForm").serialize());
+        $.post("${cp}/user/updateUser", $("#userUpdateModalForm").serialize(), function () {
+            //修改成功关闭模态框
+            $("#userUpdateModal").modal("hide");
 
-                    //删除成功，关闭模态框
-                    $("#userDelModal").modal("hide");
+            //重新请求全部数据，填充页面
+            doQuery();
+        }, "json")
+    });
 
-                    alert("操作成功");
+    /*清空*/
+    function clearFunction() {
+        $("input").val("");
+        $("select option:first").prop("selected", 'selected');
+    }
 
-                    //重新请求全部数据，填充页面
-                    doQuery();
-                }, "json")
-            }
+    /*全选*/
+    $(document).ready(function () {
+        $("#checkBoxAll").click(function () {
+            //$("#fcheck").prop("checked",false);
+            $("tbody input:checkbox").prop("checked", $(this).prop('checked'));
         });
-
-        /*新增*/
-        $("#userAddModalSaveBtn").click(function () {
-
-            //获取页面输入的数据
-            var formData = $("#userAddModalForm").serialize();
-            //alert(formData);
-
-            $.post('${cp}/user/addUser', formData, function (data) {
-
-                //保存成功关闭模态框
-                $("#userAddModal").modal("hide");
-
-                //重新请求全部数据，填充页面
-                doQuery();
-            }, "json")
-        });
-
-        /*查询*/
-        $("#queryUser").click(function () {
-
-            //清空数据
-            $("#tableBody").html("");
-
-            $.post('${cp}/user/queryUser', $("#userQueryForm").serialize(), function (data) {
-                $.each(data, function (i, v) {
-                    var html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
-                        "</td><td style='display: none'>" + v.id + "</td><td>" + v.username +
-                        "</td><td>" + v.password + "</td><td>" + v.userInfo.name +
-                        "</td><td>" + v.userInfo.sex + "</td><td>" + v.userInfo.nativePlace +
-                        "</td><td>" + v.userInfo.birthDate + "</td><td>" + v.userInfo.phone +
-                        "</td><td>" + v.userInfo.address + "</td></tr>";
-                    $("#tableBody").append(html);
-                })
-            }, "json")
-        });
-
-        /*修改,弹出修改框*/
-        $("#userUpdateBtn").click(function () {
-            var id = "";
-            $.each($(".check-item:checked"), function () {
-                id = $(this).parents("tr").find("td:eq(1)").text();
-            });
-            //alert(id);
-
-            if (id === "") {
-                alert("请至少勾选一条数据！")
+        $("input[name='check-item']:checked").click(function () {
+            if ($("input[name='check-item']:checkbox").length === $("input[name='check-item']:checked").length) {
+                $("#checkBoxAll").prop("checked", true);
+                //$("#checkBoxAll").get(0).checked = true;
             } else {
-                //弹出模态框
-                $("#userUpdateModal").modal({
-                    // 点击背景模态框不关闭
-                    backdrop: "static"
-                });
-                $.post("${cp}/user/getUserById", {"id": id}, function (data) {
-                    $("input[id = 'modeUpdateUserId']").val(data.id);
-                    $("input[id = 'modeUpdateUsername']").val(data.username);
-                    $("input[id = 'modeUpdatePassword']").val(data.password);
-                    $("input[id = 'modeUpdateName']").val(data.userInfo.name);
-                    $("select[id = 'modelUpdateSex']").val(data.userInfo.sex);
-                    $("input[id = 'modeUpdateNativePlace']").val(data.userInfo.nativePlace);
-                    $("input[id = 'modeUpdateBirthDate']").val(data.userInfo.birthDate);
-                    $("input[id = 'modeUpdatePhone']").val(data.userInfo.phone);
-                    $("input[id = 'modeUpdateAddress']").val(data.userInfo.address);
-                    $("select[id = 'modelUpdateStatus']").val(data.status);
-                }, "json");
+                $("#checkBoxAll").prop("checked", false);
             }
         });
-
-        /*修改之后再发起请求*/
-        $("#userUpdateModalSaveBtn").click(function () {
-            //alert($("#userUpdateModalForm").serialize());
-            $.post("${cp}/user/updateUser", $("#userUpdateModalForm").serialize(), function () {
-                //修改成功关闭模态框
-                $("#userUpdateModal").modal("hide");
-
-                //重新请求全部数据，填充页面
-                doQuery();
-            }, "json")
-        });
-
-        /*清空*/
-        function clearFunction() {
-            $("input").val("");
-            $("select option:first").prop("selected", 'selected');
-        }
-
-        /*全选*/
-        $(document).ready(function () {
-            $("#checkBoxAll").click(function () {
-                //$("#fcheck").prop("checked",false);
-                $("tbody input:checkbox").prop("checked", $(this).prop('checked'));
-            });
-            $("input[name='check-item']:checked").click(function () {
-                if ($("input[name='check-item']:checkbox").length === $("input[name='check-item']:checked").length) {
-                    $("#checkBoxAll").prop("checked", true);
-                    //$("#checkBoxAll").get(0).checked = true;
-                } else {
-                    $("#checkBoxAll").prop("checked", false);
-                }
-            });
-        });
+    });
 
 
-        /*分页点击事件*/
-        /*change事件*/
-        $("#pageSize").change(function () {
-            var pageSize = $("#pageSize").val();
-            var currentPage = $("#number").val();
+    /*分页点击事件*/
+    /*change事件*/
+    $("#pageSize").change(function () {
+        let pageSize = $("#pageSize").val();
+        let currentPage = $("#number").val();
+        doQuery(pageSize,currentPage);
+    });
+    /*上一页*/
+    $("#previousPage").click(function () {
+        let pageSize = $("#pageSize").val();
+        //获取当前页码
+        let page = $("#number").val();
+        if(page <=1){
+            $("input[id='number']").val(1);
+            doQuery(pageSize,1);
+        }else {
+            let currentPage = page*1 - 1;
+            $("input[id='number']").val(currentPage);
             doQuery(pageSize,currentPage);
-        });
-        /*上一页*/
-        $("#previousPage").click(function () {
-            var pageSize = $("#pageSize").val();
-            //获取当前页码
-            var page = $("#number").val();
-            if(page <=1){
-                $("input[id='number']").val(1);
-                doQuery(pageSize,1);
-            }else {
-                var currentPage = page*1 - 1;
-                $("input[id='number']").val(currentPage);
-                doQuery(pageSize,currentPage);
-            }
-        });
-        /*下一页*/
-        $("#nextPage").click(function () {
-            var pageSize = $("#pageSize").val();
-            //获取当前页码
-            var page = $("#number").val();
-            var last = $("input[name='check-item']:checkbox").length;
-            if(last < pageSize){
-                $("input[id='number']").val(page);
-                doQuery(pageSize,page);
-            }else {
-                var currentPage = page*1 + 1;
-                $("input[id='number']").val(currentPage);
-                doQuery(pageSize,currentPage);
-            }
-        });
-    </script>
+        }
+    });
+    /*下一页*/
+    $("#nextPage").click(function () {
+        let pageSize = $("#pageSize").val();
+        //获取当前页码
+        let page = $("#number").val();
+        let last = $("input[name='check-item']:checkbox").length;
+        if(last < pageSize){
+            $("input[id='number']").val(page);
+            doQuery(pageSize,page);
+        }else {
+            let currentPage = page*1 + 1;
+            $("input[id='number']").val(currentPage);
+            doQuery(pageSize,currentPage);
+        }
+    });
+</script>
 
-    <script>
-        /**
-         * 当前时间
-         * */
-        setInterval(getNowTime, 100); //每100毫秒調用一次函數
-        function getNowTime() {
-            var t = document.getElementById('time');
-            var time = new Date();
-            var sign1 = "-";
-            var sign2 = ":";
-            var year = time.getFullYear();
-            var month = time.getMonth() + 1;
-            var day = time.getDate();
-            var hour = time.getHours();
-            var minutes = time.getMinutes();
-            var seconds = time.getSeconds();
-            var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-            var week = weeks[time.getDay()];
-            // 给一位数数据前面加 “0”
-            if (month >= 1 && month <= 9) {
-                month = "0" + month;
+<script>
+    /**
+     * 当前时间
+     * */
+    setInterval(getNowTime, 100); //每100毫秒調用一次函數
+    function getNowTime() {
+        let t = document.getElementById('time');
+        let time = new Date();
+        let sign1 = "-";
+        let sign2 = ":";
+        let year = time.getFullYear();
+        let month = time.getMonth() + 1;
+        let day = time.getDate();
+        let hour = time.getHours();
+        let minutes = time.getMinutes();
+        let seconds = time.getSeconds();
+        let weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        let week = weeks[time.getDay()];
+        // 给一位数数据前面加 “0”
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (day >= 0 && day <= 9) {
+            day = "0" + day;
+        }
+        if (hour >= 0 && hour <= 9) {
+            hour = "0" + hour;
+        }
+        if (minutes >= 0 && minutes <= 9) {
+            minutes = "0" + minutes;
+        }
+        if (seconds >= 0 && seconds <= 9) {
+            seconds = "0" + seconds;
+        }
+        let currentTime = year + "年" + month + "月" + day + "号" + " " + hour + sign2 + minutes + sign2 + seconds + " " + week;
+        t.innerHTML = currentTime;
+    }
+
+
+    function downloadExcelFunction() {
+        window.open("${cp}/user/exportExcel");
+    }
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#definition").click(function () {
+            $("#myWindow").load("${cp}/jsp/problem.jsp");
+        });
+        $("#user-manage").click(function () {
+            $("#myWindow").load("${cp}/jsp/user.jsp");
+        });
+    })
+</script>
+
+<%--<script>
+    layui.use('element', function() {
+        var $ = layui.jquery;
+        var element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            //在这里给active绑定几项事件，后面可通过active调用这些事件
+            tabAdd: function(url,id,name) {
+                //新增一个Tab项 传入三个参数，分别对应其标题，tab页面的地址，还有一个规定的id，是标签中data-id的属性值
+                //关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
+                element.tabAdd('demo', {
+                    title: name,
+                    content: '<iframe data-frameid="'+id+'" scrolling="auto" frameborder="0" src="'+url+'.html" style="width:100%;height:99%;"></iframe>',
+                    id: id //规定好的id
+                });
+                CustomRightClick(id); //给tab绑定右击事件
+                FrameWH();  //计算ifram层的大小
+            },
+            tabChange: function(id) {
+                //切换到指定Tab项
+                element.tabChange('demo', id); //根据传入的id传入到指定的tab项
+            },
+            tabDelete: function (id) {
+                element.tabDelete("demo", id);//删除
             }
-            if (day >= 0 && day <= 9) {
-                day = "0" + day;
+            , tabDeleteAll: function (ids) {//删除所有
+                $.each(ids, function (i,item) {
+                    element.tabDelete("demo", item); //ids是一个数组，里面存放了多个id，调用tabDelete方法分别删除
+                })
             }
-            if (hour >= 0 && hour <= 9) {
-                hour = "0" + hour;
+        };
+
+
+        //当点击有site-demo-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
+        $('.site-demo-active').on('click', function() {
+            var dataid = $(this);
+
+            //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
+            if ($(".layui-tab-title li[lay-id]").length <= 0) {
+                //如果比零小，则直接打开新的tab项
+                active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"),dataid.attr("data-title"));
+            } else {
+                //否则判断该tab项是否以及存在
+
+                var isData = false; //初始化一个标志，为false说明未打开该tab项 为true则说明已有
+                $.each($(".layui-tab-title li[lay-id]"), function () {
+                    //如果点击左侧菜单栏所传入的id 在右侧tab项中的lay-id属性可以找到，则说明该tab项已经打开
+                    if ($(this).attr("lay-id") == dataid.attr("data-id")) {
+                        isData = true;
+                    }
+                })
+                if (isData == false) {
+                    //标志为false 新增一个tab项
+                    active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"),dataid.attr("data-title"));
+                }
             }
-            if (minutes >= 0 && minutes <= 9) {
-                minutes = "0" + minutes;
-            }
-            if (seconds >= 0 && seconds <= 9) {
-                seconds = "0" + seconds;
-            }
-            var currentTime = year + "年" + month + "月" + day + "号" + " " + hour + sign2 + minutes + sign2 + seconds + " " + week;
-            t.innerHTML = currentTime;
+            //最后不管是否新增tab，最后都转到要打开的选项页面上
+            active.tabChange(dataid.attr("data-id"));
+        });
+
+        function CustomRightClick(id) {
+            //取消右键  rightmenu属性开始是隐藏的 ，当右击的时候显示，左击的时候隐藏
+            $('.layui-tab-title li').on('contextmenu', function () { return false; })
+            $('.layui-tab-title,.layui-tab-title li').click(function () {
+                $('.rightmenu').hide();
+            });
+            //桌面点击右击
+            $('.layui-tab-title li').on('contextmenu', function (e) {
+                var popupmenu = $(".rightmenu");
+                popupmenu.find("li").attr("data-id",id); //在右键菜单中的标签绑定id属性
+
+                //判断右侧菜单的位置
+                l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()) : e.clientX;
+                t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()) : e.clientY;
+                popupmenu.css({ left: l, top: t }).show(); //进行绝对定位
+                //alert("右键菜单")
+                return false;
+            });
         }
 
+        $(".rightmenu li").click(function () {
 
-        function downloadExcelFunction() {
-            window.open("${cp}/user/exportExcel");
+            //右键菜单中的选项被点击之后，判断type的类型，决定关闭所有还是关闭当前。
+            if ($(this).attr("data-type") == "closethis") {
+                //如果关闭当前，即根据显示右键菜单时所绑定的id，执行tabDelete
+                active.tabDelete($(this).attr("data-id"))
+            } else if ($(this).attr("data-type") == "closeall") {
+                var tabtitle = $(".layui-tab-title li");
+                var ids = new Array();
+                $.each(tabtitle, function (i) {
+                    ids[i] = $(this).attr("lay-id");
+                });
+                //如果关闭所有 ，即将所有的lay-id放进数组，执行tabDeleteAll
+                active.tabDeleteAll(ids);
+            }
+
+            $('.rightmenu').hide(); //最后再隐藏右键菜单
+        });
+        function FrameWH() {
+            var h = $(window).height() -41- 10 - 60 -10-44 -10;
+            $("iframe").css("height",h+"px");
         }
 
-
-    </script>
+        $(window).resize(function () {
+            FrameWH();
+        })
+    });
+</script>--%>
 
 </body>
 </html>

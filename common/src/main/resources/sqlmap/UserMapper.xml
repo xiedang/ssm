@@ -14,46 +14,34 @@
         <!--
         @mbggenerated
         -->
-        id, username, password,status
+        id, username, password, status
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--
         @mbggenerated
         -->
         select
-        u.id, username, password,u.status,
-        ui.id ui_id, name, sex, phone, address, birth_date, native_place
-        from user u
-        INNER JOIN user_info ui
-        ON u.id=ui.uid
-        WHERE u.id = #{id,jdbcType=INTEGER}
-        ORDER BY u.id
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--
         @mbggenerated
         -->
         delete from user
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
-        DELETE FROM user
-        WHERE id IN
-        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
-    </delete>
-
     <insert id="insert" parameterType="com.xiedang.www.model.User">
         <!--
         @mbggenerated
         -->
-        insert into user (id, username, password,status
-            )
-        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{status,jdbcType=INTEGER}
-            )
+        insert into user (id, username, password,
+            status)
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+            #{status,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.xiedang.www.vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.User">
         <!--
         @mbggenerated
         -->
@@ -208,10 +196,44 @@
 
     <select id="selectAllLoginInfo" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from user
         WHERE status=1
     </select>
+
+    <insert id="insertInfoBatch" keyProperty="uid" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                    #{id,jdbcType=INTEGER},
+                </if>
+                <if test="username != null">
+                    #{username,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null">
+                    #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    #{status,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
 
     <select id="selectUserByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
