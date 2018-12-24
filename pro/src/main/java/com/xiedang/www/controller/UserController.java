@@ -39,9 +39,9 @@ public class UserController {
     /**
      * <p>用户登录</p>
      *
-     * @Param: request
-     * @Param: user
-     * @return:
+     * @param request
+     * @param user
+     * @return
      */
     @RequestMapping("/login")
     public Object login(HttpServletRequest request, User user) {
@@ -69,8 +69,8 @@ public class UserController {
     /**
      * <p>查询所有用户</p>
      *
-     * @Param: request
-     * @return:
+     * @param request
+     * @return
      */
     @RequestMapping("/selectAll")
     @ResponseBody
@@ -90,27 +90,27 @@ public class UserController {
      * <p>查询所有登录信息</p>
      *
      * @param request
-     * @return:
+     * @return
      */
     @RequestMapping(value = "/selectAllLoginInfo", method = RequestMethod.POST, /*headers = { "password=zyk1314654321", "cipher=Gp4d2x2u373Klu+IX34BrA=="},*/
             produces = {"application/json;charset=utf-8"}, consumes = {"application/json;charset=utf-8"})
     @ResponseBody
     public Object selectAllLoginInfo(HttpServletRequest request, @RequestBody User user) throws Exception {
-        CommonResult<User> result = new CommonResult<>(CommonResult.FAILURE_CODE);
+        CommonResult<User> result=new CommonResult<>(CommonResult.FAILURE_CODE);
         log.info("查询所有登录信息,参数{}", user);
         String password = request.getHeader("password");
         String cipher = request.getHeader("cipher");
-        if (StringUtils.isBlank(password) || StringUtils.isBlank(cipher)) {
+        if(StringUtils.isBlank(password)||StringUtils.isBlank(cipher)){
             result.setMessage("缺少必选参数,请参考API文档");
             return result;
-        } else {
+        }else {
             String pwd = ThreeDESUtil.decode3Des(cipher);
-            if (password.equals(pwd)) {
+            if(password.equals(pwd)){
                 result.setSuccess(CommonResult.SUCCESS_CODE);
                 result.setMessage("访问成功");
                 List<User> users = userService.selectAllLoginInfo();
                 result.setDatas(users);
-            } else {
+            }else {
                 result.setMessage("您的授权码不正确");
                 return result;
             }
@@ -122,7 +122,7 @@ public class UserController {
      * <p>导出用户excel</p>
      *
      * @param request
-     * @return:
+     * @return
      */
     @RequestMapping("/exportExcel")
     @ResponseBody
@@ -168,11 +168,37 @@ public class UserController {
      */
     @RequestMapping("/addUser")
     @ResponseBody
-    public int addUser(HttpServletRequest request, UserVo userVo) {
+    public int addUser(HttpServletRequest request,UserVo userVo){
         log.info("新增用户,参数{}", userVo);
         int i = 0;
         try {
             i = userService.addUser(userVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @RequestMapping("/batchInsertUser")
+    @ResponseBody
+    public int batchInsertUser(HttpServletRequest request,@RequestBody List<User> users){
+        log.info("批量新增用户,参数{}", users);
+        int i = 0;
+        try {
+            i = userService.batchInsert(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @RequestMapping("/batchUpdateUser")
+    @ResponseBody
+    public int batchUpdateUser(HttpServletRequest request,@RequestBody List<User> users){
+        log.info("批量新增用户,参数{}", users);
+        int i = 0;
+        try {
+            i = userService.batchUpdate(users);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -247,8 +273,7 @@ public class UserController {
     @ResponseBody
     public Object queryUserByPage(HttpServletRequest request,int pageSize,int currentPage){
         log.info("分页查询,参数{}", pageSize,currentPage);
-        //int size = Integer.parseInt(pageSize);
-        Map map = new HashMap();
+        Map<String,Object> map = new HashMap<>(16);
         int start = (currentPage-1)*pageSize;
         map.put("start",start);
         map.put("size",pageSize);

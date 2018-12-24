@@ -16,7 +16,7 @@
         -->
         id, username, password,status
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseUserInfoResult">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--
         @mbggenerated
         -->
@@ -109,10 +109,34 @@
         <!--
         @mbggenerated
         -->
-        update user
-        set username = #{username,jdbcType=VARCHAR},
-            password = #{password,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
+        UPDATE user
+        SET username = #{username,jdbcType=VARCHAR},
+        password = #{password,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER}
+        WHERE id = #{id,jdbcType=INTEGER}
+    </update>
+    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user(username,password) VALUES
+        <foreach collection="list" separator="," index="index" item="user">
+            (#{user.username},#{user.password})
+        </foreach>
+    </insert>
+    <update id="batchUpdate" parameterType="java.util.List">
+        UPDATE user SET
+        username=
+        CASE id
+        <foreach collection="list" index="index" item="user" close="end,">
+             WHEN #{user.id} then  #{user.username}
+        </foreach>
+        password=
+        CASE id
+        <foreach collection="list" index="index" item="user" close="end">
+            WHEN #{user.id} then  #{user.password}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" open="(" close=")" item="user" separator=",">
+            #{user.id}
+        </foreach>
     </update>
     <select id="selectByUsername" parameterType="com.xiedang.www.model.User" resultMap="BaseResultMap">
         select
@@ -187,5 +211,12 @@
         <include refid="Base_Column_List"/>
         from user
         WHERE status=1
+    </select>
+
+    <select id="selectUserByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        id, username, password
+        from user
+        LIMIT #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
     </select>
 </mapper>

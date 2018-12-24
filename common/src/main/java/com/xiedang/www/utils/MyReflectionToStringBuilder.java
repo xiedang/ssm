@@ -30,28 +30,30 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     private Class upToClass = null;
 
     public static String toString(Object object) {
-        return toString(object, (ToStringStyle)null, false, false, (Class)null);
+        return toString(object, (ToStringStyle) null, false, false, (Class) null);
     }
 
     public static String toString(Object object, ToStringStyle style) {
-        return toString(object, style, false, false, (Class)null);
+        return toString(object, style, false, false, (Class) null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients) {
-        return toString(object, style, outputTransients, false, (Class)null);
+        return toString(object, style, outputTransients, false, (Class) null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics) {
-        return toString(object, style, outputTransients, outputStatics, (Class)null);
+        return toString(object, style, outputTransients, outputStatics, (Class) null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics, Class reflectUpToClass) {
-        return (new MyReflectionToStringBuilder(object, style, (StringBuffer)null, reflectUpToClass, outputTransients, outputStatics)).toString();
+        return (new MyReflectionToStringBuilder(object, style, (StringBuffer) null, reflectUpToClass, outputTransients, outputStatics)).toString();
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
-        return (new MyReflectionToStringBuilder(object, style, (StringBuffer)null, reflectUpToClass, outputTransients)).toString();
+        return (new MyReflectionToStringBuilder(object, style, (StringBuffer) null, reflectUpToClass, outputTransients)).toString();
     }
 
     public static String toStringExclude(Object object, String excludeFieldName) {
@@ -69,14 +71,14 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     static String[] toNoNullStringArray(Object[] array) {
         ArrayList list = new ArrayList(array.length);
 
-        for(int i = 0; i < array.length; ++i) {
+        for (int i = 0; i < array.length; ++i) {
             Object e = array[i];
             if (e != null) {
                 list.add(e.toString());
             }
         }
 
-        return (String[])list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
+        return (String[]) list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
     }
 
     public static String toStringExclude(Object object, String[] excludeFieldNames) {
@@ -95,7 +97,9 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         super(object, style, buffer);
     }
 
-    /** @deprecated */
+    /**
+     * @deprecated
+     */
     public MyReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer, Class reflectUpToClass, boolean outputTransients) {
         super(object, style, buffer);
         this.setUpToClass(reflectUpToClass);
@@ -165,7 +169,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     }
 
     public ToStringBuilder reflectionAppendArray(Object array) {
-        this.reflectionAppendArrayDetail(this.getStringBuffer(), (String)null, array);
+        this.reflectionAppendArrayDetail(this.getStringBuffer(), (String) null, array);
         return this;
     }
 
@@ -173,7 +177,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         buffer.append(this.arrayStart);
         int length = Array.getLength(array);
 
-        for(int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; ++i) {
             Object item = Array.get(array, i);
             if (i > 0) {
                 buffer.append(this.arraySeparator);
@@ -200,19 +204,19 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                     if (detail) {
                         this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummarySize(buffer, fieldName, ((Collection)value).size());
+                        this.appendSummarySize(buffer, fieldName, ((Collection) value).size());
                     }
                 } else if (value instanceof Map) {
                     if (detail) {
                         this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummarySize(buffer, fieldName, ((Map)value).size());
+                        this.appendSummarySize(buffer, fieldName, ((Map) value).size());
                     }
                 } else if (value instanceof long[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (long[])value);
+                        this.appendDetail(buffer, fieldName, (long[]) value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (long[])value);
+                        this.appendSummary(buffer, fieldName, (long[]) value);
                     }
                 } else if (value instanceof int[]) {
                     if (detail) {
@@ -224,43 +228,43 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                     if (detail) {
                         this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (short[])value);
+                        this.appendSummary(buffer, fieldName, (short[]) value);
                     }
                 } else if (value instanceof byte[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (byte[])value);
+                        this.appendDetail(buffer, fieldName, (byte[]) value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (byte[])value);
+                        this.appendSummary(buffer, fieldName, (byte[]) value);
                     }
                 } else if (value instanceof char[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (char[])((char[])value));
+                        this.appendDetail(buffer, fieldName, (char[]) ((char[]) value));
                     } else {
-                        this.appendSummary(buffer, fieldName, (char[])((char[])value));
+                        this.appendSummary(buffer, fieldName, (char[]) ((char[]) value));
                     }
                 } else if (value instanceof double[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (double[])((double[])value));
+                        this.appendDetail(buffer, fieldName, (double[]) ((double[]) value));
                     } else {
-                        this.appendSummary(buffer, fieldName, (double[])((double[])value));
+                        this.appendSummary(buffer, fieldName, (double[]) ((double[]) value));
                     }
                 } else if (value instanceof float[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (float[])((float[])value));
+                        this.appendDetail(buffer, fieldName, (float[]) ((float[]) value));
                     } else {
-                        this.appendSummary(buffer, fieldName, (float[])((float[])value));
+                        this.appendSummary(buffer, fieldName, (float[]) ((float[]) value));
                     }
                 } else if (value instanceof boolean[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (boolean[])((boolean[])value));
+                        this.appendDetail(buffer, fieldName, (boolean[]) ((boolean[]) value));
                     } else {
-                        this.appendSummary(buffer, fieldName, (boolean[])((boolean[])value));
+                        this.appendSummary(buffer, fieldName, (boolean[]) ((boolean[]) value));
                     }
                 } else if (value.getClass().isArray()) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (Object[])((Object[])value));
+                        this.appendDetail(buffer, fieldName, (Object[]) ((Object[]) value));
                     } else {
-                        this.appendSummary(buffer, fieldName, (Object[])((Object[])value));
+                        this.appendSummary(buffer, fieldName, (Object[]) ((Object[]) value));
                     }
                 } else if (detail) {
                     this.appendDetail(buffer, fieldName, value);
@@ -287,7 +291,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                 REGISTRY.set(m);
             }
 
-            ((Map)m).put(value, (Object)null);
+            ((Map) m).put(value, (Object) null);
         }
 
     }
@@ -298,7 +302,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
             if (m != null) {
                 m.remove(value);
                 if (m.isEmpty()) {
-                    REGISTRY.set((Object)null);
+                    REGISTRY.set((Object) null);
                 }
             }
         }
@@ -306,7 +310,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     }
 
     static Map getRegistry() {
-        return (Map)REGISTRY.get();
+        return (Map) REGISTRY.get();
     }
 
     protected void appendCyclicObject(StringBuffer buffer, String fieldName, Object value) {
@@ -345,7 +349,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         if (excludeFieldNamesParam == null) {
             this.excludeFieldNames = null;
         } else {
-            this.excludeFieldNames = toNoNullStringArray((Object[])excludeFieldNamesParam);
+            this.excludeFieldNames = toNoNullStringArray(excludeFieldNamesParam);
             Arrays.sort(this.excludeFieldNames);
         }
 
@@ -371,7 +375,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
             Class clazz = this.getObject().getClass();
             this.appendFieldsIn(clazz);
 
-            while(clazz.getSuperclass() != null && clazz != this.getUpToClass()) {
+            while (clazz.getSuperclass() != null && clazz != this.getUpToClass()) {
                 clazz = clazz.getSuperclass();
                 this.appendFieldsIn(clazz);
             }

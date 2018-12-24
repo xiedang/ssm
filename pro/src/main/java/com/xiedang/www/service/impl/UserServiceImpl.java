@@ -20,7 +20,7 @@ import java.util.Map;
  * @author : 谢当
  * @date : 2018/11/2 13:48
  */
-@Service
+@Service("logistics.UserServiceImpl")
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -106,5 +106,13 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryUserByPage(map);
     }
 
+    @Override
+    public int batchInsert(List<User> users) {
+        return userMapper.batchInsert(users);
+    }
 
+    @Override
+    public int batchUpdate(List<User> users) {
+        return userMapper.batchUpdate(users);
+    }
 }

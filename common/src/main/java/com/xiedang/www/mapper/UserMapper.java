@@ -62,6 +62,20 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     /**
+     * 批量插入用户
+     * @param users
+     * @return
+     */
+    int batchInsert(List<User> users);
+
+    /**
+     * 批量更新用户
+     * @param users
+     * @return
+     */
+    int batchUpdate(List<User> users);
+
+    /**
      *  根据用户名查询用户
      *
      * @param username
@@ -96,4 +110,11 @@ public interface UserMapper {
     *
     */
     List<UserBo> queryUserByPage(Map map);
+
+    /**
+     *
+     * @param map
+     * @return
+     */
+    List<User> selectUserByPage(Map<String,Object> map);
 }

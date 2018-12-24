@@ -58,6 +58,7 @@
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
 
     <import resource="classpath:mybatis/spring-mybatis.xml"/>
+    <!--<import resource="classpath:dubbo/dubbo-config.xml" />-->
     <!--<import resource="classpath:spring-redis.xml"/>
     <import resource="classpath:spring-jms.xml"/>-->
 </beans>

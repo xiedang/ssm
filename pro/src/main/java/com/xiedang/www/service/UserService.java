@@ -58,6 +58,20 @@ public interface UserService {
     int addUser(UserVo userVo);
 
     /**
+     * 批量增加用户
+     * @param users
+     * @return
+     */
+    int batchInsert(List<User> users);
+
+    /**
+     * 批量更新用户
+     * @param users
+     * @return
+     */
+    int batchUpdate(List<User> users);
+
+    /**
     *
     * @Description:  删除用户
     * @Param:
