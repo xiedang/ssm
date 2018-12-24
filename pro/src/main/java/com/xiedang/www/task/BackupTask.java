@@ -59,7 +59,7 @@ public class BackupTask {
             }
             cachedThreadPool.execute(start::countDown);
             end.await();
-            System.out.println("备份完成");
+            log.info("备份完成");
             cachedThreadPool.shutdown();
         } catch (InterruptedException e) {
             e.printStackTrace();
