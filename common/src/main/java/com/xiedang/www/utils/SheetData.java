@@ -15,12 +15,12 @@ public class SheetData<T> {
     /**
      * 替换占位符map
      */
-    private Map<String,Object> map=new HashMap<>(16);
+    private Map<String, Object> map = new HashMap<>(16);
 
     /**
      * excel主体部分
      */
-    private List<List<T>> lists=new ArrayList<>();
+    private List<List<T>> lists = new ArrayList<>();
 
     public Object get(String key) {
         return map.get(key);
@@ -29,7 +29,7 @@ public class SheetData<T> {
     /**
      * sheet name
      */
-    private String name ;
+    private String name;
 
     public void setName(String name) {
         this.name = name;
@@ -39,12 +39,11 @@ public class SheetData<T> {
         return name;
     }
 
-
     public SheetData(String name) {
         this.name = name;
     }
 
-    public void put(String key , Object value) {
+    public void put(String key, Object value) {
         map.put(key, value);
     }
 
