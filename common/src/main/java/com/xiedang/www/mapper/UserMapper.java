@@ -11,12 +11,6 @@ import java.util.Map;
  * @author zyk
  */
 public interface UserMapper {
-    /**
-     *  根据主键删除数据库的记录,user
-     *
-     * @param id
-     */
-    int deleteByPrimaryKey(String id);
 
     /**
     *
@@ -119,5 +113,5 @@ public interface UserMapper {
      * @param map
      * @return
      */
-    List<User> selectUserByPage(Map<String,Object> map);
+    List<User> selectUserByPage(Map<String, Object> map);
 }

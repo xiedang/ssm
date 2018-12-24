@@ -16,8 +16,10 @@
 
     <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap-theme.min.css">
-    <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap-table.css">
     <link type="text/css" rel="stylesheet" href="${cp}/js/My97DatePicker/skin/WdatePicker.css">
+    <script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="${cp}/js/My97DatePicker/WdatePicker.js"></script>
 
 </head>
 <body>
@@ -119,7 +121,7 @@
                 <i class="glyphicon glyphicon-chevron-left"></i>
             </li>
             <li>
-                <input type="text" id="number" value="1" style="width: 50px;">
+                <input type="number" id="number" value="1" disabled style="width: 50px;">
             </li>
             <li id="nextPage" class="btn btn-sm">
                 <i class="glyphicon glyphicon-chevron-right"></i>
@@ -128,10 +130,221 @@
     </footer>
 </div>
 
-<script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${cp}/js/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="${cp}/js/bootstrap-table.js"></script>
+<!--新增模态框-->
+<div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myModalLabel">新增</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userAddModalForm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="modeUserId" name="id" style="display: none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUsername" name="username"
+                                   placeholder="请输入账号">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="modePassword" name="password"
+                                   placeholder="请输入密码" required>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeName" name="name" placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-3">
+                            <select id="modelSex" class="form-control" name="sex">
+                                <option value="男" selected>男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">籍贯</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeNativePlace" name="nativePlace"
+                                   placeholder="请输入籍贯">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeBirthDate" name="birthDate"
+                                   onclick="WdatePicker()"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modePhone" name="phone" placeholder="请输入电话">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">住址</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeAddress" name="address"
+                                   placeholder="请输入住址">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="userAddModalSaveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改模态框-->
+<div class="modal fade" id="userUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myUpdateModalLabel">修改</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userUpdateModalForm">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label"></label>
+                        <div class="col-sm-3">
+                            <input type="text" class="form-control" id="modeUpdateUserId" name="id"
+                                   style="display: none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">账号</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateUsername" name="username"
+                                   placeholder="请输入账号">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="password" class="form-control" id="modeUpdatePassword" name="password"
+                                   placeholder="请输入密码">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">姓名</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateName" name="name"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">性别</label>
+                        <div class="col-sm-3">
+                            <select id="modelUpdateSex" class="form-control" name="sex">
+                                <option value="男" selected>男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">籍贯</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateNativePlace" name="nativePlace"
+                                   placeholder="请输入籍贯">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">出生日期</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateBirthDate" name="birthDate"
+                                   onclick="WdatePicker()"
+                                   placeholder="请输入姓名">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdatePhone" name="phone"
+                                   placeholder="请输入电话">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">住址</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeUpdateAddress" name="address"
+                                   placeholder="请输入住址">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="userUpdateModalSaveBtn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--上传附件模态框--%>
+<div class="modal fade" id="upFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myUpFileModalLabel">excel导入</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="upFileModalForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件:</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="form-control" id="modeUpFile" name="modeUpFile">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default btn-sm" id="upFileModalSaveBtn">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script>
     $(function () {
@@ -197,7 +410,7 @@
                 alert("操作成功");
 
                 //重新请求全部数据，填充页面
-                doQuery();
+                doQuery(10,1);
             }, "json")
         }
     });
@@ -215,7 +428,7 @@
             $("#userAddModal").modal("hide");
 
             //重新请求全部数据，填充页面
-            doQuery();
+            doQuery(10,1);
         }, "json")
     });
 
@@ -264,7 +477,6 @@
                 $("input[id = 'modeUpdateBirthDate']").val(data.userInfo.birthDate);
                 $("input[id = 'modeUpdatePhone']").val(data.userInfo.phone);
                 $("input[id = 'modeUpdateAddress']").val(data.userInfo.address);
-                $("select[id = 'modelUpdateStatus']").val(data.status);
             }, "json");
         }
     });
@@ -277,13 +489,18 @@
             $("#userUpdateModal").modal("hide");
 
             //重新请求全部数据，填充页面
-            doQuery();
+            doQuery(10,1);
         }, "json")
     });
+
+    function downloadExcelFunction() {
+        window.open("${cp}/user/exportExcel");
+    }
 
     /*清空*/
     function clearFunction() {
         $("input").val("");
+        $("input[type='number']").val("1");
         $("select option:first").prop("selected", 'selected');
     }
 

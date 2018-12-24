@@ -69,13 +69,6 @@ public interface UserService {
 
     /**
      *
-     * @param key
-     * @return
-     */
-    int doDeleteUser(String key);
-
-    /**
-     *
      * @param ids
      * @return
      */
@@ -102,9 +95,4 @@ public interface UserService {
      */
     List<UserBo> queryUserByPage(Map map);
 
-    /**
-     *
-     * @param list
-     */
-    void insertInfoBatch(List<UserBo> list);
 }

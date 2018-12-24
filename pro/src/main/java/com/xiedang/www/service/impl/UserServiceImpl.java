@@ -64,14 +64,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int doDeleteUser(String key) {
-        int i = 0;
-        try {
-            i = userMapper.deleteByPrimaryKey(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return i;
+    public int batchInsert(List<User> users) {
+        return userMapper.batchInsert(users);
     }
 
     @Override
@@ -104,15 +98,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserBo> queryUserByPage(Map map) {
         return userMapper.queryUserByPage(map);
-    }
-
-    @Override
-    public int batchInsert(List<User> users) {
-        return userMapper.batchInsert(users);
-    }
-    @Override
-    public void insertInfoBatch(List<UserBo> list) {
-
     }
 
 

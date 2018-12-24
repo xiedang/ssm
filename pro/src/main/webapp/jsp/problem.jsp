@@ -338,7 +338,34 @@
     </div>
 </div>
 
-
+<%--上传附件模态框--%>
+<div class="modal fade" id="upFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="myUpFileModalLabel">excel导入</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="upFileModalForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择文件:</label>
+                        <div class="col-sm-8">
+                            <input type="file" class="form-control" id="modeUpFile" name="modeUpFile">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-default btn-sm" id="upFileModalSaveBtn">上传</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(function () {
 
@@ -480,8 +507,8 @@
         }
     });
 
-    //将上传文件按钮绑定click事件
-    $("#userImportBtn").click(function () {
+    //将上传附件按钮绑定click事件
+    $("#upFiletBtn").click(function () {
         $("#upFileModal").modal({
             // 点击背景模态框不关闭
             backdrop: "static"
