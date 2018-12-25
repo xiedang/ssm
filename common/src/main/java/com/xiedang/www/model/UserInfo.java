@@ -1,11 +1,14 @@
 package com.xiedang.www.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
  * 用户信息表
  * UserInfo
  * 数据库表：user_info
+ * @author zyk
  */
 public class UserInfo {
 
@@ -43,6 +46,7 @@ public class UserInfo {
      * 
      * 表字段 : user_info.birth_date
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     private Date birthDate;
 
     /**

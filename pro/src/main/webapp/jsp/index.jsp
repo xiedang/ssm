@@ -14,6 +14,8 @@
     <title>登录</title>
 
 <link type="text/css" rel="stylesheet" href="${cp}/css/bootstrap.min.css">
+<script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
 
 <style type="text/css">
     body{
@@ -36,7 +38,7 @@
         -moz-background-size: cover;
     }
     .login-body{
-        width: 23%;
+        width: 20%;
         height: 40%;
         position: absolute;
         top: 30%;
@@ -80,7 +82,6 @@
                         <input type="password" name="password" class="form-control" id="user_password" placeholder="密码">
                     </div>
                     <p style="color: red">${requestScope.msg2}</p>
-
                     <button type="submit" class="btn btn-primary" id="btnSubmit">登录</button>
                 </form>
             </div>
@@ -88,21 +89,16 @@
     </div>
 </div>
 
-
-<script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
-
 <script>
     $(document).ready(function () {
         $("input").click(function () {
             $(this).css("background","lightcyan")
-        })
+        });
         $("input").blur(function () {
             $(this).css("background","white")
         })
 
     })
 </script>
-
 </body>
 </html>

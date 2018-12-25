@@ -1,13 +1,12 @@
 package com.xiedang.www.model;
 
-import com.xiedang.www.utils.BaseObject;
-
 /**
  * 
  * User
  * 数据库表：user
+ * @author zyk
  */
-public class User extends BaseObject{
+public class User {
 
     /**
      * 
@@ -28,18 +27,10 @@ public class User extends BaseObject{
     private String password;
 
     /**
-     *
+     * 状态
      * 表字段 : user.status
      */
-    private String status;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    private Integer status;
 
     /**
      * 获取  字段:user.id
@@ -93,5 +84,23 @@ public class User extends BaseObject{
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    /**
+     * 获取 状态 字段:user.status
+     *
+     * @return user.status, 状态
+     */
+    public Integer getStatus() {
+        return status;
+    }
+
+    /**
+     * 设置 状态 字段:user.status
+     *
+     * @param status the value for user.status, 状态
+     */
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

@@ -1,299 +1,337 @@
 package com.xiedang.www.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
  * 
  * Problem
- * 数据库表：problem_lists
+ * 数据库表：problem
  */
 public class Problem {
 
     /**
-     * 
-     * 表字段 : problem_lists.id
+     * 问题的id
+     * 表字段 : problem.id
      */
     private Integer id;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_no
+     * 问题编号
+     * 表字段 : problem.p_no
      */
     private String pNo;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_title
+     * 问题标题
+     * 表字段 : problem.p_title
      */
     private String pTitle;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_type
+     * 问题类型
+     * 表字段 : problem.p_type
      */
     private String pType;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_type_code
+     * 问题类型代码
+     * 表字段 : problem.p_type_code
      */
     private Integer pTypeCode;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_person
+     * 问题发现时间
+     * 表字段 : problem.p_find_time
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
+    private Date pFindTime;
+
+    /**
+     * 问题提出人
+     * 表字段 : problem.p_person
      */
     private String pPerson;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_add_time
-     */
-    private Date pAddTime;
-
-    /**
-     * 
-     * 表字段 : problem_lists.p_describe
-     */
-    private String pDescribe;
-
-    /**
-     * 
-     * 表字段 : problem_lists.p_responsible
+     * 责任人
+     * 表字段 : problem.p_responsible
      */
     private String pResponsible;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_plan_time
+     * 计划完成日期
+     * 表字段 : problem.p_plan_time
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT-8")
     private Date pPlanTime;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_measure
+     * 问题描述
+     * 表字段 : problem.p_describe
      */
-    private String pMeasure;
+    private String pDescribe;
 
     /**
-     * 
-     * 表字段 : problem_lists.p_status
+     * 备注
+     * 表字段 : problem.p_remark
+     */
+    private String pRemark;
+
+    /**
+     * 问题状态
+     * 表字段 : problem.p_status
      */
     private String pStatus;
 
     /**
-     * 获取  字段:problem_lists.id
+     * 删除状态
+        1：未删除
+        2：已删除
+     * 表字段 : problem.p_delete_status
+     */
+    private Integer pDeleteStatus;
+
+    /**
+     * 获取 问题的id 字段:problem.id
      *
-     * @return problem_lists.id, 
+     * @return problem.id, 问题的id
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 设置  字段:problem_lists.id
+     * 设置 问题的id 字段:problem.id
      *
-     * @param id the value for problem_lists.id, 
+     * @param id the value for problem.id, 问题的id
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 获取  字段:problem_lists.p_no
+     * 获取 问题编号 字段:problem.p_no
      *
-     * @return problem_lists.p_no, 
+     * @return problem.p_no, 问题编号
      */
     public String getpNo() {
         return pNo;
     }
 
     /**
-     * 设置  字段:problem_lists.p_no
+     * 设置 问题编号 字段:problem.p_no
      *
-     * @param pNo the value for problem_lists.p_no, 
+     * @param pNo the value for problem.p_no, 问题编号
      */
     public void setpNo(String pNo) {
-        this.pNo = pNo == null ? null : pNo.trim();
+        this.pNo = pNo;
     }
 
     /**
-     * 获取  字段:problem_lists.p_title
+     * 获取 问题标题 字段:problem.p_title
      *
-     * @return problem_lists.p_title, 
+     * @return problem.p_title, 问题标题
      */
     public String getpTitle() {
         return pTitle;
     }
 
     /**
-     * 设置  字段:problem_lists.p_title
+     * 设置 问题标题 字段:problem.p_title
      *
-     * @param pTitle the value for problem_lists.p_title, 
+     * @param pTitle the value for problem.p_title, 问题标题
      */
     public void setpTitle(String pTitle) {
         this.pTitle = pTitle == null ? null : pTitle.trim();
     }
 
     /**
-     * 获取  字段:problem_lists.p_type
+     * 获取 问题类型 字段:problem.p_type
      *
-     * @return problem_lists.p_type, 
+     * @return problem.p_type, 问题类型
      */
     public String getpType() {
         return pType;
     }
 
     /**
-     * 设置  字段:problem_lists.p_type
+     * 设置 问题类型 字段:problem.p_type
      *
-     * @param pType the value for problem_lists.p_type, 
+     * @param pType the value for problem.p_type, 问题类型
      */
     public void setpType(String pType) {
         this.pType = pType == null ? null : pType.trim();
     }
 
     /**
-     * 获取  字段:problem_lists.p_type_code
+     * 获取 问题类型代码 字段:problem.p_type_code
      *
-     * @return problem_lists.p_type_code, 
+     * @return problem.p_type_code, 问题类型代码
      */
     public Integer getpTypeCode() {
         return pTypeCode;
     }
 
     /**
-     * 设置  字段:problem_lists.p_type_code
+     * 设置 问题类型代码 字段:problem.p_type_code
      *
-     * @param pTypeCode the value for problem_lists.p_type_code, 
+     * @param pTypeCode the value for problem.p_type_code, 问题类型代码
      */
     public void setpTypeCode(Integer pTypeCode) {
         this.pTypeCode = pTypeCode;
     }
 
     /**
-     * 获取  字段:problem_lists.p_person
+     * 获取 问题发现时间 字段:problem.p_find_time
      *
-     * @return problem_lists.p_person, 
+     * @return problem.p_find_time, 问题发现时间
+     */
+    public Date getpFindTime() {
+        return pFindTime;
+    }
+
+    /**
+     * 设置 问题发现时间 字段:problem.p_find_time
+     *
+     * @param pFindTime the value for problem.p_find_time, 问题发现时间
+     */
+    public void setpFindTime(Date pFindTime) {
+        this.pFindTime = pFindTime;
+    }
+
+    /**
+     * 获取 问题提出人 字段:problem.p_person
+     *
+     * @return problem.p_person, 问题提出人
      */
     public String getpPerson() {
         return pPerson;
     }
 
     /**
-     * 设置  字段:problem_lists.p_person
+     * 设置 问题提出人 字段:problem.p_person
      *
-     * @param pPerson the value for problem_lists.p_person, 
+     * @param pPerson the value for problem.p_person, 问题提出人
      */
     public void setpPerson(String pPerson) {
         this.pPerson = pPerson == null ? null : pPerson.trim();
     }
 
     /**
-     * 获取  字段:problem_lists.p_add_time
+     * 获取 责任人 字段:problem.p_responsible
      *
-     * @return problem_lists.p_add_time, 
-     */
-    public Date getpAddTime() {
-        return pAddTime;
-    }
-
-    /**
-     * 设置  字段:problem_lists.p_add_time
-     *
-     * @param pAddTime the value for problem_lists.p_add_time, 
-     */
-    public void setpAddTime(Date pAddTime) {
-        this.pAddTime = pAddTime;
-    }
-
-    /**
-     * 获取  字段:problem_lists.p_describe
-     *
-     * @return problem_lists.p_describe, 
-     */
-    public String getpDescribe() {
-        return pDescribe;
-    }
-
-    /**
-     * 设置  字段:problem_lists.p_describe
-     *
-     * @param pDescribe the value for problem_lists.p_describe, 
-     */
-    public void setpDescribe(String pDescribe) {
-        this.pDescribe = pDescribe == null ? null : pDescribe.trim();
-    }
-
-    /**
-     * 获取  字段:problem_lists.p_responsible
-     *
-     * @return problem_lists.p_responsible, 
+     * @return problem.p_responsible, 责任人
      */
     public String getpResponsible() {
         return pResponsible;
     }
 
     /**
-     * 设置  字段:problem_lists.p_responsible
+     * 设置 责任人 字段:problem.p_responsible
      *
-     * @param pResponsible the value for problem_lists.p_responsible, 
+     * @param pResponsible the value for problem.p_responsible, 责任人
      */
     public void setpResponsible(String pResponsible) {
         this.pResponsible = pResponsible == null ? null : pResponsible.trim();
     }
 
     /**
-     * 获取  字段:problem_lists.p_plan_time
+     * 获取 计划完成日期 字段:problem.p_plan_time
      *
-     * @return problem_lists.p_plan_time, 
+     * @return problem.p_plan_time, 计划完成日期
      */
     public Date getpPlanTime() {
         return pPlanTime;
     }
 
     /**
-     * 设置  字段:problem_lists.p_plan_time
+     * 设置 计划完成日期 字段:problem.p_plan_time
      *
-     * @param pPlanTime the value for problem_lists.p_plan_time, 
+     * @param pPlanTime the value for problem.p_plan_time, 计划完成日期
      */
     public void setpPlanTime(Date pPlanTime) {
         this.pPlanTime = pPlanTime;
     }
 
     /**
-     * 获取  字段:problem_lists.p_measure
+     * 获取 问题描述 字段:problem.p_describe
      *
-     * @return problem_lists.p_measure, 
+     * @return problem.p_describe, 问题描述
      */
-    public String getpMeasure() {
-        return pMeasure;
+    public String getpDescribe() {
+        return pDescribe;
     }
 
     /**
-     * 设置  字段:problem_lists.p_measure
+     * 设置 问题描述 字段:problem.p_describe
      *
-     * @param pMeasure the value for problem_lists.p_measure, 
+     * @param pDescribe the value for problem.p_describe, 问题描述
      */
-    public void setpMeasure(String pMeasure) {
-        this.pMeasure = pMeasure == null ? null : pMeasure.trim();
+    public void setpDescribe(String pDescribe) {
+        this.pDescribe = pDescribe == null ? null : pDescribe.trim();
     }
 
     /**
-     * 获取  字段:problem_lists.p_status
+     * 获取 备注 字段:problem.p_remark
      *
-     * @return problem_lists.p_status, 
+     * @return problem.p_remark, 备注
+     */
+    public String getpRemark() {
+        return pRemark;
+    }
+
+    /**
+     * 设置 备注 字段:problem.p_remark
+     *
+     * @param pRemark the value for problem.p_remark, 备注
+     */
+    public void setpRemark(String pRemark) {
+        this.pRemark = pRemark == null ? null : pRemark.trim();
+    }
+
+    /**
+     * 获取 问题状态 字段:problem.p_status
+     *
+     * @return problem.p_status, 问题状态
      */
     public String getpStatus() {
         return pStatus;
     }
 
     /**
-     * 设置  字段:problem_lists.p_status
+     * 设置 问题状态 字段:problem.p_status
      *
-     * @param pStatus the value for problem_lists.p_status, 
+     * @param pStatus the value for problem.p_status, 问题状态
      */
     public void setpStatus(String pStatus) {
         this.pStatus = pStatus == null ? null : pStatus.trim();
+    }
+
+    /**
+     * 获取 删除状态
+        1：未删除
+        2：已删除 字段:problem.p_delete_status
+     *
+     * @return problem.p_delete_status, 删除状态
+        1：未删除
+        2：已删除
+     */
+    public Integer getpDeleteStatus() {
+        return pDeleteStatus;
+    }
+
+    /**
+     * 设置 删除状态
+        1：未删除
+        2：已删除 字段:problem.p_delete_status
+     *
+     * @param pDeleteStatus the value for problem.p_delete_status, 删除状态
+        1：未删除
+        2：已删除
+     */
+    public void setpDeleteStatus(Integer pDeleteStatus) {
+        this.pDeleteStatus = pDeleteStatus;
     }
 }

@@ -47,14 +47,10 @@ public interface UserService {
     List<UserBo> exportExcel(HttpServletResponse response);
 
     /**
-    *
-    * @Description: 新增用户 
-    * @Param:  
-    * @return:  
-    * @Author: Mr.Michelle
-    * @Date: 下午 9:18 2018/11/28 0028
-    *
-    */
+     *
+     * @param userVo
+     * @return
+     */
     int addUser(UserVo userVo);
 
     /**
@@ -72,57 +68,31 @@ public interface UserService {
     int batchUpdate(List<User> users);
 
     /**
-    *
-    * @Description:  删除用户
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 8:39 2018/11/30 0030
-    *
-    */
-    int doDeleteUser(String key);
-
-    /**
-    *
-    * @Description:  批量删除用户
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 10:46 2018/11/30 0030
-    *
-    */
+     *
+     * @param ids
+     * @return
+     */
     int doDeleteUsers(String[] ids);
 
     /**
-    *
-    * @Description: 更新用户
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 12:52 2018/12/3 0003
-    *
-    */
+     *
+     * @param vo
+     * @return
+     */
     int updateUserById(UserVo vo);
 
     /**
-    *
-    * @Description: 根据id获取单个用户信息
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 1:16 2018/12/3 0003
-    *
-    */
+     *
+     * @param id
+     * @return
+     */
     UserBo getUserById(Integer id);
 
     /**
-    *
-    * @Description: 分页查询
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 9:04 2018/12/11 0011
-    *
-    */
+     *
+     * @param map
+     * @return
+     */
     List<UserBo> queryUserByPage(Map map);
+
 }

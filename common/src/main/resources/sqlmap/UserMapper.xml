@@ -10,48 +10,54 @@
         <result column="password" jdbcType="VARCHAR" property="password" />
         <result column="status" jdbcType="INTEGER" property="status" />
     </resultMap>
+    <resultMap extends="BaseResultMap" id="BaseUserInfoResult" type="com.xiedang.www.bo.UserBo">
+        <association javaType="com.xiedang.www.model.UserInfo" property="userInfo">
+            <id column="ui_id" jdbcType="INTEGER" property="id" />
+            <result column="name" jdbcType="VARCHAR" property="name" />
+            <result column="sex" jdbcType="CHAR" property="sex" />
+            <result column="phone" jdbcType="VARCHAR" property="phone" />
+            <result column="address" jdbcType="VARCHAR" property="address" />
+            <result column="birth_date" jdbcType="DATE" property="birthDate" />
+            <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+        </association>
+    </resultMap>
     <sql id="Base_Column_List">
         <!--
         @mbggenerated
         -->
-        id, username, password,status
+        id, username, password, status
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseUserInfoResult">
         <!--
         @mbggenerated
         -->
         select
-        u.id, username, password,u.status,
+        u.id, username, password,
         ui.id ui_id, name, sex, phone, address, birth_date, native_place
         from user u
         INNER JOIN user_info ui
-        ON u.id=ui.uid
+        ON u.id = ui.uid
         WHERE u.id = #{id,jdbcType=INTEGER}
         ORDER BY u.id
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
         <!--
         @mbggenerated
         -->
         delete from user
-        where id = #{id,jdbcType=INTEGER}
+        where id in
+          <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+              #{item,jdbcType=VARCHAR}
+          </foreach>
     </delete>
-    <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
-        DELETE FROM user
-        WHERE id IN
-        <foreach collection="array" item="id" index="index" open="(" close=")" separator=",">
-            #{id}
-        </foreach>
-    </delete>
-
     <insert id="insert" parameterType="com.xiedang.www.model.User">
         <!--
         @mbggenerated
         -->
-        insert into user (id, username, password,status
-            )
-        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{status,jdbcType=INTEGER}
-            )
+        insert into user (id, username, password,
+            status)
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+            #{status,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.xiedang.www.vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
         <!--
@@ -144,18 +150,6 @@
         from user
         where username=#{username}
     </select>
-
-    <resultMap extends="BaseResultMap" id="BaseUserInfoResult" type="com.xiedang.www.bo.UserBo">
-        <association javaType="com.xiedang.www.model.UserInfo" property="userInfo">
-            <id column="ui_id" jdbcType="INTEGER" property="id" />
-            <result column="name" jdbcType="VARCHAR" property="name" />
-            <result column="sex" jdbcType="CHAR" property="sex" />
-            <result column="phone" jdbcType="VARCHAR" property="phone" />
-            <result column="address" jdbcType="VARCHAR" property="address" />
-            <result column="birth_date" jdbcType="DATE" property="birthDate" />
-            <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
-        </association>
-    </resultMap>
     <select id="selectAll" resultMap="BaseUserInfoResult">
         select
             u.id, username, password,
@@ -208,10 +202,44 @@
 
     <select id="selectAllLoginInfo" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List" />
         from user
         WHERE status=1
     </select>
+
+    <insert id="insertInfoBatch" keyProperty="uid" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+        </trim>
+        <foreach collection="list" index="index" item="item" separator=",">
+            <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                    #{id,jdbcType=INTEGER},
+                </if>
+                <if test="username != null">
+                    #{username,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null">
+                    #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="status != null">
+                    #{status,jdbcType=INTEGER},
+                </if>
+            </trim>
+        </foreach>
+    </insert>
 
     <select id="selectUserByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
