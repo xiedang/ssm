@@ -103,8 +103,7 @@ public class ExcelUtil {
                             && row <= r.getBottomRight().getRow()
                             && i >= r.getTopLeft().getColumn()
                             && i <= r.getBottomRight().getColumn()) {
-                        str = readSheet.getCell(r.getTopLeft().getColumn(),
-                                r.getTopLeft().getRow()).getContents();
+                        str = readSheet.getCell(r.getTopLeft().getColumn(),r.getTopLeft().getRow()).getContents();
                     }
                 }
                 if (StringUtils.isBlank(str)) {
