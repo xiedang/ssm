@@ -29,9 +29,8 @@ public class XwpfTUtil {
      */
     public void replaceInPara(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
-        XWPFParagraph para;
         while (iterator.hasNext()) {
-            para = iterator.next();
+            XWPFParagraph para = iterator.next();
             this.replaceInPara(para, params);
         }
     }
@@ -43,9 +42,8 @@ public class XwpfTUtil {
      * @param params 参数
      */
     public void replaceInPara(XWPFParagraph para, Map<String, String> params) {
-        List<XWPFRun> runs;
         if (this.matcher(para.getParagraphText()).find()) {
-            runs = para.getRuns();
+            List<XWPFRun> runs = para.getRuns();
             int start = -1;
             int end = -1;
             StringBuilder str = new StringBuilder();
@@ -80,34 +78,30 @@ public class XwpfTUtil {
     }
 
     /**
-     * <p>交易商-  word模板替换内容(散船)</p>
+     * <p>word模板替换内容</p>
      *
      * @param doc
      * @param params
      */
     public void replaceWord(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
-        XWPFParagraph para;
         while (iterator.hasNext()) {
-            para = iterator.next();
+            XWPFParagraph para = iterator.next();
             this.replaceWord(para, params);
         }
     }
 
     /**
-     * <p>交易商-  word模板替换内容(散船)</p>
+     * <p>word模板替换内容</p>
      *
      * @param para
      * @param params
      */
     public void replaceWord(XWPFParagraph para, Map<String, String> params) {
-        List<XWPFRun> runs;
         if (this.matcher(para.getParagraphText()).find()) {
-            runs = para.getRuns();
-
+            List<XWPFRun> runs = para.getRuns();
             int start = -1;
             int end = -1;
-
             for (int i = 0; i < runs.size(); i++) {
                 StringBuilder str = new StringBuilder();
                 for (int j = 0; j < runs.size(); j++) {
@@ -158,17 +152,13 @@ public class XwpfTUtil {
      */
     public void replaceInTable(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFTable> iterator = doc.getTablesIterator();
-        XWPFTable table;
-        List<XWPFTableRow> rows;
-        List<XWPFTableCell> cells;
-        List<XWPFParagraph> paras;
         while (iterator.hasNext()) {
-            table = iterator.next();
-            rows = table.getRows();
+            XWPFTable table = iterator.next();
+            List<XWPFTableRow> rows = table.getRows();
             for (XWPFTableRow row : rows) {
-                cells = row.getTableCells();
+                List<XWPFTableCell> cells = row.getTableCells();
                 for (XWPFTableCell cell : cells) {
-                    paras = cell.getParagraphs();
+                    List<XWPFParagraph> paras = cell.getParagraphs();
                     for (XWPFParagraph para : paras) {
                         this.replaceInPara(para, params);
                     }
