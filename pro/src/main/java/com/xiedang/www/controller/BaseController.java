@@ -1,6 +1,6 @@
 package com.xiedang.www.controller;
 
-import com.xiedang.www.utils.CommonResult;
+import com.xiedang.www.utils.common.CommonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpMediaTypeNotSupportedException;

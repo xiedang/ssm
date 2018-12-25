@@ -1,5 +1,5 @@
 
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.common;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.ClassUtils;
@@ -30,30 +30,23 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     private Class upToClass = null;
 
     public static String toString(Object object) {
-        return toString(object, (ToStringStyle) null, false, false, (Class) null);
+        return toString(object,  null, false, false,  null);
     }
 
     public static String toString(Object object, ToStringStyle style) {
-        return toString(object, style, false, false, (Class) null);
+        return toString(object, style, false, false,  null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients) {
-        return toString(object, style, outputTransients, false, (Class) null);
+        return toString(object, style, outputTransients, false,  null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics) {
-        return toString(object, style, outputTransients, outputStatics, (Class) null);
+        return toString(object, style, outputTransients, outputStatics,  null);
     }
 
     public static String toString(Object object, ToStringStyle style, boolean outputTransients, boolean outputStatics, Class reflectUpToClass) {
-        return (new MyReflectionToStringBuilder(object, style, (StringBuffer) null, reflectUpToClass, outputTransients, outputStatics)).toString();
-    }
-
-    /**
-     * @deprecated
-     */
-    public static String toString(Object object, ToStringStyle style, boolean outputTransients, Class reflectUpToClass) {
-        return (new MyReflectionToStringBuilder(object, style, (StringBuffer) null, reflectUpToClass, outputTransients)).toString();
+        return (new MyReflectionToStringBuilder(object, style,  null, reflectUpToClass, outputTransients, outputStatics)).toString();
     }
 
     public static String toStringExclude(Object object, String excludeFieldName) {
@@ -64,7 +57,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         return toStringExclude(object, toNoNullStringArray(excludeFieldNames));
     }
 
-    static String[] toNoNullStringArray(Collection collection) {
+    private static String[] toNoNullStringArray(Collection collection) {
         return collection == null ? ArrayUtils.EMPTY_STRING_ARRAY : toNoNullStringArray(collection.toArray());
     }
 
@@ -97,15 +90,6 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
         super(object, style, buffer);
     }
 
-    /**
-     * @deprecated
-     */
-    public MyReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer, Class reflectUpToClass, boolean outputTransients) {
-        super(object, style, buffer);
-        this.setUpToClass(reflectUpToClass);
-        this.setAppendTransients(outputTransients);
-    }
-
     public MyReflectionToStringBuilder(Object object, ToStringStyle style, StringBuffer buffer, Class reflectUpToClass, boolean outputTransients, boolean outputStatics) {
         super(object, style, buffer);
         this.setUpToClass(reflectUpToClass);
@@ -114,15 +98,10 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     }
 
     protected boolean accept(Field field) {
-        if (field.getName().indexOf(36) != -1) {
-            return false;
-        } else if (Modifier.isTransient(field.getModifiers()) && !this.isAppendTransients()) {
-            return false;
-        } else if (Modifier.isStatic(field.getModifiers()) && !this.isAppendStatics()) {
-            return false;
-        } else {
-            return this.getExcludeFieldNames() == null || Arrays.binarySearch(this.getExcludeFieldNames(), field.getName()) < 0;
-        }
+        return field.getName().indexOf(36) == -1 &&
+                (!Modifier.isTransient(field.getModifiers()) || this.isAppendTransients())
+                && (!Modifier.isStatic(field.getModifiers()) || this.isAppendStatics()) &&
+                (this.getExcludeFieldNames() == null || Arrays.binarySearch(this.getExcludeFieldNames(), field.getName()) < 0);
     }
 
     protected void appendFieldsIn(Class clazz) {
@@ -169,7 +148,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
     }
 
     public ToStringBuilder reflectionAppendArray(Object array) {
-        this.reflectionAppendArrayDetail(this.getStringBuffer(), (String) null, array);
+        this.reflectionAppendArrayDetail(this.getStringBuffer(), null, array);
         return this;
     }
 
@@ -198,7 +177,6 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
             this.appendCyclicObject(buffer, fieldName, value);
         } else {
             register(value);
-
             try {
                 if (value instanceof Collection) {
                     if (detail) {
@@ -214,9 +192,9 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                     }
                 } else if (value instanceof long[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (long[]) value);
+                        this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (long[]) value);
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value instanceof int[]) {
                     if (detail) {
@@ -228,43 +206,43 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                     if (detail) {
                         this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (short[]) value);
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value instanceof byte[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (byte[]) value);
+                        this.appendDetail(buffer, fieldName,  value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (byte[]) value);
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value instanceof char[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (char[]) ((char[]) value));
+                        this.appendDetail(buffer, fieldName,  value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (char[]) ((char[]) value));
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value instanceof double[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (double[]) ((double[]) value));
+                        this.appendDetail(buffer, fieldName,  value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (double[]) ((double[]) value));
+                        this.appendSummary(buffer, fieldName,  value);
                     }
                 } else if (value instanceof float[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (float[]) ((float[]) value));
+                        this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (float[]) ((float[]) value));
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value instanceof boolean[]) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (boolean[]) ((boolean[]) value));
+                        this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (boolean[]) ((boolean[]) value));
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (value.getClass().isArray()) {
                     if (detail) {
-                        this.appendDetail(buffer, fieldName, (Object[]) ((Object[]) value));
+                        this.appendDetail(buffer, fieldName, value);
                     } else {
-                        this.appendSummary(buffer, fieldName, (Object[]) ((Object[]) value));
+                        this.appendSummary(buffer, fieldName, value);
                     }
                 } else if (detail) {
                     this.appendDetail(buffer, fieldName, value);
@@ -291,7 +269,7 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                 REGISTRY.set(m);
             }
 
-            ((Map) m).put(value, (Object) null);
+            m.put(value, null);
         }
 
     }
@@ -379,7 +357,6 @@ public class MyReflectionToStringBuilder extends ToStringBuilder {
                 clazz = clazz.getSuperclass();
                 this.appendFieldsIn(clazz);
             }
-
             return super.toString();
         }
     }

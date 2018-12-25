@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.http;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

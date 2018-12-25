@@ -1,4 +1,6 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.common;
+
+import com.xiedang.www.utils.common.BaseObject;
 
 import java.util.List;
 

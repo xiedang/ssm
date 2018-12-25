@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.web;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -7,13 +7,16 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * <P>Web工具包</P>
  */
-public class WebUtils {
+public class WebUtil {
 
-    private static Logger log = LoggerFactory.getLogger(WebUtils.class);
+    private static Logger log = LoggerFactory.getLogger(WebUtil.class);
 
     /**
      * <p>返回文件或者文件流</p>
@@ -76,5 +79,31 @@ public class WebUtils {
         } catch (IOException e) {
             log.error("打开输出流出错:{}", e);
         }
+    }
+
+    /**
+     * 压缩文件
+     * @param zipFile
+     */
+    public static File zipFile(List<File> files, File zipFile){
+        try {
+            byte[] bytes = new byte[1024];
+            ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));
+            for (File file : files) {
+                String fileName = file.getName();
+                FileInputStream fis = new FileInputStream(file);
+                out.putNextEntry(new ZipEntry(fileName));
+                int len;
+                while ((len = fis.read(bytes)) != -1) {
+                    out.write(bytes, 0, len);
+                }
+                out.closeEntry();
+                fis.close();
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return zipFile;
     }
 }

@@ -1,5 +1,7 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.excel;
 
+import com.xiedang.www.utils.excel.model.ExcelReadSheetResult;
+import com.xiedang.www.utils.excel.model.ExcelReadTotalResult;
 import jxl.Range;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -15,9 +17,9 @@ import java.util.List;
  * <P>Excel导入导出</P>
  *
  */
-public class ExcelUtil {
+public class ImportUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(ImportUtil.class);
 
     /**
      * <p>读取excel的一个sheet</p>

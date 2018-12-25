@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.word;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.xwpf.usermodel.*;
@@ -17,9 +17,9 @@ import java.util.regex.Pattern;
 /**
  * word 模板替换工具类
  */
-public class XwpfTUtil {
+public class WordUtil {
 
-    public static Pattern pattern = Pattern.compile("\\$\\{(.+?)}", Pattern.CASE_INSENSITIVE);
+    private static Pattern pattern = Pattern.compile("\\$\\{(.+?)}", Pattern.CASE_INSENSITIVE);
 
     /**
      * 替换段落里面的变量
@@ -36,12 +36,26 @@ public class XwpfTUtil {
     }
 
     /**
+     * <p>word模板替换内容</p>
+     *
+     * @param doc
+     * @param params
+     */
+    public void replaceWord(XWPFDocument doc, Map<String, String> params) {
+        Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
+        while (iterator.hasNext()) {
+            XWPFParagraph para = iterator.next();
+            this.replaceWord(para, params);
+        }
+    }
+
+    /**
      * 替换段落里面的变量
      *
      * @param para   要替换的段落
      * @param params 参数
      */
-    public void replaceInPara(XWPFParagraph para, Map<String, String> params) {
+    private void replaceInPara(XWPFParagraph para, Map<String, String> params) {
         if (this.matcher(para.getParagraphText()).find()) {
             List<XWPFRun> runs = para.getRuns();
             int start = -1;
@@ -80,24 +94,10 @@ public class XwpfTUtil {
     /**
      * <p>word模板替换内容</p>
      *
-     * @param doc
-     * @param params
-     */
-    public void replaceWord(XWPFDocument doc, Map<String, String> params) {
-        Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
-        while (iterator.hasNext()) {
-            XWPFParagraph para = iterator.next();
-            this.replaceWord(para, params);
-        }
-    }
-
-    /**
-     * <p>word模板替换内容</p>
-     *
      * @param para
      * @param params
      */
-    public void replaceWord(XWPFParagraph para, Map<String, String> params) {
+    private void replaceWord(XWPFParagraph para, Map<String, String> params) {
         if (this.matcher(para.getParagraphText()).find()) {
             List<XWPFRun> runs = para.getRuns();
             int start = -1;
@@ -168,46 +168,6 @@ public class XwpfTUtil {
     }
 
 
-    /**
-     * 正则匹配字符串 匹配${xx}字符串
-     *
-     * @param str
-     * @return
-     */
-    private Matcher matcher(String str) {
-        return pattern.matcher(str);
-    }
-
-    /**
-     * 关闭输入流
-     *
-     * @param is
-     */
-    public void close(InputStream is) {
-        if (is != null) {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * 关闭输出流
-     *
-     * @param os
-     */
-    public void close(OutputStream os) {
-        if (os != null) {
-            try {
-                os.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     /**
      * <p>表格形式替换模板</p>
@@ -217,9 +177,8 @@ public class XwpfTUtil {
      */
     public void searchAndReplace(XWPFDocument document, Map<String, String> map) {
         try {
-
-            /**
-             * 替换段落中的指定文字 
+            /*
+             * 替换段落中的指定文字
              */
             Iterator<XWPFParagraph> itPara = document.getParagraphsIterator();
             while (itPara.hasNext()) {
@@ -265,4 +224,44 @@ public class XwpfTUtil {
         }
     }
 
-}  
+
+    /**
+     * 正则匹配字符串 匹配${xx}字符串
+     *
+     * @param str
+     * @return
+     */
+    private Matcher matcher(String str) {
+        return pattern.matcher(str);
+    }
+
+    /**
+     * 关闭输入流
+     *
+     * @param is
+     */
+    public void close(InputStream is) {
+        if (is != null) {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 关闭输出流
+     *
+     * @param os
+     */
+    public void close(OutputStream os) {
+        if (os != null) {
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}

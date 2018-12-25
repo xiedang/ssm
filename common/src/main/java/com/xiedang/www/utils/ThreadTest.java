@@ -1,5 +1,7 @@
 package com.xiedang.www.utils;
 
+import com.xiedang.www.utils.date.DateUtil;
+
 import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -23,7 +25,7 @@ public class ThreadTest {
                 executorService.execute(() -> {
                     try {
                         start.await();
-                        System.out.println("当前为"+ j +"在"+DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss:S")+"结束运行");
+                        System.out.println("当前为"+ j +"在"+ DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss:S")+"结束运行");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }finally {
@@ -32,7 +34,7 @@ public class ThreadTest {
                 });
             }
             executorService.execute(() -> {
-                System.out.println("在"+DateUtils.format(new Date(),"yyyy-MM-dd HH:mm:ss:S")+"开始运行");
+                System.out.println("在"+ DateUtil.format(new Date(),"yyyy-MM-dd HH:mm:ss:S")+"开始运行");
                 start.countDown();
             });
             end.await();

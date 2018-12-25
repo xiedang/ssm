@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.object;
 
 import org.apache.commons.lang3.StringUtils;
 

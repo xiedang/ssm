@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.date;
 
 import java.util.Date;
 
@@ -48,18 +48,18 @@ public class DateTime extends Date {
 
     @Override
     public String toString() {
-        return DateUtils.formatDateTime(this);
+        return DateUtil.formatDateTime(this);
     }
 
     public String toString(String format) {
-        return DateUtils.format(this, format);
+        return DateUtil.format(this, format);
     }
 
     /**
      * @return 输出精确到毫秒的标准日期形式
      */
     public String toMsStr() {
-        return DateUtils.format(this, DateUtils.NORM_DATETIME_MS_PATTERN);
+        return DateUtil.format(this, DateUtil.NORM_DATETIME_MS_PATTERN);
     }
 
     /**

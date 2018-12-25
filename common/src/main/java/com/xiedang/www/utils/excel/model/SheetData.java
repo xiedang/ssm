@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.excel.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
  * @author : 谢当
  * @date : 2018/12/24 16:42
  */
-public class SheetData<T> {
+public class SheetData {
     /**
      * 替换占位符map
      */
@@ -20,7 +20,7 @@ public class SheetData<T> {
     /**
      * excel主体部分
      */
-    private List<List<T>> lists = new ArrayList<>();
+    private List<List<String>> lists = new ArrayList<>();
 
     public Object get(String key) {
         return map.get(key);
@@ -67,11 +67,11 @@ public class SheetData<T> {
         this.map = map;
     }
 
-    public List<List<T>> getLists() {
+    public List<List<String>> getLists() {
         return lists;
     }
 
-    public void setLists(List<List<T>> lists) {
+    public void setLists(List<List<String>> lists) {
         this.lists = lists;
     }
 }

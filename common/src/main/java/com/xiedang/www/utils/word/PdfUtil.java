@@ -1,8 +1,9 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.word;
 
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.connection.SocketOpenOfficeConnection;
 import com.artofsolving.jodconverter.openoffice.converter.StreamOpenOfficeDocumentConverter;
+import com.xiedang.www.utils.common.CommonResult;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
@@ -22,9 +23,9 @@ import java.util.UUID;
 /**
  * <P>签章相关工具,根据模板生成word和word生成pdf</P>
  */
-public class PdfUtils {
+public class PdfUtil {
 
-    private static final Logger log = LoggerFactory.getLogger(PdfUtils.class);
+    private static final Logger log = LoggerFactory.getLogger(PdfUtil.class);
 
     /**
      * <p>TODO</p>

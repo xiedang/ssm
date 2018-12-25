@@ -1,4 +1,4 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.date;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -12,7 +12,7 @@ import java.util.Locale;
  * @author 陶焕(13294175866)
  * @date 2016年3月1日 下午5:29:23
  */
-public class DateUtils {
+public class DateUtil {
 
     /**
      * 毫秒
@@ -560,7 +560,7 @@ public class DateUtils {
      * @return int
      */
     public static int toIntSecond(Date date) {
-        return Integer.parseInt(DateUtils.format(date, "yyMMddHHmm"));
+        return Integer.parseInt(DateUtil.format(date, "yyMMddHHmm"));
     }
 
     /**

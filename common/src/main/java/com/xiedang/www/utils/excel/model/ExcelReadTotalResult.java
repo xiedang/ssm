@@ -1,4 +1,6 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.excel.model;
+
+import com.xiedang.www.utils.common.BaseObject;
 
 import java.util.ArrayList;
 import java.util.List;

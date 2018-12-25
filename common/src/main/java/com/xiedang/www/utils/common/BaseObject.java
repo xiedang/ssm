@@ -1,7 +1,8 @@
-package com.xiedang.www.utils;
+package com.xiedang.www.utils.common;
 
 import com.alibaba.fastjson.JSONObject;
 import java.io.Serializable;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;

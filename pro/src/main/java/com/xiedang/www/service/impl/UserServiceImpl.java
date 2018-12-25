@@ -5,7 +5,7 @@ import com.xiedang.www.mapper.UserInfoMapper;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
-import com.xiedang.www.utils.ExportUtil;
+import com.xiedang.www.utils.excel.ExportUtil;
 import com.xiedang.www.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
