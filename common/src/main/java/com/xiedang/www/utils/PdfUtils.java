@@ -21,9 +21,6 @@ import java.util.UUID;
 
 /**
  * <P>签章相关工具,根据模板生成word和word生成pdf</P>
- *
- * @author 陶焕(13294175866)
- * @date 2016年3月16日 下午8:36:38
  */
 public class PdfUtils {
 
@@ -37,7 +34,6 @@ public class PdfUtils {
      * @param destFile 目标文件. 绝对路径. 示例: F:\\pdf\\dest.pdf
      * @return
      * @throws Exception
-     * @author 陶焕(13294175866)
      */
     public static CommonResult<File> officeToPdf(String officeHost, int officePort, File srcFile, File destFile) throws Exception {
         CommonResult<File> result = new CommonResult<>(CommonResult.FAILURE_CODE);
@@ -75,7 +71,6 @@ public class PdfUtils {
      * @param data     数据
      * @return
      * @throws Exception
-     * @author 陶焕(13294175866)
      */
     public static CommonResult<File> genePdf(String officeHost, int officePort, File tmpFile, File destFile, Map<String, String> data) throws Exception {
         File srcFile = new File(FileUtils.getTempDirectory(), UUID.randomUUID().toString() + ".doc");
@@ -99,7 +94,6 @@ public class PdfUtils {
      * @param destFile
      * @param data
      * @return
-     * @author 陶焕(13294175866)
      */
     public static CommonResult<File> geneWord(File tmpFile, File destFile, Map<String, String> data) throws Exception {
         CommonResult<File> result = new CommonResult<>(CommonResult.FAILURE_CODE);
@@ -118,8 +112,8 @@ public class PdfUtils {
                 if (value.contains("\n")) {
                     String[] contents = value.split("\n");
                     StringBuilder content = new StringBuilder();
-                    for (String content1 : contents) {
-                        content.append(content1).append((char) 11);
+                    for (String c : contents) {
+                        content.append(c).append((char) 11);
                     }
                     range.replaceText("${" + entry.getKey() + "}$", content.toString());
                 } else {
