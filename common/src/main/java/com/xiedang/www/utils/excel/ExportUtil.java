@@ -49,6 +49,8 @@ public class ExportUtil {
 
     private static final String NUMBER = "^-?\\d+\\.?\\d+$";
 
+    private static final String FIRST_COLUMN = "序号";
+
     /**
      * 判断是否为数字
      *
@@ -234,7 +236,7 @@ public class ExportUtil {
                 cell.setCellStyle(cellStyle);
             }
         }
-        if ("序号".equals(titles[0])) {
+        if (FIRST_COLUMN.equals(titles[0])) {
             sheet1.setColumnWidth(0, 150 * 20);
         } else {
             sheet1.setColumnWidth(0, 300 * 20);
