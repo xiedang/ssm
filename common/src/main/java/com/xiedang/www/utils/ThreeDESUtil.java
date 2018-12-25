@@ -28,9 +28,7 @@ public class ThreeDESUtil {
         String f = DigestUtils.md5Hex(key);
         byte[] bKeys = f.getBytes();
         byte[] enk = new byte[24];
-        for (int i = 0; i < 24; i++) {
-            enk[i] = bKeys[i];
-        }
+        System.arraycopy(bKeys, 0, enk, 0, 24);
         return enk;
     }
 
