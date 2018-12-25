@@ -5,7 +5,7 @@ import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.common.CommonResult;
-import com.xiedang.www.utils.ThreeDESUtil;
+import com.xiedang.www.utils.str.ThreeDESUtil;
 import com.xiedang.www.vo.UserVo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
