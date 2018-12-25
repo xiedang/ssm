@@ -18,12 +18,12 @@ import java.security.SecureRandom;
  */
 public class EncryptUtil {
 
-    public static final String MD5 = "MD5";
-    public static final String SHA1 = "SHA1";
-    public static final String HMACMD5 = "HmacMD5";
-    public static final String HMACSHA1 = "HmacSHA1";
-    public static final String DES = "DES";
-    public static final String AES = "AES";
+    private static final String MD5 = "MD5";
+    private static final String SHA1 = "SHA1";
+    private static final String HMACMD5 = "HmacMD5";
+    private static final String HMACSHA1 = "HmacSHA1";
+    private static final String DES = "DES";
+    private static final String AES = "AES";
 
     /**
      * 编码格式；默认使用uft-8
@@ -32,13 +32,13 @@ public class EncryptUtil {
     /**
      * DES
      */
-    public int keySizeDES = 0;
+    private int keySizeDES = 0;
     /**
      * AES
      */
-    public int keySizeAES = 128;
+    private int keySizeAES = 128;
 
-    public static EncryptUtil me;
+    private static EncryptUtil me;
 
     private EncryptUtil() {
         //单例
@@ -151,7 +151,7 @@ public class EncryptUtil {
     /**
      * 将二进制转换成16进制
      */
-    public static String parseByte2HexStr(byte[] buf) {
+    private static String parseByte2HexStr(byte[] buf) {
         StringBuilder sb = new StringBuilder();
         for (byte aBuf : buf) {
             String hex = Integer.toHexString(aBuf & 0xFF);
@@ -166,7 +166,7 @@ public class EncryptUtil {
     /**
      * 将16进制转换为二进制
      */
-    public static byte[] parseHexStr2Byte(String hexStr) {
+    private static byte[] parseHexStr2Byte(String hexStr) {
         if (hexStr.length() < 1) {
             return new byte[1];
         }
