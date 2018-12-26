@@ -157,7 +157,6 @@ public class ExportUtil {
      */
     public static void exportWithTemplate(File templateFile, HttpServletResponse response, SheetData sheetData) throws IOException{
         InputStream input = new FileInputStream(templateFile);
-        OutputStream os=response.getOutputStream();
         XSSFWorkbook wb = new XSSFWorkbook(input);
         Sheet sheet = wb.getSheetAt(0);
         List<List<String>> lists = sheetData.getLists();

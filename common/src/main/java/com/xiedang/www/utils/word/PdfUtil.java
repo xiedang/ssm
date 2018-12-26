@@ -69,7 +69,7 @@ public class PdfUtil {
      *
      * @param tmpFile  word模板
      * @param destFile 目的pdf文件
-     * @param data     数据
+     * @param data     替换模板数据
      * @return
      * @throws Exception
      */
@@ -79,6 +79,7 @@ public class PdfUtil {
         if (Objects.equals(result.getSuccess(), CommonResult.FAILURE_CODE)) {
             return result;
         }
+        //srcFile 为替换word模板文件生成的文件
         srcFile = result.getData();
         result = officeToPdf(officeHost, officePort, srcFile, destFile);
         if (Objects.equals(result.getSuccess(), CommonResult.FAILURE_CODE)) {
