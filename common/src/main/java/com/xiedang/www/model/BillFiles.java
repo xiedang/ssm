@@ -14,7 +14,7 @@ public class BillFiles {
      * 文件id
      * 表字段 : bill_files.BFS_ID
      */
-    private String bfsId;
+    private Integer bfsId;
 
     /**
      * 文件名
@@ -63,7 +63,7 @@ public class BillFiles {
      *
      * @return bill_files.BFS_ID, 文件id
      */
-    public String getBfsId() {
+    public Integer getBfsId() {
         return bfsId;
     }
 
@@ -72,8 +72,8 @@ public class BillFiles {
      *
      * @param bfsId the value for bill_files.BFS_ID, 文件id
      */
-    public void setBfsId(String bfsId) {
-        this.bfsId = bfsId == null ? null : bfsId.trim();
+    public void setBfsId(Integer bfsId) {
+        this.bfsId = bfsId;
     }
 
     /**

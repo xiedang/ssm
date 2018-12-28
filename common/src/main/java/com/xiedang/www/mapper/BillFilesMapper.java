@@ -8,7 +8,7 @@ public interface BillFilesMapper {
      *
      * @param bfsId
      */
-    int deleteByPrimaryKey(String bfsId);
+    int deleteByPrimaryKey(Integer bfsId);
 
     /**
      *  新写入数据库记录,bill_files
@@ -29,7 +29,7 @@ public interface BillFilesMapper {
      *
      * @param bfsId
      */
-    BillFiles selectByPrimaryKey(String bfsId);
+    BillFiles selectByPrimaryKey(Integer bfsId);
 
     /**
      *  动态字段,根据主键来更新符合条件的数据库记录,bill_files

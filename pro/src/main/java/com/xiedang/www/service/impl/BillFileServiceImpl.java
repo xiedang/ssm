@@ -44,9 +44,9 @@ public class BillFileServiceImpl implements BillFileService {
     public CommonResult<BillFiles> uploadFile(FilesVo filesVo, MultipartFile file) throws IllegalStateException, IOException {
         CommonResult<BillFiles> result = new CommonResult<>(CommonResult.SUCCESS_CODE);
         //文件目录路径
-        String fileDir = "/";
+        String fileDir = "";
         if(StringUtils.isNotBlank(filesVo.getFileDir())){
-            fileDir= fileDir+filesVo.getFileDir();
+            fileDir= "/"+filesVo.getFileDir();
         }
         String fileUploadPath = sysConstant.uploadPath + fileDir;
         String fileName = "null.jpg";
@@ -68,7 +68,7 @@ public class BillFileServiceImpl implements BillFileService {
         billFilesMapper.insertSelective(billFiles);
 
         Path path = Paths.get(fileUploadPath + "/" + ny + "/" + realFileName);
-        if (Files.exists(path.getParent())) {
+        if (!Files.exists(path.getParent())) {
             //不存在就创建日期文件夹
             Files.createDirectories(path.getParent());
         }

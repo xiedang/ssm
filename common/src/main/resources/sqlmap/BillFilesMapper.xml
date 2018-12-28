@@ -5,7 +5,7 @@
         <!--
         @mbggenerated
         -->
-        <id column="BFS_ID" jdbcType="VARCHAR" property="bfsId" />
+        <id column="BFS_ID" jdbcType="INTEGER" property="bfsId" />
         <result column="BFS_NAME" jdbcType="VARCHAR" property="bfsName" />
         <result column="BFS_PATH" jdbcType="VARCHAR" property="bfsPath" />
         <result column="BFS_TYPE" jdbcType="VARCHAR" property="bfsType" />
@@ -20,21 +20,21 @@
         -->
         BFS_ID, BFS_NAME, BFS_PATH, BFS_TYPE, BFS_BILL_TYPE, BFS_BILL_ID, BFS_STATUS, BFS_CREATE_TIME
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         <!--
         @mbggenerated
         -->
         select 
         <include refid="Base_Column_List" />
         from bill_files
-        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+        where BFS_ID = #{bfsId,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         <!--
         @mbggenerated
         -->
         delete from bill_files
-        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+        where BFS_ID = #{bfsId,jdbcType=INTEGER}
     </delete>
     <insert id="insert" parameterType="com.xiedang.www.model.BillFiles">
         <!--
@@ -43,11 +43,11 @@
         insert into bill_files (BFS_ID, BFS_NAME, BFS_PATH, 
             BFS_TYPE, BFS_BILL_TYPE, BFS_BILL_ID, 
             BFS_STATUS, BFS_CREATE_TIME)
-        values (#{bfsId,jdbcType=VARCHAR}, #{bfsName,jdbcType=VARCHAR}, #{bfsPath,jdbcType=VARCHAR}, 
+        values (#{bfsId,jdbcType=INTEGER}, #{bfsName,jdbcType=VARCHAR}, #{bfsPath,jdbcType=VARCHAR}, 
             #{bfsType,jdbcType=VARCHAR}, #{bfsBillType,jdbcType=VARCHAR}, #{bfsBillId,jdbcType=VARCHAR}, 
             #{bfsStatus,jdbcType=DECIMAL}, #{bfsCreateTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.xiedang.www.model.BillFiles">
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.BillFiles" useGeneratedKeys="true" keyProperty="bfsId">
         <!--
         @mbggenerated
         -->
@@ -80,7 +80,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="bfsId != null">
-                #{bfsId,jdbcType=VARCHAR},
+                #{bfsId,jdbcType=INTEGER},
             </if>
             <if test="bfsName != null">
                 #{bfsName,jdbcType=VARCHAR},
@@ -133,7 +133,7 @@
                 BFS_CREATE_TIME = #{bfsCreateTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+        where BFS_ID = #{bfsId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.BillFiles">
         <!--
@@ -147,6 +147,6 @@
             BFS_BILL_ID = #{bfsBillId,jdbcType=VARCHAR},
             BFS_STATUS = #{bfsStatus,jdbcType=DECIMAL},
             BFS_CREATE_TIME = #{bfsCreateTime,jdbcType=TIMESTAMP}
-        where BFS_ID = #{bfsId,jdbcType=VARCHAR}
+        where BFS_ID = #{bfsId,jdbcType=INTEGER}
     </update>
 </mapper>
