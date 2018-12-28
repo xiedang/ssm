@@ -17,4 +17,7 @@ public class SysConstant {
 
     @Value("${var.openoffice.converter.port}")
     public String openOfficePort;
+
+    @Value("${var.file.upload_path}")
+    public String uploadPath;
 }
