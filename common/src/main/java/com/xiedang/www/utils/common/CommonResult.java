@@ -1,7 +1,5 @@
 package com.xiedang.www.utils.common;
 
-import com.xiedang.www.utils.common.BaseObject;
-
 import java.util.List;
 
 public class CommonResult<T> extends BaseObject {

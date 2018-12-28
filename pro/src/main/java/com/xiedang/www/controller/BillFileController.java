@@ -36,7 +36,7 @@ public class BillFileController {
      * @param file_data
      * @return
      */
-    @RequestMapping(value = "/uploadFile")
+    @RequestMapping(value = "/uploadFile",produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public CommonResult<BillFiles> uploadFile(HttpServletRequest request, FilesVo filesVo, MultipartFile file_data) {
         CommonResult<BillFiles> result=new CommonResult<>(CommonResult.SUCCESS_CODE);

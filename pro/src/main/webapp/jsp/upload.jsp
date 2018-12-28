@@ -21,7 +21,7 @@
     <script src="../themes/explorer-fas/theme.js" type="text/javascript"></script>
 </head>
 <body>
-<div class="container my-3">
+<div class="container">
     <form enctype="multipart/form-data">
         <div class="form-group">
             <div class="file-loading">
@@ -47,10 +47,10 @@
             return filename.replace('(', '_').replace(']', '_');
         }
     }).on("fileuploaded", function(event, data) {
-        console.log(data);
-        //$("#path").attr("value",data.response);
+        var result= data.response;
+        console.log(result.success);
     });
-    $(".btn-warning").on('click', function () {
+    /*$(".btn-warning").on('click', function () {
         var $el = $("#file");
         if ($el.attr('disabled')) {
             $el.fileinput('enable');
@@ -60,6 +60,6 @@
     });
     $(".btn-info").on('click', function () {
         $("#file").fileinput('refresh', {previewClass: 'bg-info'});
-    });
+    });*/
 </script>
 </html>
