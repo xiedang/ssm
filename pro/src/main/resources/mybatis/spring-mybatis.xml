@@ -17,6 +17,21 @@
 				<value>classpath*:/sqlmap/**/*Mapper.xml</value>
 			</array>
 		</property>
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<value>
+							helperDialect=mysql
+							reasonable=true
+							offsetAsPageNum=true
+							rowBoundsWithCount=true
+							pageSizeZero=true
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<mybatis:scan base-package="com.xiedang.www.mapper" />
