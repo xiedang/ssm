@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     public int doDeleteUsers(String[] ids) {
         int i = 0;
         try {
-            i = userMapper.deleteByPrimaryKeys(ids) + userInfoMapper.deleteByPrimaryKey(ids);
+            i = userMapper.deleteByPrimaryKey(ids) + userInfoMapper.deleteByPrimaryKey(ids);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,6 +100,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryUserByPage(map);
     }
 
+    @Override
+    public String getNameByUserName(String username) {
+        return userMapper.getNameByUserName(username);
+    }
 
     @Override
     public int batchUpdate(List<User> users) {

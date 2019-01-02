@@ -11,17 +11,12 @@ import java.util.Map;
  * @author zyk
  */
 public interface UserMapper {
-
     /**
-    *
-    * @Description:  根据主键批量删除数据库的记录,user
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 10:40 2018/11/30 0030
-    *
-    */
-    int deleteByPrimaryKeys(String[] ids);
+     *  根据主键删除数据库的记录,user
+     *
+     * @param id
+     */
+    int deleteByPrimaryKey(String[] id);
 
     /**
      *  新写入数据库记录,user
@@ -47,9 +42,9 @@ public interface UserMapper {
     /**
      *  动态字段,根据主键来更新符合条件的数据库记录,user
      *
-     * @param vo
+     * @param userVo
      */
-    int updateByPrimaryKeySelective(UserVo vo);
+    int updateByPrimaryKeySelective(UserVo userVo);
 
     /**
      *  根据主键来更新符合条件的数据库记录,user
@@ -57,7 +52,6 @@ public interface UserMapper {
      * @param record
      */
     int updateByPrimaryKey(User record);
-
     /**
      * 批量插入用户
      * @param users
@@ -98,20 +92,29 @@ public interface UserMapper {
     List<User> selectAllLoginInfo();
 
     /**
-    *
-    * @Description: 分页查询
-    * @Param:
-    * @return:
-    * @Author: Mr.Michelle
-    * @Date: 下午 9:02 2018/12/11 0011
-    *
-    */
-    List<UserBo> queryUserByPage(Map map);
+     *
+     * @Description: 分页查询
+     * @Param:
+     * @return:
+     * @Author: Mr.Michelle
+     * @Date: 下午 9:02 2018/12/11 0011
+     *
+     */
+    List<UserBo> queryUserByPage(Map<String,Object> map);
 
     /**
      *
      * @param map
      * @return
      */
-    List<User> selectUserByPage(Map<String, Object> map);
+    List<User> selectUserByPage(Map<String,Object> map);
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: 根据用户名获取用户名字
+     * @param: [username]
+     * @Return: com.xiedang.www.bo.UserBo
+     * @Date: 2018/12/30 11:27
+     */
+    String getNameByUserName(String username);
 }

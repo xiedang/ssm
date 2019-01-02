@@ -4,7 +4,6 @@ package com.xiedang.www.model;
  * 
  * User
  * 数据库表：user
- * @author zyk
  */
 public class User {
 

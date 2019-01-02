@@ -8,26 +8,33 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="p_no" jdbcType="VARCHAR" property="pNo" />
         <result column="p_title" jdbcType="VARCHAR" property="pTitle" />
+        <result column="p_status" jdbcType="VARCHAR" property="pStatus" />
         <result column="p_type" jdbcType="VARCHAR" property="pType" />
         <result column="p_type_code" jdbcType="INTEGER" property="pTypeCode" />
-        <result column="p_find_time" jdbcType="DATE" property="pFindTime" />
-        <result column="p_person" jdbcType="VARCHAR" property="pPerson" />
-        <result column="p_responsible" jdbcType="VARCHAR" property="pResponsible" />
-        <result column="p_plan_time" jdbcType="DATE" property="pPlanTime" />
-        <result column="p_describe" jdbcType="VARCHAR" property="pDescribe" />
-        <result column="p_remark" jdbcType="VARCHAR" property="pRemark" />
-        <result column="p_status" jdbcType="VARCHAR" property="pStatus" />
+        <result column="p_close_status" jdbcType="VARCHAR" property="pCloseStatus" />
+        <result column="p_rejected_reason" jdbcType="VARCHAR" property="pRejectedReason" />
         <result column="p_delete_status" jdbcType="INTEGER" property="pDeleteStatus" />
+        <result column="p_founder" jdbcType="VARCHAR" property="pFounder" />
+        <result column="p_create_time" jdbcType="TIMESTAMP" property="pCreateTime" />
     </resultMap>
     <resultMap extends="BaseResultMap" id="BaseResultMapBo" type="com.xiedang.www.bo.ProblemBo">
-
+        <association property="problemItem" javaType="com.xiedang.www.model.ProblemItem">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="pid" jdbcType="INTEGER" property="pid" />
+            <result column="item_desc" jdbcType="VARCHAR" property="itemDesc" />
+            <result column="item_status" jdbcType="INTEGER" property="itemStatus" />
+            <result column="item_responsible" jdbcType="VARCHAR" property="itemResponsible" />
+            <result column="item_plan_time" jdbcType="DATE" property="itemPlanTime" />
+            <result column="item_reason" jdbcType="VARCHAR" property="itemReason" />
+            <result column="item_measure" jdbcType="VARCHAR" property="itemMeasure" />
+        </association>
     </resultMap>
     <sql id="Base_Column_List">
         <!--
         @mbggenerated
         -->
-        id, p_no, p_title, p_type, p_type_code, p_find_time, p_person, p_responsible, p_plan_time, 
-        p_describe, p_remark, p_status, p_delete_status
+        id, p_no, p_title, p_status, p_type, p_type_code, p_close_status, p_rejected_reason, 
+        p_delete_status, p_founder, p_create_time
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMapBo">
         <!--
@@ -38,70 +45,30 @@
         from problem
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="selectAllByPage" parameterType="java.util.Map" resultMap="BaseResultMapBo">
-        select
-        <include refid="Base_Column_List"/>
-        from problem
-        where p_delete_status = 1
-        limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
-    </select>
-    <select id="selectProblem" parameterType="com.xiedang.www.vo.ProblemVo" resultMap="BaseResultMapBo">
-        select
-        <include refid="Base_Column_List"/>
-        from problem
-        where p_delete_status = 1
-        <if test="pNo != null and pNo != ''">
-            and p_no = #{pNo,jdbcType=VARCHAR}
-        </if>
-        <if test="pTitle != null and pTitle != ''">
-            and p_title like concat('%',#{pTitle},'%')
-        </if>
-        <if test="pType != null and pType != ''">
-            and p_type = #{pType,jdbcType=VARCHAR}
-        </if>
-        <if test="pFindTime != null and pFindTime != ''">
-            and p_find_time = #{pFindTime,jdbcType=DATE}
-        </if>
-        <if test="pPerson != null and pPerson != ''">
-            and p_person = #{pPerson,jdbcType=VARCHAR}
-        </if>
-        <if test="pResponsible != null and pResponsible != ''">
-            and p_responsible = #{pResponsible,jdbcType=VARCHAR}
-        </if>
-        <if test="pPlanTime != null and pPlanTime != ''">
-            and p_plan_time = #{pPlanTime,jdbcType=DATE}
-        </if>
-        <if test="pStatus != null and pStatus != ''">
-            and p_status = #{pStatus,jdbcType=VARCHAR}
-        </if>
-    </select>
-    <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.util.List">
         <!--
         @mbggenerated
         -->
-        update problem
-        set p_delete_status = 2
+        delete from problem
         where id in
-        <foreach collection="array" index="index" item="item" open="(" close=")" separator=",">
-            #{item}
+        <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+            #{item,jdbcType=VARCHAR}
         </foreach>
-    </update>
+    </delete>
     <insert id="insert" parameterType="com.xiedang.www.model.Problem">
         <!--
         @mbggenerated
         -->
         insert into problem (id, p_no, p_title, 
-            p_type, p_type_code, p_find_time, 
-            p_person, p_responsible, p_plan_time, 
-            p_describe, p_remark, p_status, 
-            p_delete_status)
-        values (#{id,jdbcType=INTEGER}, #{pNo,jdbcType=INTEGER}, #{pTitle,jdbcType=VARCHAR}, 
-            #{pType,jdbcType=VARCHAR}, #{pTypeCode,jdbcType=INTEGER}, #{pFindTime,jdbcType=DATE}, 
-            #{pPerson,jdbcType=VARCHAR}, #{pResponsible,jdbcType=VARCHAR}, #{pPlanTime,jdbcType=DATE}, 
-            #{pDescribe,jdbcType=VARCHAR}, #{pRemark,jdbcType=VARCHAR}, #{pStatus,jdbcType=VARCHAR}, 
-            #{pDeleteStatus,jdbcType=INTEGER})
+            p_status, p_type, p_type_code, 
+            p_close_status, p_rejected_reason, p_delete_status, 
+            p_founder, p_create_time)
+        values (#{id,jdbcType=INTEGER}, #{pNo,jdbcType=VARCHAR}, #{pTitle,jdbcType=VARCHAR}, 
+            #{pStatus,jdbcType=VARCHAR}, #{pType,jdbcType=VARCHAR}, #{pTypeCode,jdbcType=INTEGER}, 
+            #{pCloseStatus,jdbcType=VARCHAR}, #{pRejectedReason,jdbcType=VARCHAR}, #{pDeleteStatus,jdbcType=INTEGER}, 
+            #{pFounder,jdbcType=VARCHAR}, #{pCreateTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.xiedang.www.vo.ProblemVo">
+    <insert id="insertSelective" parameterType="com.xiedang.www.vo.ProblemVo" useGeneratedKeys="true" keyProperty="pid">
         <!--
         @mbggenerated
         -->
@@ -116,35 +83,29 @@
             <if test="pTitle != null">
                 p_title,
             </if>
+            <if test="pStatus != null">
+                p_status,
+            </if>
             <if test="pType != null">
                 p_type,
             </if>
             <if test="pTypeCode != null">
                 p_type_code,
             </if>
-            <if test="pFindTime != null">
-                p_find_time,
+            <if test="pCloseStatus != null">
+                p_close_status,
             </if>
-            <if test="pPerson != null">
-                p_person,
-            </if>
-            <if test="pResponsible != null">
-                p_responsible,
-            </if>
-            <if test="pPlanTime != null">
-                p_plan_time,
-            </if>
-            <if test="pDescribe != null">
-                p_describe,
-            </if>
-            <if test="pRemark != null">
-                p_remark,
-            </if>
-            <if test="pStatus != null">
-                p_status,
+            <if test="pRejectedReason != null">
+                p_rejected_reason,
             </if>
             <if test="pDeleteStatus != null">
                 p_delete_status,
+            </if>
+            <if test="pFounder != null">
+                p_founder,
+            </if>
+            <if test="pCreateTime != null">
+                p_create_time,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -157,58 +118,32 @@
             <if test="pTitle != null">
                 #{pTitle,jdbcType=VARCHAR},
             </if>
+            <if test="pStatus != null">
+                #{pStatus,jdbcType=VARCHAR},
+            </if>
             <if test="pType != null">
                 #{pType,jdbcType=VARCHAR},
             </if>
             <if test="pTypeCode != null">
                 #{pTypeCode,jdbcType=INTEGER},
             </if>
-            <if test="pFindTime != null">
-                #{pFindTime,jdbcType=DATE},
+            <if test="pCloseStatus != null">
+                #{pCloseStatus,jdbcType=VARCHAR},
             </if>
-            <if test="pPerson != null">
-                #{pPerson,jdbcType=VARCHAR},
-            </if>
-            <if test="pResponsible != null">
-                #{pResponsible,jdbcType=VARCHAR},
-            </if>
-            <if test="pPlanTime != null">
-                #{pPlanTime,jdbcType=DATE},
-            </if>
-            <if test="pDescribe != null">
-                #{pDescribe,jdbcType=VARCHAR},
-            </if>
-            <if test="pRemark != null">
-                #{pRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="pStatus != null">
-                #{pStatus,jdbcType=VARCHAR},
+            <if test="pRejectedReason != null">
+                #{pRejectedReason,jdbcType=VARCHAR},
             </if>
             <if test="pDeleteStatus != null">
                 #{pDeleteStatus,jdbcType=INTEGER},
             </if>
+            <if test="pFounder != null">
+                #{pFounder,jdbcType=VARCHAR},
+            </if>
+            <if test="pCreateTime != null">
+                #{pCreateTime,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.Problem">
-        <!--
-        @mbggenerated
-        -->
-        update problem
-        set
-        p_no = #{pNo,jdbcType=VARCHAR},
-        p_type = #{pType,jdbcType=VARCHAR},
-        p_title = #{pTitle,jdbcType=VARCHAR},
-        p_type_code = #{pTypeCode,jdbcType=INTEGER},
-        p_find_time = #{pFindTime,jdbcType=DATE},
-        p_person = #{pPerson,jdbcType=VARCHAR},
-        p_responsible = #{pResponsible,jdbcType=VARCHAR},
-        p_plan_time = #{pPlanTime,jdbcType=DATE},
-        p_describe = #{pDescribe,jdbcType=VARCHAR},
-        p_remark = #{pRemark,jdbcType=VARCHAR},
-        p_status = #{pStatus,jdbcType=VARCHAR},
-        p_delete_status = #{pDeleteStatus,jdbcType=INTEGER}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.vo.ProblemVo">
         <!--
         @mbggenerated
@@ -221,38 +156,151 @@
             <if test="pTitle != null">
                 p_title = #{pTitle,jdbcType=VARCHAR},
             </if>
+            <if test="pStatus != null">
+                p_status = #{pStatus,jdbcType=VARCHAR},
+            </if>
             <if test="pType != null">
                 p_type = #{pType,jdbcType=VARCHAR},
             </if>
             <if test="pTypeCode != null">
                 p_type_code = #{pTypeCode,jdbcType=INTEGER},
             </if>
-            <if test="pFindTime != null">
-                p_find_time = #{pFindTime,jdbcType=DATE},
+            <if test="pCloseStatus != null">
+                p_close_status = #{pCloseStatus,jdbcType=VARCHAR},
             </if>
-            <if test="pPerson != null">
-                p_person = #{pPerson,jdbcType=VARCHAR},
-            </if>
-            <if test="pResponsible != null">
-                p_responsible = #{pResponsible,jdbcType=VARCHAR},
-            </if>
-            <if test="pPlanTime != null">
-                p_plan_time = #{pPlanTime,jdbcType=DATE},
-            </if>
-            <if test="pDescribe != null">
-                p_describe = #{pDescribe,jdbcType=VARCHAR},
-            </if>
-            <if test="pRemark != null">
-                p_remark = #{pRemark,jdbcType=VARCHAR},
-            </if>
-            <if test="pStatus != null">
-                p_status = #{pStatus,jdbcType=VARCHAR},
+            <if test="pRejectedReason != null">
+                p_rejected_reason = #{pRejectedReason,jdbcType=VARCHAR},
             </if>
             <if test="pDeleteStatus != null">
                 p_delete_status = #{pDeleteStatus,jdbcType=INTEGER},
             </if>
+            <if test="pFounder != null">
+                p_founder = #{pFounder,jdbcType=VARCHAR},
+            </if>
+            <if test="pCreateTime != null">
+                p_create_time = #{pCreateTime,jdbcType=TIMESTAMP},
+            </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-
+    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.Problem">
+        <!--
+        @mbggenerated
+        -->
+        update problem
+        set p_no = #{pNo,jdbcType=VARCHAR},
+            p_title = #{pTitle,jdbcType=VARCHAR},
+            p_status = #{pStatus,jdbcType=VARCHAR},
+            p_type = #{pType,jdbcType=VARCHAR},
+            p_type_code = #{pTypeCode,jdbcType=INTEGER},
+            p_close_status = #{pCloseStatus,jdbcType=VARCHAR},
+            p_rejected_reason = #{pRejectedReason,jdbcType=VARCHAR},
+            p_delete_status = #{pDeleteStatus,jdbcType=INTEGER},
+            p_founder = #{pFounder,jdbcType=VARCHAR},
+            p_create_time = #{pCreateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <select id="selectProblem" parameterType="com.xiedang.www.vo.ProblemVo" resultMap="BaseResultMapBo">
+        select *
+        from problem
+        where p_delete_status = 1
+        <if test="pNo != null and pNo != ''">
+            and p_no = #{pNo,jdbcType=VARCHAR}
+        </if>
+        <if test="pTitle != null and pTitle != ''">
+            and p_title like concat('%',#{pTitle},'%')
+        </if>
+        <if test="pStatus != null and pStatus != ''">
+            and p_status = #{pStatus,jdbcType=VARCHAR}
+        </if>
+        <if test="pType != null and pType != ''">
+            and p_type = #{pType,jdbcType=VARCHAR}
+        </if>
+        <if test="pFounder != null and pFounder != ''">
+            and p_founder = #{pFounder,jdbcType=VARCHAR}
+        </if>
+        <if test="pCreateTime != null and pCreateTime != ''">
+            and p_create_time = #{pCreateTime,jdbcType=DATE}
+        </if>
+    </select>
+    <select id="selectAllByPage" parameterType="java.util.Map" resultMap="BaseResultMapBo">
+        select
+        <include refid="Base_Column_List" />
+        from problem
+        where p_delete_status = 1
+        limit #{start,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+    </select>
+    <update id="updateApproveStatus" parameterType="com.xiedang.www.vo.ProblemVo">
+        update problem
+        <set>
+            <if test="pNo != null">
+                p_no = #{pNo,jdbcType=VARCHAR},
+            </if>
+            <if test="pTitle != null">
+                p_title = #{pTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="pStatus != null">
+                p_status = #{pStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null">
+                p_type = #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="pTypeCode != null">
+                p_type_code = #{pTypeCode,jdbcType=INTEGER},
+            </if>
+            <if test="pCloseStatus != null">
+                p_close_status = #{pCloseStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="pRejectedReason != null">
+                p_rejected_reason = #{pRejectedReason,jdbcType=VARCHAR},
+            </if>
+            <if test="pDeleteStatus != null">
+                p_delete_status = #{pDeleteStatus,jdbcType=INTEGER},
+            </if>
+            <if test="pFounder != null">
+                p_founder = #{pFounder,jdbcType=VARCHAR},
+            </if>
+            <if test="pCreateTime != null">
+                p_create_time = #{pCreateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--<select id="problemCount" resultType="java.lang.Integer">
+        select count(*)
+        from problem
+        where DATE_FORMAT(p_create_time,'y%-m%-d%') = DATE_FORMAT(now(),'y%-m%-d%')
+    </select>-->
+    <select id="problemCount" resultType="java.lang.Integer">
+        select count(1)
+        from problem
+        where to_days(p_create_time) = to_days(now())
+    </select>
+    <select id="selectByPageAndSelections" parameterType="com.xiedang.www.vo.ProblemVo" resultMap="BaseResultMapBo">
+        select *
+        from problem
+        <where>
+        <if test="pNo != null and pNo != ''">
+            and p_no = #{pNo,jdbcType=VARCHAR}
+        </if>
+        <if test="pTitle != null and pTitle != ''">
+            and p_title like concat('%',#{pTitle},'%')
+        </if>
+        <if test="pStatus != null and pStatus != ''">
+            and p_status = '已审批'
+        </if>
+        <if test="pType != null and pType != ''">
+            and p_type = #{pType,jdbcType=VARCHAR}
+        </if>
+        <if test="pDeleteStatus != null and pDeleteStatus != ''">
+            and p_delete_status = '1'
+        </if>
+        <if test="pFounder != null and pFounder != ''">
+            and p_founder = #{pFounder,jdbcType=VARCHAR}
+        </if>
+        <if test="pCreateTime != null and pCreateTime != ''">
+            and p_create_time = #{pCreateTime,jdbcType=DATE}
+        </if>
+        </where>
+    </select>
 </mapper>

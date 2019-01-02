@@ -1,6 +1,8 @@
 package com.xiedang.www.mapper;
 
+import com.xiedang.www.bo.UserBo;
 import com.xiedang.www.model.UserInfo;
+import com.xiedang.www.vo.UserVo;
 
 public interface UserInfoMapper {
     /**
@@ -20,23 +22,23 @@ public interface UserInfoMapper {
     /**
      *  动态字段,写入数据库记录,user_info
      *
-     * @param record
+     * @param userVo
      */
-    int insertSelective(UserInfo record);
+    int insertSelective(UserVo userVo);
 
     /**
      *  根据指定主键获取一条数据库记录,user_info
      *
      * @param id
      */
-    UserInfo selectByPrimaryKey(Integer id);
+    UserBo selectByPrimaryKey(Integer id);
 
     /**
      *  动态字段,根据主键来更新符合条件的数据库记录,user_info
      *
-     * @param record
+     * @param userVo
      */
-    int updateByPrimaryKeySelective(UserInfo record);
+    int updateByPrimaryKeySelective(UserVo userVo);
 
     /**
      *  根据主键来更新符合条件的数据库记录,user_info

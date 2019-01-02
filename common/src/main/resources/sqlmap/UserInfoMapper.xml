@@ -30,12 +30,15 @@
         from user_info
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <delete id="deleteByPrimaryKey" parameterType="java.util.List">
         <!--
         @mbggenerated
         -->
         delete from user_info
-        where id = #{id,jdbcType=INTEGER}
+        where uid in
+        <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+            #{id,jdbcType=VARCHAR}
+        </foreach>
     </delete>
     <insert id="insert" parameterType="com.xiedang.www.model.UserInfo">
         <!--
@@ -143,7 +146,7 @@
                 status = #{status,jdbcType=INTEGER},
             </if>
         </set>
-        where uid = #{uid,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.UserInfo">
         <!--

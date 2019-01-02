@@ -1,5 +1,6 @@
 package com.xiedang.www.mapper;
 
+import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
 import com.xiedang.www.model.Problem;
 import com.xiedang.www.vo.ProblemVo;
@@ -72,5 +73,30 @@ public interface ProblemMapper {
      */
     List<ProblemBo> selectAllByPage(Map<String,Object> map);
 
+    /**
+     * @Author: Mr.zyk
+     * @Description: 审批
+     * @param: [problemVo]
+     * @Return: int
+     * @Date: 2018/12/28 11:28
+     */
+    int updateApproveStatus(ProblemVo problemVo);
 
+    /**
+     * @Author: Mr.zyk
+     * @Description: 查找当天生成的记录数
+     * @param: []
+     * @Return: int
+     * @Date: 2018/12/28 11:31
+     */
+    int problemCount();
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: pageHelper初使用
+     * @param: []
+     * @Return: java.util.List<com.xiedang.www.bo.UserBo>
+     * @Date: 2019/1/2 20:13
+     */
+    Page<ProblemBo> selectByPageAndSelections(ProblemVo problemVo);
 }

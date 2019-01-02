@@ -92,7 +92,8 @@
 <div class="logo">
     <p class="logo-title">xxx系统</p>
     <p class="time" id="time"></p>
-    <p class="user" id="user">当前用户：${sessionScope.user.username}</p>
+    <%--<p class="user" id="user">当前用户：${sessionScope.user.username}</p>--%>
+    <p class="user" id="user">当前用户：${sessionScope.name}</p>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -110,11 +111,11 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="problem" class="nav nav-list secondmenu collapse" style="height:0">
-                        <li id="definition"><a href="#"><i class="glyphicon glyphicon-pencil"></i>"&nbsp;问题定义"</a></li>
-                        <li id="measure"><a href="#"><i class="glyphicon glyphicon-pushpin"></i>"&nbsp;措施拟定"</a></li>
-                        <li id="approve"><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>"&nbsp;措施审批"</a></li>
-                        <li id="close"><a href="#"><i class="glyphicon glyphicon-unchecked"></i>"&nbsp;问题关闭"</a></li>
-                        <li id="report"><a href="#"><i class="glyphicon glyphicon-th"></i>"&nbsp;图形报表"</a></li>
+                        <li id="definition"><a href="#"><i class="glyphicon glyphicon-pencil"></i>&nbsp;问题定义</a></li>
+                        <li id="measure"><a href="#"><i class="glyphicon glyphicon-pushpin"></i>&nbsp;措施拟定</a></li>
+                        <li id="approve"><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;措施审批</a></li>
+                        <li id="close"><a href="#"><i class="glyphicon glyphicon-unchecked"></i>&nbsp;问题关闭</a></li>
+                        <li id="report"><a href="#"><i class="glyphicon glyphicon-th"></i>&nbsp;图形报表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -124,11 +125,11 @@
                         <span class="pull-right glyphicon glyphicon-chevron-toggle"></span>
                     </a>
                     <ul id="systemSetting" class="nav nav-list secondmenu collapse" style="height:0">
-                        <li id="user-manage"><a href="#"><i class="glyphicon glyphicon-user"></i>"&nbsp;用户管理"</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>"&nbsp;菜单管理"</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>"&nbsp;角色管理"</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>"&nbsp;修改密码"</a></li>
-                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>"&nbsp;日志查看"</a></li>
+                        <li id="user-manage"><a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;用户管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
                     </ul>
                 </li>
                 <li>
@@ -276,11 +277,14 @@
 <%--页面跳转--%>
 <script type="text/javascript">
     $(document).ready(function () {
+        $("#user-manage").click(function () {
+            $("#myWindow").load("${cp}/jsp/user.jsp");
+        });
         $("#definition").click(function () {
             $("#myWindow").load("${cp}/jsp/problem.jsp");
         });
-        $("#user-manage").click(function () {
-            $("#myWindow").load("${cp}/jsp/user.jsp");
+        $("#measure").click(function () {
+            $("#myWindow").load("${cp}/jsp/measure.jsp");
         });
     })
 </script>

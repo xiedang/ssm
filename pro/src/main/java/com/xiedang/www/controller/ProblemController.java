@@ -1,5 +1,6 @@
 package com.xiedang.www.controller;
 
+import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
 import com.xiedang.www.service.ProblemService;
 import com.xiedang.www.vo.ProblemVo;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +101,10 @@ public class ProblemController {
     @ResponseBody
     public int addProblem(HttpServletRequest request, ProblemVo problemVo){
         log.info("新增，参数{}",problemVo);
+        //session中获取当前登录用户名
+        HttpSession session = request.getSession();
+        String name = (String) session.getAttribute("name");
+        problemVo.setpFounder(name);
         int i = 0;
         try {
             i = problemService.addProblem(problemVo);
@@ -147,5 +153,32 @@ public class ProblemController {
             e.printStackTrace();
         }
         return i;
+    }
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: 审批
+     * @param: [request, problemVo]
+     * @Return: int
+     * @Date: 2018/12/25 21:49
+     */
+    @RequestMapping("/problemApprove")
+    @ResponseBody
+    public int problemApprove(HttpServletRequest request,ProblemVo problemVo){
+        log.info("审批，参数{}",problemVo);
+        int i = 0;
+        try {
+            i = problemService.updateApproveStatus(problemVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
+
+    @RequestMapping("/getDepartment")
+    @ResponseBody
+    public Page<ProblemBo> getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
+
+        return problemService.selectByPageAndSelections(currentPage,pageSize,problemVo);
     }
 }

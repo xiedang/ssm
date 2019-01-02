@@ -1,5 +1,6 @@
 package com.xiedang.www.service;
 
+import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
 import com.xiedang.www.vo.ProblemVo;
 
@@ -13,9 +14,11 @@ import java.util.Map;
  */
 public interface ProblemService {
     /**
-     *
-     * @param id
-     * @return
+     * @Author: Mr.zyk
+     * @Description: 根据id获取单条数据
+     * @param: [id]
+     * @Return: com.xiedang.www.bo.ProblemBo
+     * @Date: 2018/12/26 19:52
      */
     ProblemBo selectById(Integer id);
 
@@ -46,7 +49,48 @@ public interface ProblemService {
      */
     int addProblem(ProblemVo problemVo);
 
+    /**
+     * @Author: Mr.zyk
+     * @Description: 更新
+     * @param: [problemVo]
+     * @Return: int
+     * @Date: 2018/12/26 19:20
+     */
     int updateProblem(ProblemVo problemVo);
 
+    /**
+     * @Author: Mr.zyk
+     * @Description: 删除
+     * @param: [str]
+     * @Return: int
+     * @Date: 2018/12/26 19:20
+     */
     int deleteProblem(String[] str);
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: 审批
+     * @param: [problemVo]
+     * @Return: int
+     * @Date: 2018/12/26 19:21
+     */
+    int updateApproveStatus(ProblemVo problemVo);
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: 获取问题编号方法
+     * @param: []
+     * @Return: java.lang.String
+     * @Date: 2018/12/26 19:43
+     */
+    String getNo();
+
+    /**
+     * @Author: Mr.zyk
+     * @Description: pageHelper分页工具
+     * @param: []
+     * @Return: com.github.pagehelper.Page<com.xiedang.www.bo.ProblemBo>
+     * @Date: 2019/1/2 20:16
+     */
+    Page<ProblemBo> selectByPageAndSelections(int currentPage, int pageSize,ProblemVo problemVo);
 }

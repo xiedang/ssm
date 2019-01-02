@@ -31,32 +31,28 @@
         <!--
         @mbggenerated
         -->
-        select
-        u.id, username, password,
-        ui.id ui_id, name, sex, phone, address, birth_date, native_place
-        from user u
-        INNER JOIN user_info ui
-        ON u.id = ui.uid
-        WHERE u.id = #{id,jdbcType=INTEGER}
-        ORDER BY u.id
+        select 
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKeys" parameterType="java.lang.String">
+    <delete id="deleteByPrimaryKey" parameterType="java.util.List">
         <!--
         @mbggenerated
         -->
         delete from user
         where id in
-          <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
-              #{item,jdbcType=VARCHAR}
-          </foreach>
+        <foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
     </delete>
     <insert id="insert" parameterType="com.xiedang.www.model.User">
         <!--
         @mbggenerated
         -->
-        insert into user (id, username, password,
+        insert into user (id, username, password, 
             status)
-        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+        values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
             #{status,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" parameterType="com.xiedang.www.vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
@@ -115,15 +111,16 @@
         <!--
         @mbggenerated
         -->
-        UPDATE user
-        SET username = #{username,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        status = #{status,jdbcType=INTEGER}
-        WHERE id = #{id,jdbcType=INTEGER}
+        update user
+        set username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            status = #{status,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </update>
-    <insert id="batchInsert" parameterType="java.util.List" useGeneratedKeys="true" keyProperty="id">
+
+    <insert id="batchInsert" keyProperty="id" parameterType="java.util.List" useGeneratedKeys="true">
         INSERT INTO user(username,password) VALUES
-        <foreach collection="list" separator="," index="index" item="user">
+        <foreach collection="list" index="index" item="user" separator=",">
             (#{user.username},#{user.password})
         </foreach>
     </insert>
@@ -131,16 +128,16 @@
         UPDATE user SET
         username=
         CASE id
-        <foreach collection="list" index="index" item="user" close="end,">
+        <foreach close="end," collection="list" index="index" item="user">
              WHEN #{user.id} then  #{user.username}
         </foreach>
         password=
         CASE id
-        <foreach collection="list" index="index" item="user" close="end">
+        <foreach close="end" collection="list" index="index" item="user">
             WHEN #{user.id} then  #{user.password}
         </foreach>
         where id in
-        <foreach collection="list" index="index" open="(" close=")" item="user" separator=",">
+        <foreach close=")" collection="list" index="index" item="user" open="(" separator=",">
             #{user.id}
         </foreach>
     </update>
@@ -180,6 +177,7 @@
         from user u
         INNER JOIN user_info ui
         ON u.id = ui.uid
+        WHERE u.status=1 and ui.status=1
         <where>
             <if test="username != null and username!=''">
                 AND u.username = #{username,jdbcType=VARCHAR}
@@ -246,5 +244,10 @@
         id, username, password
         from user
         LIMIT #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+    </select>
+    <select id="getNameByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        select name
+        from user_info ui,user u
+        where username = #{username,jdbcType=VARCHAR} and u.id = ui.uid
     </select>
 </mapper>

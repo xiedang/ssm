@@ -21,37 +21,21 @@
     <script type="text/javascript" src="${cp}/js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="${cp}/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${cp}/js/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript" src="${cp}/js/bootstrap-table.js"></script>
 </head>
 <body>
-
 <div id="myManu">
     <div id="condition_body" style="height: 100px;padding: 10px;">
-        <form class="form-inline" role="form" id="queryForm" name="queryForm">
+        <form class="form-inline" role="form" id="queryForm" name="queryForm" style="margin-top: 20px;">
             <div class="form-group">
                 <label for="pNo">问题编号:</label>
                 <input type="text" class="form-control" id="pNo" name="pNo">
                 <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
-
             </div>
             <div class="form-group">
                 <label for="pTitle">问题标题:</label>
                 <input type="text" class="form-control" id="pTitle" name="pTitle">
                 <!-- 为了让控件在各种表单风格中样式不出错需要加上form-control类 -->
 
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="pFindTime">发生日期:</label>
-                <input type="text" class="form-control" id="pFindTime" name="pFindTime"
-                       onClick="WdatePicker()">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="pPerson">录入人:</label>
-                <input type="text" class="form-control" id="pPerson" name="pPerson">
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="pResponsible">责任人:</label>
-                <input type="text" class="form-control" id="pResponsible" name="pResponsible">
             </div>
             <div class="form-group">
                 <label for="pType" class="control-label">问题类型:</label>
@@ -73,9 +57,17 @@
                     <option value="已驳回">已驳回</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label class="control-label" for="pFounder">创建人:</label>
+                <input type="text" class="form-control" id="pFounder" name="pFounder">
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="pCreateTime">创建日期:</label>
+                <input type="text" class="form-control" id="pCreateTime" name="pCreateTime"
+                       onClick="WdatePicker()">
+            </div>
         </form>
     </div>
-
     <%--按钮--%>
     <div class="container" style="width: auto;">
         <div class="row">
@@ -85,6 +77,8 @@
                     class="glyphicon glyphicon-plus">新增</span></div>
             <div class="col-sm-1 btn btn-default" id="updateBtn" style="width: 5%;margin-left: 10px;"><span
                     class="glyphicon glyphicon-pencil">修改</span></div>
+            <div class="col-sm-1 btn btn-success" id="approveBtn" style="width: 5%;margin-left: 10px;"><span
+                    class="glyphicon glyphicon-pencil">审批</span></div>
             <div class="col-sm-1 btn btn-danger" id="delBtn" style="width: 5%;margin-left: 10px;"><span
                     class="glyphicon glyphicon-remove">删除</span></div>
             <div class="col-sm-1 btn btn-default" id="importBtn" style="width: 8%;margin-left: 10px;"><span
@@ -111,15 +105,12 @@
                     <td>问题标题</td>
                     <td>问题状态</td>
                     <td>问题类型</td>
-                    <td>发生日期</td>
-                    <td>录入人</td>
-                    <td>责任人</td>
-                    <td>计划完成日期</td>
-                    <td>问题描述</td>
-                    <td>备注</td>
+                    <td>驳回原因</td>
+                    <td>创建人</td>
+                    <td>创建日期</td>
                 </tr>
                 </thead>
-                <tbody id="tableBody">
+                <tbody id="tableBody" class="table table-responsive table-hover">
 
                 </tbody>
             </table>
@@ -129,9 +120,9 @@
     <footer>
         <ul class="pagination pagination-sm">
             <li>
-                <select id="pageSize" name="pageSize" onchange="getPageSize()">
+                <select class="" id="pageSize" name="pageSize">
                     <option value=10>10</option>
-                    <option class="active" value=20>20</option>
+                    <option value=20>20</option>
                     <option value=50>50</option>
                     <option value=100>100</option>
                 </select>
@@ -139,9 +130,11 @@
             <li id="previousPage" class="btn btn-sm">
                 <i class="glyphicon glyphicon-chevron-left"></i>
             </li>
+            <li>第</li>
             <li>
-                <input type="number" id="number" value="1" style="width: 50px;" disabled>
+                <input class="" type="number" id="number" value="1" style="width: 50px;" disabled>
             </li>
+            <li>页</li>
             <li id="nextPage" class="btn btn-sm">
                 <i class="glyphicon glyphicon-chevron-right"></i>
             </li>
@@ -151,7 +144,7 @@
 
 <!--新增模态框-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document" style="width: 35%">
+    <div class="modal-dialog" role="document" style="width: 60%">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
@@ -166,73 +159,71 @@
                             <input type="text" class="form-control" id="modeId" name="id" style="display: none">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">问题编号：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modePNo" name="pNo">
-                            <span class="help-block"></span>
+                    <div>
+                        <div class="col-sm-4">
+                            <div class="form-group" >
+                                <label class="col-sm-4 control-label">问题编号：</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="modePNo" name="pNo" disabled>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">问题标题：</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="modeAddPTitle" name="pTitle" required>
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">问题类型：</label>
+                                <div class="col-sm-5">
+                                    <select id="modeAddType" class="form-control" name="pType">
+                                        <option value="">请选择</option>
+                                        <option value="市场问题">市场问题</option>
+                                        <option value="研发问题">研发问题</option>
+                                        <option value="制造问题">制造问题</option>
+                                        <option value="内部问题">内部问题</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">问题标题：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPTitle" name="pTitle" required>
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">问题类型：</label>
-                        <div class="col-sm-3">
-                            <select id="modeAddType" class="form-control" name="pType">
-                                <option value="">请选择</option>
-                                <option value="市场问题">市场问题</option>
-                                <option value="研发问题">研发问题</option>
-                                <option value="制造问题">制造问题</option>
-                                <option value="内部问题">内部问题</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">发生日期：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPFindTime" name="pFindTime" onclick="WdatePicker()">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">录入人：</label>
-                        <div class="col-sm-3">
-                            <input type="text" id="modelPPerson" class="form-control" name="pPerson"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">责任人：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPResponsible" name="pResponsible">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">计划完成日期：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPPlanTime" name="pPlanTime"
-                                   onclick="WdatePicker()">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">问题描述：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPDescribe" name="pDescribe"/>
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">备注：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="modeAddPRemark" name="pRemark">
-                            <span class="help-block"></span>
-                        </div>
+                    <div class="table table-responsive">
+                        <div class="btn btn-info btn-sm" id="addItem">添加</div>
+                        <table class="table table-bordered" style="text-align: center;">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>问题描述</th>
+                                <th>责任人</th>
+                                <th>计划完成日期</th>
+                                <th>附件</th>
+                            </tr>
+                            </thead>
+                            <tbody id="itemTable">
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <input type="text" class="form-control" id="itemDesc" name="itemDesc">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="itemResponsible" name="itemResponsible">
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="itemPlanTime" name="itemPlanTime" onClick="WdatePicker()">
+                                </td>
+                                <td>
+                                    <input type="file" class="form-control" id="itemFile" name="itemFile">
+                                </td>
+                                <td><span class="glyphicon glyphicon-remove"></span></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>
@@ -366,12 +357,121 @@
         </div>
     </div>
 </div>
+
+<!--审批模态框-->
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 35%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="myApproveModalLabel">修改</h5>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="approveModalForm">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="modeApproveId" name="id" style="display: none">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">问题编号：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePNo" name="pNo" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">问题标题：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePTitle" name="pTitle" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">问题类型：</label>
+                        <div class="col-sm-3">
+                            <select id="modeApproveType" class="form-control" name="pType" disabled>
+                                <option value="市场问题">市场问题</option>
+                                <option value="研发问题">研发问题</option>
+                                <option value="制造问题">制造问题</option>
+                                <option value="内部问题">内部问题</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">发生日期：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePFindTime" name="pFindTime" onclick="WdatePicker()" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">录入人：</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="modeApprovePPerson" class="form-control" name="pPerson" disabled/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">责任人：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePResponsible" name="pResponsible" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">计划完成日期：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePPlanTime" name="pPlanTime"
+                                   onclick="WdatePicker()" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">问题描述：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePDescribe" name="pDescribe" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">备注：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApprovePRemark" name="pRemark" disabled />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">审批结果：</label>
+                        <div class="col-sm-3">
+                            <select id="modeApproveResult" class="form-control" name="pStatus" onchange="isPass()">
+                                <%--<option value="">请选择</option>--%>
+                                <option value="1" >通过</option>
+                                <option value="2">不通过</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="approveReason" hidden>
+                        <label class="col-sm-3 control-label">原因：</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="modeApproveReason" name="pRemark" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary btn-sm" id="approveModalSaveBtn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(function () {
-
         // 页面加载完成之后，直接发送ajax请求，要到数据
         doQuery(10,1);
-
     });
 
     /*post请求获取分页数据*/
@@ -383,9 +483,8 @@
                 let html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
                     "</td><td style='display: none'>" + v.id + "</td><td>" + v.pNo +
                     "</td><td>" + v.pTitle + "</td><td>" + v.pStatus +"</td><td>" + v.pType +
-                    "</td><td>" + v.pFindTime + "</td><td>" + v.pPerson +
-                    "</td><td>" + v.pResponsible + "</td><td>" + v.pPlanTime +
-                    "</td><td>" + v.pDescribe + "</td><td>" + v.pRemark + "</td></tr>";
+                    "</td><td>" + v.pRejectedReason + "</td><td>" + v.pFounder +
+                    "</td><td>" + v.pCreateTime + "</td></tr>";
                 $("#tableBody").append(html);
             })
         },"json");
@@ -403,9 +502,8 @@
                 let html = "<tr><td>" + "<input type='checkbox' class='check-item' name='check-item'>" +
                     "</td><td style='display: none'>" + v.id + "</td><td>" + v.pNo +
                     "</td><td>" + v.pTitle + "</td><td>" + v.pStatus +"</td><td>" + v.pType +
-                    "</td><td>" + v.pFindTime + "</td><td>" + v.pPerson +
-                    "</td><td>" + v.pResponsible + "</td><td>" + v.pPlanTime +
-                    "</td><td>" + v.pDescribe + "</td><td>" + v.pRemark + "</td></tr>";
+                    "</td><td>" + v.pRejectedReason + "</td><td>" + v.pFounder +
+                    "</td><td>" + v.pCreateTime + "</td></tr>";
                 $("#tableBody").append(html);
             })
         }, "json")
@@ -413,27 +511,79 @@
 
     //将新增按钮绑定click事件
     $("#addBtn").click(function () {
+        $("#addModal input").val("");
+        $("#modeAddType").val("");
         $("#addModal").modal({
             // 点击背景模态框不关闭
             backdrop: "static"
-        })
+        });
     });
 
     /*新增*/
     $("#addModalSaveBtn").click(function () {
-
         //获取页面输入的数据
         let formData = $("#addModalForm").serialize();
         //alert(formData);
-
         $.post('${cp}/problem/addProblem', formData, function (data) {
-
             //保存成功关闭模态框
             $("#addModal").modal("hide");
-
             //重新请求全部数据，填充页面
             doQuery(10,1);
         }, "json")
+    });
+
+    /*审批*/
+    $("#approveBtn").click(function () {
+        let id = "";
+        $.each($(".check-item:checked"), function () {
+            id = $(this).parents("tr").find("td:eq(1)").text();
+        });
+        //alert(id);
+        if (id === "") {
+            alert("请至少勾选一条数据！")
+        } else {
+            $.post("${cp}/problem/queryById", {"id": id}, function (data) {
+                if (data.pStatus !== "已提交"){
+                    alert("该问题已经审批。请勿重复操作");
+                } else {
+                    //弹出模态框
+                    $("#approveModal").modal({
+                        // 点击背景模态框不关闭
+                        backdrop: "static"
+                    });
+                    $("input[id = 'modeApproveId']").val(data.id);
+                    $("input[id = 'modeApprovePNo']").val(data.pNo);
+                    $("input[id = 'modeApprovePTitle']").val(data.pTitle);
+                    $("select[id = 'modeApproveType']").val(data.pType);
+                    $("input[id = 'modeApprovePFindTime']").val(data.pFindTime);
+                    $("input[id = 'modeApprovePPerson']").val(data.pPerson);
+                    $("input[id = 'modeApprovePResponsible']").val(data.pResponsible);
+                    $("input[id = 'modeApprovePPlanTime']").val(data.pPlanTime);
+                    $("input[id = 'modeApprovePDescribe']").val(data.pDescribe);
+                    $("input[id = 'modeApprovePRemark']").val(data.pRemark);
+                }
+            }, "json");
+        }
+    });
+
+    /*控制原因输入框的显示*/
+    function isPass(){
+        var result = $("select[id='modeApproveResult']").val();
+        //alert(result);
+        //审批不通过，显示原因输入框
+        if (result === "2"){
+            $("#approveReason").show();
+        }else {
+            $("#approveReason").hide()
+        }
+    }
+
+    /*提交审批*/
+    $("#approveModalSaveBtn").click(function () {
+       $.post('${cp}/problem/problemApprove',$("#approveModalForm").serialize(),function (data) {
+           $("#approveModal").modal("hide");
+           doQuery(10,1);
+       },"json");
     });
 
     /*修改,弹出修改框*/

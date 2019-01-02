@@ -25,7 +25,7 @@
 <body>
 <div id="myManu">
     <div id="condition_body" style="height: 100px;padding: 10px;">
-        <form class="form-inline" role="form" id="userQueryForm" name="userQueryForm">
+        <form class="form-inline" role="form" id="userQueryForm" name="userQueryForm" style="margin-top: 20px;">
             <div class="form-group">
                 <label for="name">姓名:</label>
                 <input type="text" class="form-control" id="name" name="name">

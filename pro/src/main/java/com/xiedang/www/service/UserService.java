@@ -95,4 +95,13 @@ public interface UserService {
      */
     List<UserBo> queryUserByPage(Map map);
 
+    /**
+     * @Author: Mr.zyk
+     * @Description: 根据用户账号获取用户名
+     * @param: [username]
+     * @Return: java.lang.String
+     * @Date: 2018/12/30 11:34
+     */
+    String getNameByUserName(String username);
+
 }

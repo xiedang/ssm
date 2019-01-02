@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,10 +52,12 @@ public class UserController {
     @RequestMapping("/login")
     public Object login(HttpServletRequest request, User user) {
         log.info("用户登录,参数{}", user);
+        //用户名存入session
+        HttpSession session = request.getSession();
+        session.setAttribute("name",userService.getNameByUserName(user.getUsername()));
+
         ModelAndView modelAndView = new ModelAndView();
-
         User u = userService.login(user.getUsername());
-
         if (null != u) {
             if (u.getPassword().equals(user.getPassword())) {
                 request.getSession().setAttribute("user", user);
