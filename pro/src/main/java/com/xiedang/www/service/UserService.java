@@ -44,7 +44,7 @@ public interface UserService {
      * 导出用户excel
      * @return
      */
-    List<UserBo> exportExcel(HttpServletResponse response);
+    List<UserBo> exportExcel(HttpServletResponse response) throws InterruptedException;
 
     /**
      *
@@ -93,7 +93,7 @@ public interface UserService {
      * @param map
      * @return
      */
-    List<UserBo> queryUserByPage(Map map);
+    List<UserBo> queryUserByPage(Map<String,Object> map);
 
     /**
      * @Author: Mr.zyk

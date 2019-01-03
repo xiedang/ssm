@@ -5,14 +5,21 @@ import com.xiedang.www.mapper.UserInfoMapper;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
+import com.xiedang.www.utils.date.DateUtil;
 import com.xiedang.www.utils.excel.ExportUtil;
 import com.xiedang.www.vo.UserVo;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <p></p>
@@ -50,11 +57,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserBo> exportExcel(HttpServletResponse response) {
+    public List<UserBo> exportExcel(HttpServletResponse response) throws InterruptedException {
         List<UserBo> userBos = userMapper.selectAll();
+        XSSFWorkbook wb=new XSSFWorkbook();
         String[] titles={"ID","用户名","密码"};
         String[] columns={"id","username","password"};
-        ExportUtil.export(titles,columns,userBos,"系统用户表","系统用户表",response);
+        ExecutorService executorService= Executors.newCachedThreadPool();
+        CountDownLatch start = new CountDownLatch(1);
+        CountDownLatch end = new CountDownLatch(4);
+        for (int i = 0; i < 4; i++){
+            wb.createSheet("系统用户表"+i);
+        }
+            for (int i = 0; i < 4; i++) {
+                int j = i;
+                executorService.execute(() -> {
+                    try {
+                        start.await();
+                        ExportUtil.exportWithNotDownload(titles,columns,userBos,wb,wb.getSheetAt(j));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }finally {
+                        end.countDown();
+                    }
+                });
+            }
+            executorService.execute(start::countDown);
+            end.await();
+            System.out.println("结束........");
+            executorService.shutdown();
+
+        ExportUtil.export(response,wb,"系统用户表");
         return null;
     }
 
@@ -96,7 +128,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserBo> queryUserByPage(Map map) {
+    public List<UserBo> queryUserByPage(Map<String,Object> map) {
         return userMapper.queryUserByPage(map);
     }
 

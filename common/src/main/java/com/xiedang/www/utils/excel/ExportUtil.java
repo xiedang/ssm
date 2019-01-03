@@ -208,7 +208,7 @@ public class ExportUtil {
      * @param sheetName 导出文件的sheet名称
      * @param response  response
      */
-    public static void export(String[] titles, String[] columns, List datas, String fileName, String sheetName, HttpServletResponse response) {
+    public static void exportWithDownload(String[] titles, String[] columns, List datas, String fileName, String sheetName, HttpServletResponse response) {
 
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet1 = wb.createSheet(sheetName);
@@ -221,9 +221,49 @@ public class ExportUtil {
             cell.setCellValue(titles[i]);
             cell.setCellStyle(headerStyle);
         }
-
         XSSFCellStyle cellStyle = getCellStyle(wb);
         //填充数据
+        setData(titles, columns, datas, sheet1, cellStyle);
+        if (FIRST_COLUMN.equals(titles[0])) {
+            sheet1.setColumnWidth(0, 150 * 20);
+        } else {
+            sheet1.setColumnWidth(0, 300 * 20);
+        }
+        for (int i = 1; i < header.getPhysicalNumberOfCells(); i++) {
+            sheet1.setColumnWidth(i, 300 * 20);
+        }
+        export(response, wb, fileName);
+    }
+
+    /**
+     * Excel导出单个sheet封装，不进行下载操作
+     *
+     * @param titles    Excel表头
+     * @param columns   表头对应的字段，和headers一一对应
+     * @param datas     需要导出的数据对象集合
+     * @param wb        excel对象
+     * @param sheet     sheet对象
+     */
+    public static void exportWithNotDownload(String[] titles, String[] columns, List datas, XSSFWorkbook wb,XSSFSheet sheet) {
+        XSSFRow header = sheet.createRow(0);
+        //设置表头信息
+        XSSFCellStyle headerStyle = getHeaderStyle(wb);
+        header.setHeightInPoints(20);
+        for (int i = 0; i < titles.length; i++) {
+            XSSFCell cell = header.createCell(i);
+            cell.setCellValue(titles[i]);
+            cell.setCellStyle(headerStyle);
+        }
+        XSSFCellStyle cellStyle = getCellStyle(wb);
+        //填充数据
+        setData(titles, columns, datas, sheet, cellStyle);
+        sheet.setColumnWidth(0, 300 * 20);
+        for (int i = 1; i < header.getPhysicalNumberOfCells(); i++) {
+            sheet.setColumnWidth(i, 300 * 20);
+        }
+    }
+
+    private static void setData(String[] titles, String[] columns, List datas, XSSFSheet sheet1, XSSFCellStyle cellStyle) {
         for (int i = 0; i < datas.size(); i++) {
             Object obj = datas.get(i);
             XSSFRow row = sheet1.createRow(i + 1);
@@ -235,16 +275,6 @@ public class ExportUtil {
                 cell.setCellStyle(cellStyle);
             }
         }
-        if (FIRST_COLUMN.equals(titles[0])) {
-            sheet1.setColumnWidth(0, 150 * 20);
-        } else {
-            sheet1.setColumnWidth(0, 300 * 20);
-        }
-
-        for (int i = 1; i < header.getPhysicalNumberOfCells(); i++) {
-            sheet1.setColumnWidth(i, 300 * 20);
-        }
-        export(response, wb, fileName);
     }
 
     private static XSSFCellStyle getHeaderStyle(XSSFWorkbook wb) {
@@ -253,7 +283,6 @@ public class ExportUtil {
         // 水平居中
         titleStyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);
         titleStyle.setFillForegroundColor(HSSFColor.LIME.index);
-
         // 垂直居中
         titleStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
         //下边框
@@ -264,7 +293,6 @@ public class ExportUtil {
         titleStyle.setBorderTop(HSSFCellStyle.BORDER_THIN);
         //右边框
         titleStyle.setBorderRight(HSSFCellStyle.BORDER_THIN);
-
         XSSFFont font = wb.createFont();
         //设置字体大小
         font.setFontHeightInPoints((short) 13);
@@ -321,8 +349,7 @@ public class ExportUtil {
      * @param args
      * @return return value
      */
-    private static Object getMethodValue(String methodName, Object obj,
-                                         Object... args) {
+    private static Object getMethodValue(String methodName, Object obj, Object... args) {
         Object result = "";
         try {
             Method[] methods = obj.getClass().getMethods();
@@ -351,7 +378,7 @@ public class ExportUtil {
         return result;
     }
 
-    private static void export(HttpServletResponse response, XSSFWorkbook wb, String fileName) {
+    public static void export(HttpServletResponse response, XSSFWorkbook wb, String fileName) {
         try {
             response.reset();
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
