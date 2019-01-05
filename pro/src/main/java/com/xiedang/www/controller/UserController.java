@@ -291,4 +291,27 @@ public class UserController {
         }
         return userBo;
     }
+
+    @RequestMapping("/addMoreUser")
+    @ResponseBody
+    public int addMoreUser(HttpServletRequest request){
+        int i = 0;
+        try {
+            for (int j = 0; j <1000000 ; j++) {
+                UserVo userVo=new UserVo();
+                userVo.setUsername("zs"+j);
+                userVo.setPassword("123456"+j);
+                userVo.setName("张三"+j);
+                userVo.setBirthDate(new Date());
+                userVo.setAddress("湖北武汉"+j);
+                userVo.setNativePlace("汉");
+                userVo.setSex("男");
+                userVo.setStatus(1);
+                i = userService.addUser(userVo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return i;
+    }
 }
