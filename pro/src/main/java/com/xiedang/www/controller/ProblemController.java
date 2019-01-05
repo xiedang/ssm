@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -175,10 +176,19 @@ public class ProblemController {
         return i;
     }
 
-    @RequestMapping("/getDepartment")
+    @RequestMapping(value = "/getDepartment", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
     @ResponseBody
-    public Page<ProblemBo> getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
-
-        return problemService.selectByPageAndSelections(currentPage,pageSize,problemVo);
+    public Object getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
+        Map<String,Object> map = new HashMap<>();
+        Page<ProblemBo> page = problemService.selectByPageAndSelections(currentPage,pageSize,problemVo);
+        map.put("pageNum",page.getPageNum());
+        map.put("pageSize",page.getPageSize());
+        map.put("startRow",page.getStartRow());
+        map.put("endRow",page.getEndRow());
+        map.put("total",page.getTotal());
+        map.put("pages",page.getPages());
+        map.put("data",page);
+        return map;
+        //return JSONArray.toJSONString(map);
     }
 }
