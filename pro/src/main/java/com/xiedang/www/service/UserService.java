@@ -93,7 +93,7 @@ public interface UserService {
      * @param map
      * @return
      */
-    List<UserBo> queryUserByPage(Map map);
+    List<UserBo> queryUserByPage(Map<String,Object> map);
 
     /**
      * @Author: Mr.zyk

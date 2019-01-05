@@ -433,7 +433,7 @@
                     "pages": sourceData.pages,  //总页数
                     "total": sourceData.total,  // 总条数
                     "pageNum": sourceData.pageNum, //当前页
-                    "rows": sourceData.data // 返回的数据列表（后台返回一个list集合）
+                    "rows": sourceData.rows // 返回的数据列表（后台返回一个list集合）
                 };
                 /*
                 // 把res.rows中嵌套的json对象取出来追加到res.rows中
@@ -509,11 +509,11 @@
         var parentid = row.id;
         var cur_table = $detail.html('<table></table>').find('table');
         $(cur_table).bootstrapTable({
-            url: '${cp}/problem/getDepartment',
+            url: '${cp}/measure/selectByPrimaryKey',
             method: 'post',
             queryParams: { strParentID: parentid },
             ajaxOptions: { strParentID: parentid },
-            clickToSelect: true,
+            clickToSelect: false,
             detailView: true,    //父子表
             uniqueId: "MENU_ID",
             pageSize: 10,

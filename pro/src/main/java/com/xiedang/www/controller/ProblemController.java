@@ -1,7 +1,7 @@
 package com.xiedang.www.controller;
 
-import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
+import com.xiedang.www.model.PageResult;
 import com.xiedang.www.service.ProblemService;
 import com.xiedang.www.vo.ProblemVo;
 import org.slf4j.Logger;
@@ -179,16 +179,7 @@ public class ProblemController {
     @RequestMapping(value = "/getDepartment", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
     @ResponseBody
     public Object getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
-        Map<String,Object> map = new HashMap<>();
-        Page<ProblemBo> page = problemService.selectByPageAndSelections(currentPage,pageSize,problemVo);
-        map.put("pageNum",page.getPageNum());
-        map.put("pageSize",page.getPageSize());
-        map.put("startRow",page.getStartRow());
-        map.put("endRow",page.getEndRow());
-        map.put("total",page.getTotal());
-        map.put("pages",page.getPages());
-        map.put("data",page);
-        return map;
-        //return JSONArray.toJSONString(map);
+        PageResult<ProblemBo> pageResult = problemService.selectByPageAndSelections(currentPage, pageSize, problemVo);
+        return pageResult;
     }
 }

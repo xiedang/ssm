@@ -5,7 +5,7 @@ import com.xiedang.www.mapper.UserInfoMapper;
 import com.xiedang.www.mapper.UserMapper;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
-import com.xiedang.www.utils.ExportUtil;
+import com.xiedang.www.utils.excel.ExportUtil;
 import com.xiedang.www.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ import java.util.Map;
  * @author : 谢当
  * @date : 2018/11/2 13:48
  */
-@Service("logistics.UserService")
+@Service("logistics.UserServiceImpl")
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -64,21 +64,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int doDeleteUser(String key) {
-        int i = 0;
-        try {
-            i = userMapper.deleteByPrimaryKey(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return i;
+    public int batchInsert(List<User> users) {
+        return userMapper.batchInsert(users);
     }
 
     @Override
     public int doDeleteUsers(String[] ids) {
         int i = 0;
         try {
-            i = userMapper.deleteByPrimaryKeys(ids) + userInfoMapper.deleteByPrimaryKey(ids);
+            i = userMapper.deleteByPrimaryKey(ids) + userInfoMapper.deleteByPrimaryKey(ids);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,9 +96,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserBo> queryUserByPage(Map map) {
+    public List<UserBo> queryUserByPage(Map<String,Object> map) {
         return userMapper.queryUserByPage(map);
     }
 
+    @Override
+    public String getNameByUserName(String username) {
+        return userMapper.getNameByUserName(username);
+    }
 
+    @Override
+    public int batchUpdate(List<User> users) {
+        return userMapper.batchUpdate(users);
+    }
 }

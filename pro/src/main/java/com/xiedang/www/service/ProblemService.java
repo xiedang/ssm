@@ -1,7 +1,7 @@
 package com.xiedang.www.service;
 
-import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
+import com.xiedang.www.model.PageResult;
 import com.xiedang.www.vo.ProblemVo;
 
 import java.util.List;
@@ -92,5 +92,5 @@ public interface ProblemService {
      * @Return: com.github.pagehelper.Page<com.xiedang.www.bo.ProblemBo>
      * @Date: 2019/1/2 20:16
      */
-    Page<ProblemBo> selectByPageAndSelections(int currentPage, int pageSize,ProblemVo problemVo);
+    PageResult<ProblemBo> selectByPageAndSelections(int currentPage, int pageSize, ProblemVo problemVo);
 }
