@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="web" name="Web">
       <configuration>
@@ -9,14 +9,17 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+        <fileset id="web application context" name="MVC application context" removed="true">
+          <file>file://$MODULE_DIR$/src/main/resources/spring-core.xml</file>
+        </fileset>
+        <fileset id="web logistics servlet context" name="MVC logistics servlet context" removed="true">
+          <file>file://$MODULE_DIR$/src/main/resources/spring-servlet.xml</file>
+        </fileset>
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/resources/dubbo/consumer.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/dubbo/dubbo-config.xml</file>
@@ -26,6 +29,8 @@
           <file>file://$MODULE_DIR$/src/main/resources/mybatis/spring-mybatis.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/spring-redis.xml</file>
           <file>file://$MODULE_DIR$/src/main/resources/spring-servlet.xml</file>
+          <file>jar://D:/ytrepo/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar!/org/jboss/netty/container/spring/beans.xml</file>
+          <file>file://D:/ytrepo/io/netty/netty/3.10.6.Final/netty-3.10.6.Final.jar</file>
         </fileset>
       </configuration>
     </facet>
@@ -36,7 +41,6 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -105,6 +109,7 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.4" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:4.3.18.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.3.18.RELEASE" level="project" />
@@ -130,5 +135,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet.jsp:jsp-api:2.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
   </component>
 </module>
