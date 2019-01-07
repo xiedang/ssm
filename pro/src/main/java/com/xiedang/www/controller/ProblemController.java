@@ -1,7 +1,7 @@
 package com.xiedang.www.controller;
 
-import com.github.pagehelper.Page;
 import com.xiedang.www.bo.ProblemBo;
+import com.xiedang.www.model.PageResult;
 import com.xiedang.www.service.ProblemService;
 import com.xiedang.www.vo.ProblemVo;
 import org.slf4j.Logger;
@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -175,10 +176,10 @@ public class ProblemController {
         return i;
     }
 
-    @RequestMapping("/getDepartment")
+    @RequestMapping(value = "/getDepartment", method = RequestMethod.POST, produces = {"application/json;charset=utf-8"})
     @ResponseBody
-    public Page<ProblemBo> getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
-
-        return problemService.selectByPageAndSelections(currentPage,pageSize,problemVo);
+    public Object getDepartment(int currentPage, int pageSize,ProblemVo problemVo){
+        PageResult<ProblemBo> pageResult = problemService.selectByPageAndSelections(currentPage, pageSize, problemVo);
+        return pageResult;
     }
 }

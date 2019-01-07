@@ -356,10 +356,12 @@
 
 <script>
     $(function() {
-    //先销毁表格，在初始化
+        //先销毁表格，在初始化
         $('#table').bootstrapTable('destroy').bootstrapTable({
             columns: [{
-                checkbox: true
+                checkbox: true,
+                align: "center",
+                valign: 'middle'
             },
                 {
                     title: '问题id',
@@ -371,9 +373,9 @@
                     title: '问题编号',
                     field: 'pNo',
                     align: 'center',
-                    formatter: function(value, row, index) {
+                    /*formatter: function(value, row, index) {
                         //处理格式化数据
-                    }
+                    }*/
                 },
                 {
                     title: '问题标题',
@@ -391,25 +393,21 @@
                     align: 'center',
                 },
                 {
-                    title: '问题描述',
-                    field: 'pDescribe',
-                    align: 'center',
-                },
-                {
                     title: '创建人',
-                    field: 'pTitle',
+                    field: 'pFounder',
                     align: 'center',
                 },
                 {
                     title: '创建时间',
-                    field: 'pTitle',
+                    field: 'pCreateTime',
                     align: 'center',
                 }
                 ],
-            url: "${cp}/problem/queryAllByPage", //请求数据的地址URL
+            url: "${cp}/problem/getDepartment", //请求数据的地址URL
             method: 'post',                      //请求方式（*）
+            contentType : "application/x-www-form-urlencoded", // 如果是post必须定义
             toolbar: '#toolbar',                //工具按钮用哪个容器
-            striped: true,                      //是否显示行间隔色
+            striped: false,                      //是否显示行间隔色
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,                   //是否显示分页（*）
             sortable: true,                     //是否启用排序
@@ -423,8 +421,8 @@
             showColumns: false,                  //是否显示所有的列
             showRefresh: false,                  //是否显示刷新按钮
             minimumCountColumns: 2,             //最少允许的列数
-            clickToSelect: true,                //是否启用点击选中行
-            height: 650,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            clickToSelect: false,                //是否启用点击选中行
+            height: 600,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "id",                     //每一行的唯一标识，一般为主键列
             showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
@@ -432,16 +430,40 @@
             responseHandler: function responseHandler(sourceData) {
                 //这里要做分页，所以对返回的数据进行了处理
                 return {
+                    "pages": sourceData.pages,  //总页数
                     "total": sourceData.total,  // 总条数
+                    "pageNum": sourceData.pageNum, //当前页
                     "rows": sourceData.rows // 返回的数据列表（后台返回一个list集合）
                 };
+                /*
+                // 把res.rows中嵌套的json对象取出来追加到res.rows中
+                for (var i = 0; i < res.rows.length; i++) {
+                    var grade = res.rows[i].gradeList[0];
+                    for (var key in grade) {
+                        //如果grade的键值等于gradeName 就追加
+                        if (key == "gradeName") {
+                            var k = key;
+                            var value = grade[key];
+                            res.rows[i][k] = value;
+                        }
+                    }
+                }
+
+                //把res.rows 中的 gradeList删除
+                for (var i = 0; i < res.rows.length; i++) {
+                    delete res.rows[i]["gradeList"];
+                }
+                //返回格式化好的json数据
+                return res;
+                */
+
             },
             queryParams: function queryParams(params) {
                 //设置查询参数,就是把页面需要查询的字段通过jquery取值后传到后台
                 var param = {
-                    id: $("input[name='id']").val(),
+                    //id: $("input[name='id']").val(),
                     pageSize: params.limit, // 页面大小
-                    pageNumber: (params.offset)/10+1 // 页码
+                    currentPage: params.offset // 页码
                 };
                 return param;
             },
@@ -487,11 +509,11 @@
         var parentid = row.id;
         var cur_table = $detail.html('<table></table>').find('table');
         $(cur_table).bootstrapTable({
-            url: '/api/MenuApi/GetChildrenMenu',
+            url: '${cp}/measure/selectByPrimaryKey',
             method: 'post',
             queryParams: { strParentID: parentid },
             ajaxOptions: { strParentID: parentid },
-            clickToSelect: true,
+            clickToSelect: false,
             detailView: true,    //父子表
             uniqueId: "MENU_ID",
             pageSize: 10,

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.xiedang.www.bo.ProblemBo;
 import com.xiedang.www.mapper.ProblemItemMapper;
 import com.xiedang.www.mapper.ProblemMapper;
+import com.xiedang.www.model.PageResult;
 import com.xiedang.www.service.ProblemService;
 import com.xiedang.www.utils.date.DateUtil;
 import com.xiedang.www.utils.str.StrUtil;
@@ -84,9 +85,10 @@ public class ProblemServiceImpl implements ProblemService {
     }
 
     @Override
-    public Page<ProblemBo> selectByPageAndSelections(int currentPage, int pageSize,ProblemVo problemVo) {
+    public PageResult<ProblemBo> selectByPageAndSelections(int currentPage, int pageSize,ProblemVo problemVo) {
         PageHelper.startPage(currentPage,pageSize);
         Page<ProblemBo> page = problemMapper.selectByPageAndSelections(problemVo);
-        return page;
+        PageResult<ProblemBo> pageResult = new PageResult<>(page);
+        return pageResult;
     }
 }
