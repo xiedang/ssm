@@ -192,7 +192,7 @@
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="modeBirthDate" name="birthDate"
                                    onclick="WdatePicker()"
-                                   placeholder="请输入姓名">
+                                   placeholder="请输入出生日期">
                             <span class="help-block"></span>
                         </div>
                     </div>
