@@ -56,34 +56,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserBo> exportExcel(HttpServletResponse response) throws InterruptedException {
         List<UserBo> userBos = userMapper.selectAll();
-        XSSFWorkbook wb=new XSSFWorkbook();
-        String[] titles={"ID","用户名","密码"};
-        String[] columns={"id","username","password"};
-        ExecutorService executorService= Executors.newCachedThreadPool();
+        XSSFWorkbook wb = new XSSFWorkbook();
+        String[] titles = {"ID", "用户名", "密码"};
+        String[] columns = {"id", "username", "password"};
+        ExecutorService executorService = Executors.newCachedThreadPool();
         CountDownLatch start = new CountDownLatch(1);
         CountDownLatch end = new CountDownLatch(4);
-        for (int i = 0; i < 4; i++){
-            wb.createSheet("系统用户表"+i);
+        for (int i = 0; i < 4; i++) {
+            wb.createSheet("系统用户表" + i);
         }
-            for (int i = 0; i < 4; i++) {
-                int j = i;
-                executorService.execute(() -> {
-                    try {
-                        start.await();
-                        ExportUtil.exportWithNotDownload(titles,columns,userBos,wb,wb.getSheetAt(j));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }finally {
-                        end.countDown();
-                    }
-                });
-            }
-            executorService.execute(start::countDown);
-            end.await();
-            System.out.println("结束........");
-            executorService.shutdown();
+        for (int i = 0; i < 4; i++) {
+            int j = i;
+            executorService.execute(() -> {
+                try {
+                    start.await();
+                    ExportUtil.exportWithNotDownload(titles, columns, userBos, wb, wb.getSheetAt(j));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    end.countDown();
+                }
+            });
+        }
+        executorService.execute(start::countDown);
+        end.await();
+        System.out.println("结束........");
+        executorService.shutdown();
 
-        ExportUtil.export(response,wb,"系统用户表");
+        ExportUtil.export(response, wb, "系统用户表");
         return null;
     }
 
@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserBo> queryUserByPage(Map<String,Object> map) {
+    public List<UserBo> queryUserByPage(Map<String, Object> map) {
         return userMapper.queryUserByPage(map);
     }
 
