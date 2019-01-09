@@ -1,11 +1,13 @@
 package com.xiedang.www.model;
 
+import com.xiedang.www.utils.common.BaseObject;
+
 /**
  * 
  * User
  * 数据库表：user
  */
-public class User {
+public class User extends BaseObject{
 
     /**
      * 

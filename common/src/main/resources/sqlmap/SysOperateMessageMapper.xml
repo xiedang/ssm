@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiedang.www.mapper.SysOperateMessageMapper">
+    <resultMap id="BaseResultMap" type="com.xiedang.www.model.SysOperateMessage">
+        <!--
+        @mbggenerated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="operator" jdbcType="VARCHAR" property="operator" />
+        <result column="oprate_time" jdbcType="TIMESTAMP" property="oprateTime" />
+        <result column="operate_method" jdbcType="VARCHAR" property="operateMethod" />
+        <result column="operate_paras" jdbcType="VARCHAR" property="operateParas" />
+        <result column="return_data" jdbcType="VARCHAR" property="returnData" />
+        <result column="exec_time" jdbcType="VARCHAR" property="execTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+        @mbggenerated
+        -->
+        id, operator, oprate_time, operate_method, operate_paras, return_data, exec_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--
+        @mbggenerated
+        -->
+        select 
+        <include refid="Base_Column_List" />
+        from sys_operate_message
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--
+        @mbggenerated
+        -->
+        delete from sys_operate_message
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.xiedang.www.model.SysOperateMessage">
+        <!--
+        @mbggenerated
+        -->
+        insert into sys_operate_message (id, operator, oprate_time, 
+            operate_method, operate_paras, return_data, 
+            exec_time)
+        values (#{id,jdbcType=INTEGER}, #{operator,jdbcType=VARCHAR}, #{oprateTime,jdbcType=TIMESTAMP}, 
+            #{operateMethod,jdbcType=VARCHAR}, #{operateParas,jdbcType=VARCHAR}, #{returnData,jdbcType=VARCHAR}, 
+            #{execTime,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.xiedang.www.model.SysOperateMessage">
+        <!--
+        @mbggenerated
+        -->
+        insert into sys_operate_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="operator != null">
+                operator,
+            </if>
+            <if test="oprateTime != null">
+                oprate_time,
+            </if>
+            <if test="operateMethod != null">
+                operate_method,
+            </if>
+            <if test="operateParas != null">
+                operate_paras,
+            </if>
+            <if test="returnData != null">
+                return_data,
+            </if>
+            <if test="execTime != null">
+                exec_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="operator != null">
+                #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="oprateTime != null">
+                #{oprateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateMethod != null">
+                #{operateMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="operateParas != null">
+                #{operateParas,jdbcType=VARCHAR},
+            </if>
+            <if test="returnData != null">
+                #{returnData,jdbcType=VARCHAR},
+            </if>
+            <if test="execTime != null">
+                #{execTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiedang.www.model.SysOperateMessage">
+        <!--
+        @mbggenerated
+        -->
+        update sys_operate_message
+        <set>
+            <if test="operator != null">
+                operator = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="oprateTime != null">
+                oprate_time = #{oprateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="operateMethod != null">
+                operate_method = #{operateMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="operateParas != null">
+                operate_paras = #{operateParas,jdbcType=VARCHAR},
+            </if>
+            <if test="returnData != null">
+                return_data = #{returnData,jdbcType=VARCHAR},
+            </if>
+            <if test="execTime != null">
+                exec_time = #{execTime,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiedang.www.model.SysOperateMessage">
+        <!--
+        @mbggenerated
+        -->
+        update sys_operate_message
+        set operator = #{operator,jdbcType=VARCHAR},
+            oprate_time = #{oprateTime,jdbcType=TIMESTAMP},
+            operate_method = #{operateMethod,jdbcType=VARCHAR},
+            operate_paras = #{operateParas,jdbcType=VARCHAR},
+            return_data = #{returnData,jdbcType=VARCHAR},
+            exec_time = #{execTime,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
