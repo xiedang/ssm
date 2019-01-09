@@ -13,6 +13,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -46,7 +47,10 @@ public class LogUtils {
             Object[] args = pjp.getArgs();
             StringBuilder argsStr=new StringBuilder();
             for (Object arg : args) {
-                if (!(arg instanceof ServletRequest || arg instanceof ServletResponse || arg instanceof HttpSession)) {
+                if (!(arg instanceof ServletRequest
+                        || arg instanceof ServletResponse
+                        || arg instanceof HttpSession
+                        || arg instanceof InputStreamSource)) {
                     argsStr.append(arg.toString()).append(",");
                 }
             }
