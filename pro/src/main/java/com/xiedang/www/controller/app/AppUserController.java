@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p></p>
+ * <p>通过http://localhost:8080/logistics-front/swagger-ui.html查看</p>
  *
  * @author : 谢当
  * @Date: : 2018/11/2 13:29
