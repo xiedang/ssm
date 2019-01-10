@@ -74,7 +74,6 @@ public class LogUtils {
         } catch (Throwable e) {
             e.printStackTrace();
             LOG.error(e.getMessage(), e);
-            throw new RuntimeException(e);
         } finally {
             long end = System.currentTimeMillis();
             long elapsedTime = end - start;
