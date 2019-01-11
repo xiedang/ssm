@@ -26,7 +26,7 @@ public class BackupTask {
     @Autowired
     private UserBakMapper userBakMapper;
 
-    @Scheduled(cron = "0 56 13 * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void sqlBackUp(){
         log.info("调用定时器备份数据");
         backUp();

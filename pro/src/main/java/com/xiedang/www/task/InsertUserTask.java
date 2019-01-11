@@ -25,7 +25,7 @@ public class InsertUserTask {
     @Autowired
     private UserBakMapper userBakMapper;
 
-    @Scheduled(cron = "0 45 13 * * ?")
+    @Scheduled(cron = "0 0 2 * * ?")
     public void insertUser() {
         log.info("调用定时器添加数据");
         insert();
