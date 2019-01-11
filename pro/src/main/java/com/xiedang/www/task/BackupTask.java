@@ -43,8 +43,9 @@ public class BackupTask {
                 cachedThreadPool.execute(() -> {
                     try {
                         Map<String,Object> map=new HashMap<>(2);
-                        map.put("start",j*2);
-                        map.put("size",10);
+                        int size=2;
+                        map.put("start",j*size);
+                        map.put("size",size);
                         List<User> users = userMapper.selectUserByPage(map);
                         start.await();
                         if(null!=users && users.size()>0) {
