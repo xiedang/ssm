@@ -5,6 +5,7 @@ import com.xiedang.www.constant.UserConstant;
 import com.xiedang.www.model.User;
 import com.xiedang.www.service.UserService;
 import com.xiedang.www.utils.common.CommonResult;
+import com.xiedang.www.utils.str.ShareCodeUtil;
 import com.xiedang.www.utils.str.ThreeDESUtil;
 import com.xiedang.www.vo.UserVo;
 import org.apache.commons.lang.StringUtils;
@@ -296,11 +297,11 @@ public class UserController {
         try {
             for (int j = 0; j <1000000 ; j++) {
                 UserVo userVo=new UserVo();
-                userVo.setUsername("zs"+j);
-                userVo.setPassword("123456"+j);
-                userVo.setName("张三"+j);
+                userVo.setUsername(ShareCodeUtil.toSerialCode(j));
+                userVo.setPassword(ShareCodeUtil.toSerialCode(j));
+                userVo.setName("张三");
                 userVo.setBirthDate(new Date());
-                userVo.setAddress("湖北武汉"+j);
+                userVo.setAddress("湖北武汉");
                 userVo.setNativePlace("汉");
                 userVo.setSex("男");
                 userVo.setStatus(1);
