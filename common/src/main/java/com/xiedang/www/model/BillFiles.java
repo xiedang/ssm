@@ -1,5 +1,7 @@
 package com.xiedang.www.model;
 
+import com.xiedang.www.utils.common.BaseObject;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,7 +10,7 @@ import java.util.Date;
  * BillFiles
  * 数据库表：bill_files
  */
-public class BillFiles {
+public class BillFiles extends BaseObject{
 
     /**
      * 文件id
