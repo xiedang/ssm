@@ -23,6 +23,11 @@ public class CopyUtils {
         return emptyNames.toArray(result);
     }
 
+    /**
+     * spring 的BeanUtils的扩展，copy时去除null
+     * @param src
+     * @param target
+     */
     public static void copyProperties(Object src, Object target) {
         BeanUtils.copyProperties(src, target, getNullPropertyNames(src));
     }
